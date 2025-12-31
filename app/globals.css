@@ -1,0 +1,660 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Salon color scheme - Luxury Update */
+  --salon-bg: #FDFCF8; /* わずかに黄みを含んだ温かいオフホワイト */
+  --salon-text: #3A3A3A; /* 真っ黒ではない上品なチャコールグレー */
+  --salon-gold: #B69D74; /* 落ち着いたゴールド */
+  --salon-accent: #8C7B6C; /* グレージュ */
+  --salon-white: #ffffff;
+  --salon-border: #EAE6DF; /* 馴染みの良いボーダー色 */
+
+  --background: oklch(0.99 0.002 85); /* #FDFCF8 近似 */
+  --foreground: oklch(0.25 0 0); /* #3A3A3A 近似 */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.25 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.25 0 0);
+  --primary: oklch(0.65 0.08 80); /* Gold-ish */
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.96 0.01 85);
+  --secondary-foreground: oklch(0.25 0 0);
+  --muted: oklch(0.96 0.01 85);
+  --muted-foreground: oklch(0.55 0 0);
+  --accent: oklch(0.96 0.01 85);
+  --accent-foreground: oklch(0.25 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.92 0.01 85);
+  --input: oklch(0.92 0.01 85);
+  --ring: oklch(0.65 0.08 80);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0rem; /* 高級感のため角丸をなくす、あるいは小さくする */
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --font-sans: var(--font-noto-serif);
+  --font-mono: var(--font-montserrat);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-[var(--salon-bg)] text-[var(--salon-text)] antialiased;
+    font-feature-settings: "palt"; /* 文字詰め */
+    letter-spacing: 0.05em; /* 全体的に少し広げる */
+  }
+  
+  /* 見出しの高級感設定 */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-noto-serif), serif;
+    letter-spacing: 0.15em; /* 見出しは優雅に広く */
+    line-height: 1.6;
+    font-weight: 500;
+  }
+
+  /* 本文の可読性設定 */
+  p {
+    line-height: 2.0; /* 行間をたっぷりとる */
+    letter-spacing: 0.08em;
+    color: #5A5A5A; /* 真っ黒を避ける */
+  }
+}
+
+@layer utilities {
+  .writing-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+  }
+  
+  .text-gold {
+    color: var(--salon-gold);
+  }
+
+  .bg-gold {
+    background-color: var(--salon-gold);
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes pulseSlow {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulseSlow 6s ease-in-out infinite;
+  }
+
+  /* Fonts */
+  .font-script {
+    font-family: var(--font-pinyon-script), cursive;
+  }
+  
+  .font-serif {
+    font-family: var(--font-noto-serif), serif;
+  }
+}
+
+/* Container */
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Keyframe animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  33% {
+    transform: translateY(-20px) translateX(10px);
+  }
+  66% {
+    transform: translateY(-10px) translateX(-10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(182, 106, 58, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(182, 106, 58, 0.6), 0 0 40px rgba(182, 106, 58, 0.3);
+  }
+}
+
+/* Header */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  z-index: 50;
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  padding: 20px 0;
+}
+
+.site-header.scrolled {
+  background: rgba(253, 252, 248, 0.95); /* var(--salon-bg) with opacity */
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--salon-border);
+  padding: 10px 0;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  font-family: var(--font-pinyon-script), cursive;
+  font-size: 1.8rem;
+  color: var(--salon-text);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.main-nav {
+  display: flex;
+  gap: 32px; /* 間隔を広げる */
+  align-items: center;
+}
+
+.main-nav a {
+  font-family: var(--font-noto-serif), serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  color: var(--salon-text);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.main-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--salon-gold);
+  transition: width 0.3s ease;
+}
+
+.main-nav a:hover::after {
+  width: 100%;
+}
+
+.main-nav .cta {
+  background-color: var(--salon-text);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 0; /* 角丸なし */
+  transition: background-color 0.3s ease;
+}
+
+.main-nav .cta:hover {
+  background-color: var(--salon-gold);
+  color: #fff;
+}
+.main-nav .cta::after {
+  display: none;
+}
+
+
+.main-nav a {
+  padding: 12px 8px;
+  color: var(--salon-text);
+  text-decoration: none;
+  /* Enhanced transition */
+  transition: all 0.3s ease;
+  position: relative;
+  white-space: nowrap;
+}
+
+.main-nav a::after {
+  /* Add underline animation */
+  content: "";
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  height: 2px;
+  background: var(--salon-accent);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.main-nav a:hover::after {
+  transform: scaleX(1);
+}
+
+.main-nav a:hover {
+  opacity: 1;
+  color: var(--salon-accent);
+}
+
+.main-nav .cta {
+  background: linear-gradient(135deg, var(--salon-accent) 0%, #d4845f 100%);
+  color: var(--salon-white);
+  border-radius: 999px;
+  padding: 10px 14px;
+  /* Add shadow and scale effect */
+  box-shadow: 0 4px 15px rgba(182, 106, 58, 0.3);
+  transition: all 0.3s ease;
+}
+
+.main-nav .cta::after {
+  display: none;
+}
+
+.main-nav .cta:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(182, 106, 58, 0.4);
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  padding: 120px 0;
+  background-image: url("/sample.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  /* Add gradient overlay for more depth */
+  background: linear-gradient(135deg, rgba(255, 249, 246, 0.85) 0%, rgba(255, 249, 246, 0.7) 100%);
+}
+
+/* Add floating particles */
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--salon-accent);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: float 6s ease-in-out infinite;
+}
+
+.particle:nth-child(1) {
+  top: 20%;
+  left: 20%;
+  animation-delay: 0s;
+  animation-duration: 7s;
+}
+
+.particle:nth-child(2) {
+  top: 60%;
+  left: 80%;
+  animation-delay: 1s;
+  animation-duration: 6s;
+}
+
+.particle:nth-child(3) {
+  top: 80%;
+  left: 30%;
+  animation-delay: 2s;
+  animation-duration: 8s;
+}
+
+.particle:nth-child(4) {
+  top: 40%;
+  left: 70%;
+  animation-delay: 3s;
+  animation-duration: 7s;
+}
+
+.particle:nth-child(5) {
+  top: 30%;
+  left: 50%;
+  animation-delay: 4s;
+  animation-duration: 9s;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title {
+  /* Add fade-in animation */
+  animation: fadeInUp 1s ease-out;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin: 0 0 16px;
+  line-height: 1.3;
+  color: var(--salon-text);
+}
+
+.hero-subtitle {
+  /* Add fade-in animation with delay */
+  animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.hero p {
+  font-size: 1.125rem;
+  margin: 0 0 24px;
+  color: var(--salon-text);
+  line-height: 1.6;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  background: var(--salon-accent);
+  color: var(--salon-white);
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  /* Enhanced transition and shadow */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(182, 106, 58, 0.3);
+}
+
+.btn:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(182, 106, 58, 0.4);
+}
+
+/* Add glowing button variant */
+.btn-glow {
+  background: linear-gradient(135deg, var(--salon-accent) 0%, #d4845f 100%);
+  animation: fadeInScale 1s ease-out 0.4s both, glow 2s ease-in-out infinite;
+}
+
+/* Grid Links */
+.grid-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 28px;
+  margin: 60px auto;
+}
+
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+  text-decoration: none;
+  color: var(--salon-text);
+  padding: 16px 0;
+  border-bottom: 1px solid var(--salon-border);
+  /* Enhanced transition and initial state for animation */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateY(20px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add animation class */
+.grid-item.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Add shine effect */
+.grid-item-shine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s ease;
+}
+
+.grid-item:hover .grid-item-shine {
+  left: 100%;
+}
+
+.grid-item:hover {
+  opacity: 1;
+  transform: translateX(8px);
+  border-bottom-color: var(--salon-accent);
+}
+
+.grid-item span {
+  font-size: 1rem;
+  font-weight: 500;
+  /* Add transition */
+  transition: color 0.3s ease;
+}
+
+.grid-item:hover span {
+  color: var(--salon-accent);
+}
+
+.grid-item small {
+  color: var(--salon-accent);
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  /* Add transition */
+  transition: transform 0.3s ease;
+}
+
+.grid-item:hover small {
+  transform: translateX(4px);
+}
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid var(--salon-border);
+  margin-top: 80px;
+  padding: 32px 0;
+  background: var(--salon-white);
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-container p {
+  margin: 0;
+  color: var(--salon-text);
+}
+
+.footer-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-line,
+.btn-tel {
+  font-size: 0.875rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-nav {
+    display: none;
+  }
+
+  .hero h1 {
+    font-size: 1.75rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .grid-links {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+}
