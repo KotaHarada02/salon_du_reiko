@@ -1,4 +1,6 @@
 import Link from "next/link"
+import { SALON } from "@/lib/salon"
+import { LineButton } from "@/components/booking-buttons"
 
 export function Footer() {
   return (
@@ -14,15 +16,18 @@ export function Footer() {
               </h2>
             </Link>
             <address className="not-italic text-sm leading-loose text-gray-400 font-sans tracking-wider">
-              〒528-0024<br />
-              滋賀県甲賀市水口町中邸2-10<br />
-              岩谷医院敷地内ログハウス
+              {SALON.zip}<br />
+              {SALON.address}<br />
+              {SALON.building}
             </address>
             <div className="pt-2">
-              <a href="tel:09090417442" className="text-2xl font-serif tracking-widest hover:text-[var(--salon-gold)] transition-colors block mb-2">
-                090-9041-7442
-              </a>
-              <p className="text-xs text-gray-500 tracking-widest">OPEN 10:00 - 18:00 / CLOSE Mon, Sat</p>
+              <p className="text-xs text-gray-500 tracking-widest">{SALON.hours}（完全予約制）/ 定休日 {SALON.closed}</p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <LineButton className="px-5 py-3" />
+              <Link href="/recommend" className="inline-flex items-center border border-[var(--salon-gold)] px-6 py-3 text-sm tracking-wider text-white transition-colors hover:bg-[var(--salon-gold)]">
+                30秒でメニュー診断
+              </Link>
             </div>
           </div>
 
@@ -33,6 +38,7 @@ export function Footer() {
               <Link href="/about" className="text-xs tracking-[0.2em] text-gray-300 hover:text-[var(--salon-gold)] transition-colors">ABOUT</Link>
               <Link href="/menu" className="text-xs tracking-[0.2em] text-gray-300 hover:text-[var(--salon-gold)] transition-colors">MENU</Link>
               <Link href="/gallery" className="text-xs tracking-[0.2em] text-gray-300 hover:text-[var(--salon-gold)] transition-colors">GALLERY</Link>
+              <Link href="/faq" className="text-xs tracking-[0.2em] text-gray-300 hover:text-[var(--salon-gold)] transition-colors">FAQ</Link>
             </div>
             <div className="flex flex-col gap-5">
               <Link href="/recommend" className="text-xs tracking-[0.2em] text-gray-300 hover:text-[var(--salon-gold)] transition-colors">DIAGNOSIS</Link>
@@ -46,7 +52,7 @@ export function Footer() {
         {/* 下部: Copyright */}
         <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-[10px] text-gray-500 tracking-widest uppercase">
-            © Salon de Reiko. All Rights Reserved.
+            © Salon du Reiko. All Rights Reserved.
           </p>
           <div className="flex gap-8">
              <Link href="/privacy" className="text-[10px] text-gray-500 hover:text-white transition-colors tracking-widest uppercase">Privacy Policy</Link>

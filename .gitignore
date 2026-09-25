@@ -31,3 +31,9 @@ coverage/
 
 # Vercel
 .vercel/
+
+# TypeScript のビルドキャッシュ
+tsconfig.tsbuildinfo
+
+# 社内向けの資料（オーナーの個人情報・確認メモ）。公開リポジトリには上げない
+docs/

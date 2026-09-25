@@ -1,5 +1,4 @@
 import React from "react"
-import Link from "next/link"
 import { cn } from "@/lib/utils"
 
 interface PageHeaderProps {
@@ -9,23 +8,27 @@ interface PageHeaderProps {
   className?: string
 }
 
-export function PageHeader({ title, subtitle, image, className }: PageHeaderProps) {
+export function PageHeader({ title, subtitle, className }: PageHeaderProps) {
   return (
-    <div className={cn("relative w-full h-[40vh] min-h-[300px] flex items-center justify-center overflow-hidden bg-[var(--salon-bg)]", className)}>
-      {/* 背景装飾 */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none">
-         {/* ここにパターンや画像を配置可能 */}
-         <div className="w-full h-full bg-gradient-to-b from-white/0 to-[var(--salon-bg)]" />
-      </div>
-
-      <div className="relative z-10 text-center animate-fade-in-up">
-        <h1 className="font-script text-5xl md:text-7xl text-[var(--salon-gold)] mb-4">
-          {title}
-        </h1>
-        <p className="font-serif text-sm md:text-base tracking-[0.2em] text-gray-600">
+    <div
+      className={cn(
+        "relative grid w-full grid-cols-1 gap-6 overflow-hidden bg-[var(--salon-bg)] pb-16 pt-36 md:grid-cols-[2fr_1fr] md:pb-20 md:pt-44",
+        className,
+      )}
+    >
+      <div className="container col-span-full grid grid-cols-1 items-end gap-6 md:grid-cols-[2fr_1fr]">
+        <div className="animate-fade-in-up">
+          <span className="mb-4 block h-px w-16 bg-[var(--salon-gold)]" />
+          <h1 className="font-script text-5xl leading-none text-[var(--salon-gold)] md:text-7xl">
+            {title}
+          </h1>
+        </div>
+        <p
+          className="animate-fade-in-up text-left text-sm tracking-[0.25em] text-gray-500 md:text-right md:text-base"
+          style={{ animationDelay: "0.05s", animationFillMode: "backwards" }}
+        >
           {subtitle}
         </p>
-        <div className="w-[1px] h-12 bg-[var(--salon-gold)] mx-auto mt-8 opacity-50"></div>
       </div>
     </div>
   )

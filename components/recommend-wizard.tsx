@@ -1,288 +1,327 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useRef, useState } from "react"
 import Link from "next/link"
-import { Check, ChevronRight, RotateCcw } from "lucide-react"
+import { AnimatePresence, motion } from "framer-motion"
+import { ArrowCounterClockwiseIcon, ArrowLeftIcon, ArrowRightIcon, CheckIcon } from "@phosphor-icons/react"
+import { LineButton, SquareBookButtons, SubBookingLinks } from "@/components/booking-buttons"
+import { QUESTIONS, diagnose, lineMessage, type Answers, type Choice, type Question } from "@/lib/diagnosis"
+import { CATEGORIES, FIRST_NOTE, OPTIONS, firstText, priceText, yen, duration } from "@/lib/salon"
+import { cn } from "@/lib/utils"
 
-type Concern = "face" | "scalp" | "body"
-type Priority = "result" | "relax"
-type Budget = "standard" | "premium"
+type Draft = Partial<Answers>
 
-export function RecommendWizard() {
-  const [step, setStep] = useState(1)
-  const [concern, setConcern] = useState<Concern | null>(null)
-  const [priority, setPriority] = useState<Priority | null>(null)
-  const [budget, setBudget] = useState<Budget | null>(null)
+export function RecommendWizard({ tone = "light" }: { tone?: "light" | "card" }) {
+  const [step, setStep] = useState(0)
+  const [answers, setAnswers] = useState<Draft>({})
+  const advancing = useRef(false)
 
-  const canNext = useMemo(() => {
-    if (step === 1) return !!concern
-    if (step === 2) return !!priority
-    if (step === 3) return !!budget
-    return true
-  }, [step, concern, priority, budget])
+  const total = QUESTIONS.length
+  const done = step >= total
 
-  const result = useMemo(() => {
-    if (!concern || !priority || !budget) return null
-    // 非厳密: 参考サイトの主力メニューを想定
-    if (concern === "face") {
-      if (priority === "result") {
-        return {
-          title: "ヒト幹細胞培養上清液フェイシャル",
-          reason: "再生医療技術で、肌の奥深くからハリと潤いを呼び覚まします。",
-          price: "¥12,000",
-          tag: "Result Oriented"
-        }
-      }
-      return {
-        title: "GOMARICOオイル フェイシャル",
-        reason: "抗酸化作用の高いオイルで、心身の疲れを解き放つ至福の時間。",
-        price: "¥8,000",
-        tag: "Relaxation"
-      }
-    }
-    if (concern === "scalp") {
-      return {
-        title: "ヒト幹細胞培養上清液スカルプ",
-        reason: "頭皮環境を整え、健やかな髪を育む土台を作ります。",
-        price: "¥10,000",
-        tag: "Scalp Care"
-      }
-    }
-    // body
-    if (priority === "result") {
-      return {
-        title: "最新エステ機器 GROTTYPRO",
-        reason: "近赤外線と音響振動で、深層筋肉までアプローチし凝りを解消。",
-        price: "¥15,000",
-        tag: "Body Care"
-      }
-    }
-    return {
-      title: "オイルトリートメント",
-      reason: "オールハンドの温もりで、全身の巡りを整え深いリラクゼーションへ。",
-      price: "¥9,000",
-      tag: "Healing"
-    }
-  }, [concern, priority, budget])
-
-  const handleNext = () => {
-    if (canNext) {
-      setStep((s) => Math.min(3, s + 1))
-    }
+  const next = () => {
+    if (advancing.current) return
+    advancing.current = true
+    // 選んだことが見えるよう少し待ってから次へ
+    window.setTimeout(() => {
+      setStep((s) => s + 1)
+      advancing.current = false
+    }, 120)
   }
 
-  const handleBack = () => {
-    setStep((s) => Math.max(1, s - 1))
+  const chooseSingle = (q: Question, id: string) => {
+    setAnswers((a) => ({ ...a, [q.id]: id }))
+    next()
   }
 
-  const handleReset = () => {
-    setStep(1)
-    setConcern(null)
-    setPriority(null)
-    setBudget(null)
+  const toggleMulti = (q: Question, id: string) => {
+    setAnswers((a) => {
+      const current = (a[q.id] as string[] | undefined) ?? []
+      return { ...a, [q.id]: current.includes(id) ? current.filter((c) => c !== id) : [...current, id] }
+    })
+  }
+
+  const reset = () => {
+    setAnswers({})
+    setStep(0)
   }
 
   return (
-    <div className="mx-auto max-w-3xl">
-      {/* ステップインジケーター */}
-      <div className="mb-12">
-        <div className="flex items-center justify-between relative">
-          <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gray-200 -z-10"></div>
-          {[1, 2, 3].map((n) => (
-            <div key={n} className="flex flex-col items-center bg-white px-2">
-              <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-serif transition-all duration-500 ${
-                  step >= n
-                    ? "bg-[var(--salon-gold)] text-white"
-                    : "bg-gray-100 text-gray-400"
-                }`}
-              >
-                {step > n ? <Check className="w-4 h-4" /> : n}
-              </div>
-              <span className={`text-[10px] tracking-widest mt-2 uppercase ${step >= n ? "text-[var(--salon-gold)]" : "text-gray-300"}`}>
-                Step {n}
-              </span>
-            </div>
+    <div className={cn("w-full", tone === "card" && "bg-white p-6 shadow-[0_20px_60px_-30px_rgba(58,58,58,0.35)] md:p-8")}>
+      {/* 進捗 */}
+      <div className="mb-6 flex items-center gap-4">
+        <span className="shrink-0 font-sans text-[11px] tracking-[0.2em] text-[var(--salon-gold)]">
+          {done ? "RESULT" : `Q${step + 1} / ${total}`}
+        </span>
+        <div className="h-px flex-1 bg-[var(--salon-border)]">
+          <motion.div
+            className="h-px bg-[var(--salon-gold)]"
+            animate={{ width: `${(Math.min(step, total) / total) * 100}%` }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+          />
+        </div>
+        {step > 0 && !done && (
+          <button
+            onClick={() => setStep((s) => s - 1)}
+            className="flex shrink-0 items-center gap-1 text-xs text-gray-400 transition-colors hover:text-[var(--salon-text)]"
+          >
+            <ArrowLeftIcon className="h-3 w-3" />
+            戻る
+          </button>
+        )}
+      </div>
+
+      <AnimatePresence mode="wait" initial={false}>
+        {!done ? (
+          <motion.div
+            key={step}
+            initial={{ opacity: 0, x: 12 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, transition: { duration: 0.08 } }}
+            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <QuestionView
+              question={QUESTIONS[step]}
+              answers={answers}
+              onChoose={(id) => chooseSingle(QUESTIONS[step], id)}
+              onToggle={(id) => toggleMulti(QUESTIONS[step], id)}
+              onNext={next}
+            />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="result"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <Result answers={answers as Answers} onReset={reset} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+function QuestionView({
+  question,
+  answers,
+  onChoose,
+  onToggle,
+  onNext,
+}: {
+  question: Question
+  answers: Draft
+  onChoose: (id: string) => void
+  onToggle: (id: string) => void
+  onNext: () => void
+}) {
+  const multi = question.type === "multi"
+  const value = answers[question.id]
+  const selected = (Array.isArray(value) ? value : [value]).filter(Boolean) as string[]
+  const grid = question.options.length >= 5 ? "grid-cols-2 sm:grid-cols-3" : "grid-cols-2"
+
+  return (
+    <fieldset>
+      <legend className="font-serif text-lg text-[var(--salon-text)] md:text-xl">{question.title}</legend>
+      {question.sub && <p className="mt-1 text-xs text-gray-400">{question.sub}</p>}
+
+      <div className={cn("mt-5 grid gap-3", grid)}>
+        {question.options.map((opt) => {
+          const active = selected.includes(opt.id)
+          return (
+            <button
+              key={opt.id}
+              type="button"
+              aria-pressed={multi ? active : undefined}
+              onClick={() => (multi ? onToggle(opt.id) : onChoose(opt.id))}
+              className={cn(
+                "relative flex min-h-[72px] flex-col items-start justify-center border px-4 py-3 text-left transition-all duration-200",
+                "hover:-translate-y-0.5 hover:border-[var(--salon-gold)] hover:bg-[var(--salon-bg)] active:translate-y-0",
+                active ? "border-[var(--salon-gold)] bg-[var(--salon-bg)]" : "border-[var(--salon-border)] bg-white",
+              )}
+            >
+              {multi && (
+                <span
+                  className={cn(
+                    "absolute right-3 top-3 flex h-4 w-4 items-center justify-center border",
+                    active ? "border-[var(--salon-gold)] bg-[var(--salon-gold)] text-white" : "border-gray-300",
+                  )}
+                >
+                  {active && <CheckIcon className="h-3 w-3" weight="bold" />}
+                </span>
+              )}
+              <span className="block pr-5 text-[15px] font-medium leading-snug text-[var(--salon-text)]">{opt.label}</span>
+              {opt.sub && <span className="mt-1 block text-xs leading-snug text-gray-400">{opt.sub}</span>}
+            </button>
+          )
+        })}
+      </div>
+
+      {multi && (
+        <button
+          type="button"
+          onClick={onNext}
+          disabled={selected.length === 0}
+          className="mt-5 flex w-full items-center justify-center gap-2 bg-[var(--salon-text)] py-3.5 text-sm tracking-wider text-white transition-colors hover:bg-[var(--salon-gold)] disabled:cursor-not-allowed disabled:opacity-30"
+        >
+          次へ
+          <ArrowRightIcon className="h-4 w-4" />
+        </button>
+      )}
+    </fieldset>
+  )
+}
+
+function Result({ answers, onReset }: { answers: Answers; onReset: () => void }) {
+  const r = diagnose(answers)
+  // 「このコースにする」で選び直したコース。0 がいちばんのおすすめ
+  const [picked, setPicked] = useState(0)
+  const chosen = r.choices[picked]
+  const others = r.choices.map((c, i) => ({ c, i })).filter(({ i }) => i !== picked)
+  const topRef = useRef<HTMLDivElement>(null)
+
+  const choose = (i: number) => {
+    setPicked(i)
+    topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
+
+  return (
+    <div ref={topRef} className="scroll-mt-28">
+      <p className="text-xs leading-relaxed text-gray-500">{r.intro}</p>
+
+      <MainCard choice={chosen} isBest={picked === 0} highlightFirst={r.highlightFirst} />
+
+      {/* ほかのおすすめ。高いコースだけにならないよう、安いコースを必ず1つ含む */}
+      <div className="mt-5">
+        <p className="text-sm text-[var(--salon-text)]">{picked === 0 ? "こちらもおすすめ" : "ほかのおすすめ"}</p>
+        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          {others.map(({ c, i }) => (
+            <AltCard key={c.menu.id} choice={c} isBest={i === 0} cheaper={c.price < r.choices[0].price} onChoose={() => choose(i)} />
           ))}
         </div>
       </div>
 
-      {/* 質問エリア */}
-      <div className="min-h-[400px] flex flex-col justify-between">
-        <div className="animate-fade-in-up">
-          {step === 1 && (
-            <section className="space-y-8 text-center">
-              <h3 className="text-2xl font-serif text-gray-800">Q1. 気になる部位はどこですか？</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[
-                  { id: 'face', label: 'お肌', sub: 'Facial', icon: '✨' },
-                  { id: 'scalp', label: '髪・頭皮', sub: 'Scalp', icon: '💆‍♀️' },
-                  { id: 'body', label: 'からだ', sub: 'Body', icon: '🌿' },
-                ].map((item) => (
-                  <button
-                    key={item.id}
-                    className={`group relative p-8 border transition-all duration-300 hover:shadow-lg text-left ${
-                      concern === item.id
-                        ? "border-[var(--salon-gold)] bg-[var(--salon-bg)]"
-                        : "border-gray-200 bg-white hover:border-gray-300"
-                    }`}
-                    onClick={() => setConcern(item.id as Concern)}
-                  >
-                    <span className="text-4xl mb-4 block">{item.icon}</span>
-                    <span className="block text-lg font-serif text-gray-800 mb-1">{item.label}</span>
-                    <span className="block text-xs text-gray-400 tracking-widest uppercase">{item.sub}</span>
-                    {concern === item.id && (
-                      <div className="absolute top-4 right-4 text-[var(--salon-gold)]">
-                        <Check className="w-5 h-5" />
-                      </div>
-                    )}
-                  </button>
-                ))}
-              </div>
-            </section>
-          )}
+      {[...chosen.notices, ...r.notices].map((n) => (
+        <p key={n} className="mt-3 border-l-2 border-[var(--salon-gold)] pl-3 text-xs leading-relaxed text-gray-500">
+          {n}
+        </p>
+      ))}
 
-          {step === 2 && (
-            <section className="space-y-8 text-center">
-              <h3 className="text-2xl font-serif text-gray-800">Q2. 何を重視しますか？</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {[
-                  { id: 'result', label: '結果・即効性', sub: 'Result Oriented', desc: '悩みを根本から解決したい' },
-                  { id: 'relax', label: '癒し・心地よさ', sub: 'Relaxation', desc: '心身ともにリラックスしたい' },
-                ].map((item) => (
-                  <button
-                    key={item.id}
-                    className={`group relative p-8 border transition-all duration-300 hover:shadow-lg text-left ${
-                      priority === item.id
-                        ? "border-[var(--salon-gold)] bg-[var(--salon-bg)]"
-                        : "border-gray-200 bg-white hover:border-gray-300"
-                    }`}
-                    onClick={() => setPriority(item.id as Priority)}
-                  >
-                    <span className="block text-lg font-serif text-gray-800 mb-1">{item.label}</span>
-                    <span className="block text-xs text-[var(--salon-gold)] tracking-widest uppercase mb-4">{item.sub}</span>
-                    <span className="block text-sm text-gray-500">{item.desc}</span>
-                    {priority === item.id && (
-                      <div className="absolute top-4 right-4 text-[var(--salon-gold)]">
-                        <Check className="w-5 h-5" />
-                      </div>
-                    )}
-                  </button>
-                ))}
-              </div>
-            </section>
-          )}
+      <div className="mt-6 border-t border-[var(--salon-border)] pt-5">
+        <p className="mb-3 text-xs text-gray-500">
+          予約するメニュー：<span className="text-[var(--salon-text)]">{chosen.menu.name}{chosen.withBack && "＋背中ほぐし"}</span>
+        </p>
+        <SquareBookButtons menu={chosen.menu} withBack={chosen.withBack} />
 
-          {step === 3 && (
-            <section className="space-y-8 text-center">
-              <h3 className="text-2xl font-serif text-gray-800">Q3. ご予算の目安は？</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {[
-                  { id: 'standard', label: 'スタンダード', sub: 'Standard', desc: 'まずは気軽に体験したい' },
-                  { id: 'premium', label: 'プレミアム', sub: 'Premium', desc: '自分へのご褒美に贅沢を' },
-                ].map((item) => (
-                  <button
-                    key={item.id}
-                    className={`group relative p-8 border transition-all duration-300 hover:shadow-lg text-left ${
-                      budget === item.id
-                        ? "border-[var(--salon-gold)] bg-[var(--salon-bg)]"
-                        : "border-gray-200 bg-white hover:border-gray-300"
-                    }`}
-                    onClick={() => setBudget(item.id as Budget)}
-                  >
-                    <span className="block text-lg font-serif text-gray-800 mb-1">{item.label}</span>
-                    <span className="block text-xs text-[var(--salon-gold)] tracking-widest uppercase mb-4">{item.sub}</span>
-                    <span className="block text-sm text-gray-500">{item.desc}</span>
-                    {budget === item.id && (
-                      <div className="absolute top-4 right-4 text-[var(--salon-gold)]">
-                        <Check className="w-5 h-5" />
-                      </div>
-                    )}
-                  </button>
-                ))}
-              </div>
-            </section>
-          )}
+        <p className="mt-6 text-xs text-gray-500">相談してから決めたい方は、LINEでもご予約いただけます。</p>
+        <LineButton className="mt-2 w-full" label="LINEで相談して予約" copyText={lineMessage(answers, chosen)} />
+      </div>
+      <SubBookingLinks className="mt-3" />
 
-          {step === 4 && result && (
-            <section className="text-center animate-fade-in-up">
-              <div className="inline-block mb-6">
-                <span className="text-xs tracking-[0.3em] text-[var(--salon-gold)] uppercase border-b border-[var(--salon-gold)] pb-1">
-                  Your Best Menu
-                </span>
-              </div>
-              <h3 className="text-3xl md:text-4xl font-serif text-gray-800 mb-8">あなたへのおすすめ</h3>
-              
-              <div className="bg-[var(--salon-bg)] p-8 md:p-12 border border-[var(--salon-border)] relative max-w-xl mx-auto">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[var(--salon-gold)] text-white text-[10px] tracking-widest px-4 py-1 uppercase">
-                  {result.tag}
-                </div>
-                
-                <h4 className="text-xl md:text-2xl font-serif text-gray-800 mb-4">{result.title}</h4>
-                <p className="text-gray-600 leading-loose mb-8 text-sm md:text-base">
-                  {result.reason}
-                </p>
-                <p className="text-2xl font-serif text-[var(--salon-gold)] mb-8">{result.price}</p>
-                
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link 
-                    href="/contact" 
-                    className="inline-block bg-[var(--salon-text)] text-white px-8 py-3 text-sm tracking-widest hover:bg-[var(--salon-gold)] transition-colors"
-                  >
-                    このメニューを予約する
-                  </Link>
-                  <Link 
-                    href="/menu" 
-                    className="inline-block border border-gray-300 text-gray-600 px-8 py-3 text-sm tracking-widest hover:border-[var(--salon-gold)] hover:text-[var(--salon-gold)] transition-colors"
-                  >
-                    メニュー詳細を見る
-                  </Link>
-                </div>
-              </div>
-
-              <button 
-                onClick={handleReset}
-                className="mt-12 text-gray-400 hover:text-gray-600 flex items-center justify-center gap-2 mx-auto text-sm tracking-widest transition-colors"
-              >
-                <RotateCcw className="w-4 h-4" />
-                もう一度診断する
-              </button>
-            </section>
-          )}
-        </div>
-
-        {/* ナビゲーションボタン */}
-        {step < 4 && (
-          <div className="flex items-center justify-between mt-12 pt-8 border-t border-gray-100">
-            <button 
-              className={`text-sm tracking-widest text-gray-400 hover:text-gray-600 transition-colors ${step === 1 ? 'invisible' : ''}`}
-              onClick={handleBack}
-            >
-              BACK
-            </button>
-            
-            {step < 3 ? (
-              <button 
-                className="flex items-center gap-2 bg-[var(--salon-text)] text-white px-8 py-3 text-sm tracking-widest hover:bg-[var(--salon-gold)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                onClick={handleNext}
-                disabled={!canNext}
-              >
-                NEXT <ChevronRight className="w-4 h-4" />
-              </button>
-            ) : (
-              <button 
-                className="flex items-center gap-2 bg-[var(--salon-gold)] text-white px-8 py-3 text-sm tracking-widest hover:bg-[#a38d68] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                onClick={() => setStep(4)}
-                disabled={!canNext}
-              >
-                DIAGNOSE <ChevronRight className="w-4 h-4" />
-              </button>
-            )}
-          </div>
-        )}
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--salon-border)] pt-4">
+        <Link href="/menu" className="text-xs text-gray-500 underline-offset-4 hover:text-[var(--salon-gold)] hover:underline">
+          すべてのメニューを見る
+        </Link>
+        <button onClick={onReset} className="flex items-center gap-1 text-xs text-gray-400 transition-colors hover:text-[var(--salon-text)]">
+          <ArrowCounterClockwiseIcon className="h-3 w-3" />
+          もう一度
+        </button>
       </div>
     </div>
   )
 }
 
+function PriceLine({ choice, large }: { choice: Choice; large?: boolean }) {
+  const { menu } = choice
+  const first = firstText(menu)
+  return (
+    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+      {menu.firstPrice ? (
+        <>
+          <span className="text-xs text-gray-400 line-through">{yen(menu.price)}</span>
+          <span className={cn("font-serif text-[var(--salon-text)]", large ? "text-3xl" : "text-lg")}>初回 {yen(menu.firstPrice)}</span>
+        </>
+      ) : (
+        <>
+          <span className={cn("font-serif text-[var(--salon-text)]", large ? "text-2xl" : "text-lg")}>{priceText(menu)}</span>
+          {first && <span className="bg-[var(--salon-gold)] px-1.5 py-0.5 text-[11px] text-white">{first}</span>}
+        </>
+      )}
+      {choice.withBack && <span className="text-[11px] text-gray-400">＋背中ほぐし {yen(OPTIONS[0].price)}</span>}
+    </div>
+  )
+}
 
+function MainCard({ choice, isBest, highlightFirst }: { choice: Choice; isBest: boolean; highlightFirst: boolean }) {
+  const { menu } = choice
+  const category = CATEGORIES.find((c) => c.id === menu.category)!
+  return (
+    <motion.div
+      key={menu.id}
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="mt-4 border border-[var(--salon-gold)] bg-[var(--salon-bg)] p-5 md:p-6"
+    >
+      <div className="flex flex-wrap items-center gap-2 font-sans text-[11px] tracking-[0.2em] text-[var(--salon-gold)]">
+        <span>{isBest ? "YOUR BEST MENU" : "SELECTED"} · {category.en}</span>
+        {category.badge && (
+          <span className="whitespace-nowrap bg-[var(--salon-gold)] px-1.5 py-0.5 tracking-normal text-white">{category.badge}</span>
+        )}
+      </div>
+      <h3 className="mt-2 text-xl leading-snug text-[var(--salon-text)] md:text-2xl">{menu.name}</h3>
+      {choice.withBack && (
+        <p className="mt-1 text-sm text-[var(--salon-gold)]">
+          ＋ {OPTIONS[0].name}（{OPTIONS[0].minutes}分 {yen(OPTIONS[0].price)}）
+        </p>
+      )}
+
+      <div className="mt-3 space-y-1.5 text-sm leading-relaxed">
+        {choice.reasons.map((line) => (
+          <p key={line}>{line}</p>
+        ))}
+      </div>
+      <p className="mt-3 text-xs text-gray-400">
+        {duration(choice.minutes)}{menu.parts && ` ／ ${menu.parts}`}
+      </p>
+
+      <div className="mt-4">
+        <PriceLine choice={choice} large={highlightFirst || !menu.firstPrice} />
+        <p className="mt-1 text-[11px] text-gray-400">税込{(menu.firstPrice || menu.firstLabel) && `。${FIRST_NOTE}`}</p>
+      </div>
+    </motion.div>
+  )
+}
+
+function AltCard({ choice, isBest, cheaper, onChoose }: { choice: Choice; isBest: boolean; cheaper: boolean; onChoose: () => void }) {
+  const { menu } = choice
+  return (
+    <div className="flex flex-col border border-[var(--salon-border)] bg-white p-4">
+      <div className="flex flex-wrap gap-1.5">
+        {isBest && <span className="bg-[var(--salon-gold)] px-1.5 py-0.5 text-[10px] text-white">いちばんのおすすめ</span>}
+        {cheaper && <span className="border border-[var(--salon-gold)] px-1.5 py-0.5 text-[10px] text-[var(--salon-gold)]">お手頃</span>}
+        {menu.firstPrice && !cheaper && (
+          <span className="border border-[var(--salon-gold)] px-1.5 py-0.5 text-[10px] text-[var(--salon-gold)]">初回価格あり</span>
+        )}
+      </div>
+      <p className="mt-2 text-[15px] leading-snug text-[var(--salon-text)]">
+        {menu.name}
+        {choice.withBack && <span className="text-xs text-gray-500">＋背中ほぐし</span>}
+      </p>
+      <p className="mt-1 text-xs text-gray-400">
+        {duration(choice.minutes)}{menu.parts && ` ／ ${menu.parts}`}
+      </p>
+      <div className="mt-2">
+        <PriceLine choice={choice} />
+      </div>
+      <button
+        type="button"
+        onClick={onChoose}
+        className="mt-3 self-start border-b border-[var(--salon-gold)] pb-0.5 text-xs text-[var(--salon-text)] transition-colors hover:text-[var(--salon-gold)]"
+      >
+        このコースにする
+      </button>
+    </div>
+  )
+}

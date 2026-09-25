@@ -2,30 +2,23 @@ import { RecommendWizard } from "@/components/recommend-wizard"
 import { PageHeader } from "@/components/page-header"
 
 export const metadata = {
-  title: "おすすめ診断 | Salon de Reiko",
-  description: "質問に答えるとおすすめメニューをご提案します。",
+  title: "30秒メニュー診断 | Salon du Reiko",
+  description: "4つの質問に答えるだけで、あなたに合うメニューと料金がわかります。",
 }
 
 export default function RecommendPage() {
   return (
     <main className="min-h-screen pb-32">
-      <PageHeader title="Diagnosis" subtitle="おすすめ診断" />
-      
-      <div className="container mx-auto px-6 max-w-3xl">
-        <div className="text-center mb-16">
-          <p className="text-gray-600 leading-loose">
-            簡単な質問にお答えいただくだけで、<br/>
-            今のあなたに最適なメニューをご提案いたします。<br/>
-            まずは、お悩みをお聞かせください。
-          </p>
-        </div>
+      <PageHeader title="Diagnosis" subtitle="30秒メニュー診断" />
 
-        <div className="bg-white p-8 md:p-12 shadow-sm border border-[var(--salon-border)]">
-          <RecommendWizard />
-        </div>
+      <div className="container max-w-2xl">
+        <p className="mb-10 border-l border-[var(--salon-gold)] pl-5 text-sm">
+          4つの質問に答えると、今のあなたに合うメニューと料金がわかります。
+          <br />
+          予約するかどうかは、結果を見てから決めてください。
+        </p>
+        <RecommendWizard tone="card" />
       </div>
     </main>
   )
 }
-
-

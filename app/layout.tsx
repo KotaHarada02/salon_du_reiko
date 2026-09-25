@@ -1,33 +1,17 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Noto_Serif_JP, Montserrat } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import "./globals.css"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { pinyon_script, notojp } from '@/app/font'; // 先ほど作成したfonts.tsからインポート
-import './globals.css';
-
-
-const notoSerif = Noto_Serif_JP({
-  weight: ["400", "600"],
-  subsets: ["latin"],
-  variable: "--font-noto-serif",
-  display: "swap",
-})
-
-const montserrat = Montserrat({
-  weight: ["400", "600"],
-  subsets: ["latin"],
-  variable: "--font-montserrat",
-  display: "swap",
-})
+import { MobileCta } from "@/components/mobile-cta"
+import { pinyon_script, notojp, notoSerifJp, geistSans, geistMono } from "@/app/font"
 
 export const metadata: Metadata = {
-  title: "Salon de Reiko | 甲賀市の隠れ家エステサロン",
-  description: "ヒト幹細胞フェイシャルと厳選オイルで、内側から輝くあなたへ。",
-  generator: "v0.app",
+  title: "Salon du Reiko | 甲賀市のヒト幹細胞エステサロン",
+  description:
+    "滋賀県甲賀市水口町、ログハウスの完全予約制ヒト幹細胞エステサロン。4つの質問でメニューがわかる30秒診断。ヒト幹細胞フェイシャル（90分）初回¥9,900。",
 }
 
 export default function RootLayout({
@@ -36,14 +20,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-      <html
-        lang="ja"
-        className={`${notojp.variable} ${pinyon_script.variable}`} // 2つのフォント変数を設定
-      >
-      <body className={`${notoSerif.variable} ${montserrat.variable} antialiased`}>
+    <html
+      lang="ja"
+      className={`${notojp.variable} ${pinyon_script.variable} ${notoSerifJp.variable} ${geistSans.variable} ${geistMono.variable}`}
+    >
+      <body className="antialiased">
         <Header />
         <Suspense fallback={null}>{children}</Suspense>
         <Footer />
+        <MobileCta />
         <Analytics />
       </body>
     </html>

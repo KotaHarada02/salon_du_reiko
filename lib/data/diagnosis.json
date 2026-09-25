@@ -1,0 +1,428 @@
+{
+  "meta": {
+    "version": "3.0",
+    "updated": "2026-09-25",
+    "title": "30秒メニュー診断",
+    "summary": "年代・悩み・ケアしたい部位・来店の目的から、悩みに合うメニューを点数で選ぶ。menu_id は lib/salon.ts の MENUS と同じ。サイトの診断はこのファイルを直接読み込んで動く。",
+    "how_it_works": [
+      "Q3 で選んだ部位を、すべてカバーするメニューだけを候補にする（coverage）。背中は『背中ほぐし』を足してカバーできるメニューもある",
+      "候補の中で、Q1・Q2・Q4 の回答ごとに点数を足す。選んでいない部位まで含む大きなコースは、余分な部位ごとに extra_part_penalty を引く",
+      "いちばん点数の高いメニューをおすすめにする。同点のときは tie_break の順（初回価格のある、入りやすいメニューを優先）",
+      "1つでカバーできる候補がないとき（顔とからだ全体を両方選んだとき）は fallback を使う",
+      "結果画面では、いちばんのおすすめに加えて rules.alternatives の数だけ別のコースを出す。1位より安いコースを必ず1つ含める",
+      "どのコースも、施術の前後に足のマッサージが少し付く。そのため脚は部位の選択肢に入れない"
+    ]
+  },
+  "questions": [
+    {
+      "id": "age",
+      "title": "年代を教えてください",
+      "type": "single",
+      "options": [
+        {
+          "id": "20s",
+          "label": "20代"
+        },
+        {
+          "id": "30s",
+          "label": "30代"
+        },
+        {
+          "id": "40s",
+          "label": "40代"
+        },
+        {
+          "id": "50s",
+          "label": "50代"
+        },
+        {
+          "id": "60s",
+          "label": "60代以上"
+        }
+      ]
+    },
+    {
+      "id": "concerns",
+      "title": "気になっていることは？",
+      "sub": "いくつでも選べます",
+      "type": "multi",
+      "options": [
+        {
+          "id": "skin",
+          "label": "肌のシミ・シワ・たるみ",
+          "sub": "くすみや化粧ノリも"
+        },
+        {
+          "id": "stiffness",
+          "label": "こり・疲れ",
+          "sub": "肩や背中が重い"
+        },
+        {
+          "id": "cold_swelling",
+          "label": "冷え・むくみ",
+          "sub": "脚のだるさも"
+        },
+        {
+          "id": "relax",
+          "label": "とにかく癒されたい",
+          "sub": "ゆっくり休みたい"
+        }
+      ]
+    },
+    {
+      "id": "parts",
+      "title": "ケアしたいところは？",
+      "sub": "いくつでも選べます。どのコースも、施術の前後に足のマッサージが少し付きます",
+      "type": "multi",
+      "options": [
+        {
+          "id": "face",
+          "label": "顔"
+        },
+        {
+          "id": "head",
+          "label": "頭"
+        },
+        {
+          "id": "neck_shoulder",
+          "label": "首・肩"
+        },
+        {
+          "id": "decollete",
+          "label": "デコルテ",
+          "sub": "首から胸元"
+        },
+        {
+          "id": "back",
+          "label": "背中"
+        },
+        {
+          "id": "body",
+          "label": "からだ全体（顔以外）",
+          "sub": "首から下をまとめて"
+        }
+      ]
+    },
+    {
+      "id": "purpose",
+      "title": "今回のご来店の目的は？",
+      "type": "single",
+      "options": [
+        {
+          "id": "trial",
+          "label": "まずはお試し",
+          "sub": "初回価格で気軽に"
+        },
+        {
+          "id": "event",
+          "label": "特別な日の前に",
+          "sub": "式典・旅行・大切な予定"
+        },
+        {
+          "id": "reward",
+          "label": "自分へのご褒美",
+          "sub": "時間をかけて贅沢に"
+        },
+        {
+          "id": "maintenance",
+          "label": "定期的に通いたい",
+          "sub": "続けてケアしたい"
+        }
+      ]
+    }
+  ],
+  "scoring": {
+    "age": {
+      "20s": {
+        "stem-facial": 1
+      },
+      "30s": {
+        "stem-facial": 1
+      },
+      "40s": {
+        "stem-facial": 1,
+        "stem-facial-back": 1
+      },
+      "50s": {
+        "stem-facial-back": 1,
+        "head-spa": 1
+      },
+      "60s": {
+        "head-spa": 1,
+        "body-best": 1
+      }
+    },
+    "concerns": {
+      "skin": {
+        "stem-facial": 3,
+        "stem-facial-back": 3,
+        "head-spa": 1,
+        "joka": 1
+      },
+      "stiffness": {
+        "head-spa": 2,
+        "body-best": 2,
+        "body-happy": 2,
+        "stem-facial-back": 1,
+        "senju": 1,
+        "joka": 1
+      },
+      "cold_swelling": {
+        "body-happy": 3,
+        "body-best": 2,
+        "body-weekday": 1,
+        "senju": 1,
+        "joka": 1
+      },
+      "relax": {
+        "senju": 2,
+        "body-happy": 2,
+        "body-best": 1,
+        "stem-facial": 1,
+        "joka": 2
+      }
+    },
+    "purpose": {
+      "trial": {
+        "stem-facial": 2,
+        "head-spa": 2,
+        "body-best": 1,
+        "body-weekday": 1
+      },
+      "event": {
+        "stem-facial-back": 3,
+        "stem-facial": 1,
+        "body-happy": 3,
+        "joka": 1
+      },
+      "reward": {
+        "stem-facial-back": 2,
+        "body-happy": 2,
+        "senju": 5,
+        "joka": 3
+      },
+      "maintenance": {
+        "stem-facial": 2,
+        "head-spa": 1,
+        "body-best": 1,
+        "body-weekday": 3
+      }
+    },
+    "tie_break": [
+      "stem-facial",
+      "head-spa",
+      "body-weekday",
+      "body-best",
+      "stem-facial-back",
+      "body-happy",
+      "senju",
+      "joka"
+    ]
+  },
+  "rules": {
+    "no_main": {
+      "note": "お試し目的のときは、お日にち限定の千手観音と、最高峰の浄華コースをメインにしない",
+      "senju": [
+        "trial"
+      ],
+      "joka": [
+        "trial"
+      ]
+    },
+    "highlight_first_price": {
+      "note": "お試し目的なら、初回価格を強調する",
+      "purposes": [
+        "trial"
+      ]
+    },
+    "notices": {
+      "senju": "お日にち限定のメニューです。実施日は公式LINEでお問い合わせください。",
+      "body-weekday": "平日限定のコースです。"
+    },
+    "alternatives": {
+      "note": "結果画面に、いちばんのおすすめとは別に出すコースの数。部位をカバーするメニューを優先し、足りなければ点数の高い順に足す。1位より安いコースが入っていなければ、2つ目をいちばん点数の高い安いコースに差し替える（高いコースだけが並んで身構えないように）",
+      "count": 2,
+      "ensure_cheaper": true
+    }
+  },
+  "result_copy": {
+    "note": "結果画面の文面。効果を約束する言い回しは避ける（docs/確認事項.md 3章）",
+    "age_label": {
+      "20s": "20代",
+      "30s": "30代",
+      "40s": "40代",
+      "50s": "50代",
+      "60s": "60代以上"
+    },
+    "concern_label": {
+      "skin": "肌のシミ・シワ・たるみ",
+      "stiffness": "こり・疲れ",
+      "cold_swelling": "冷え・むくみ",
+      "relax": "癒されたい"
+    },
+    "purpose_label": {
+      "trial": "まずはお試し",
+      "event": "特別な日の前に",
+      "reward": "自分へのご褒美",
+      "maintenance": "定期的に通いたい"
+    },
+    "menus": {
+      "stem-facial": {
+        "reason": "お顔だけでなく、首肩・デコルテ・ヘッドまで90分でケアします。いちばん人気のメニューです。",
+        "matched": {
+          "skin": "GROTTY PRO とヒト幹細胞培養上清液で、気になるお肌をじっくりケアします。",
+          "stiffness": "首肩とヘッドもメニューに含まれています。"
+        }
+      },
+      "stem-facial-back": {
+        "reason": "冷凍ヒト幹細胞培養上清液を使う、110分の特別コースです。お顔に加えて背中までケアします。",
+        "matched": {
+          "skin": "冷凍ヒト幹細胞培養上清液で、お肌をじっくりケアしたい方に。",
+          "stiffness": "首肩から背中まで、こりやすいところをまとめてほぐします。"
+        }
+      },
+      "head-spa": {
+        "reason": "頭から首・肩・肩甲骨までを30分でほぐす新メニューです。",
+        "matched": {
+          "stiffness": "こりやすい頭・首肩を集中してケアします。",
+          "skin": "頭をほぐすと、顔まわりもすっきりします。"
+        }
+      },
+      "body-best": {
+        "reason": "背中・フット（両面）・デコルテ・ヘッドまで、80分で疲れがたまりやすいところをまとめてほぐします。",
+        "matched": {
+          "stiffness": "背中やデコルテなど、疲れがたまりやすいところをまとめてほぐします。",
+          "cold_swelling": "フット（両面）もしっかりケアするので、脚のだるさが気になる方に。"
+        }
+      },
+      "body-weekday": {
+        "reason": "GROTTY PRO の全身照射と全身オイルトリートメント、最後にヘッドまで。平日にご来店の方だけの90分コースです。",
+        "matched": {
+          "cold_swelling": "GROTTY PRO の近赤外線でからだを温めてからほぐします。",
+          "stiffness": "平日にお休みがあって、定期的にからだをケアしたい方に。"
+        }
+      },
+      "body-happy": {
+        "reason": "GROTTY PRO で全身を温めてから、全身オイルトリートメントとヘッドで仕上げる100分のコースです。",
+        "matched": {
+          "cold_swelling": "GROTTY PRO の近赤外線でからだを温めてからほぐします。",
+          "stiffness": "冷えやこりがつらい方、時間をかけて癒されたい方に。",
+          "relax": "100分かけて、ゆっくり癒される時間です。"
+        }
+      },
+      "senju": {
+        "reason": "2人のセラピストが同時に施術する、お日にち限定の特別なトリートメントです。",
+        "matched": {
+          "relax": "全身が一気にほぐれる感覚を味わいたい方に。",
+          "stiffness": "上半身と下半身を2人で同時にほぐします。"
+        }
+      },
+      "joka": {
+        "reason": "ヒト幹細胞美容と深い癒しを合わせた、最高峰のトータルケアです。お顔だけでなく、全身オイルトリートメントまで丁寧にケアします。",
+        "matched": {
+          "skin": "ヒト幹細胞のフェイシャルで、お肌をじっくりケアします。",
+          "stiffness": "日々の疲れやこりを、全身オイルトリートメントでほぐします。",
+          "relax": "特別なご褒美時間が欲しい方に。"
+        }
+      }
+    },
+    "age_note": {
+      "20s": "特別な日の前のコンディションづくりにも。",
+      "50s": "首肩の疲れや緊張をゆるめる時間も大切にしています。",
+      "60s": "首肩の疲れや緊張をゆるめる時間も大切にしています。"
+    },
+    "line_message": [
+      "【30秒診断の結果】",
+      "{menu}（{duration}）{option}",
+      "{age}／{concerns}／{parts}／{purpose}",
+      "",
+      "ご希望の日時："
+    ],
+    "part_label": {
+      "face": "顔",
+      "head": "頭",
+      "neck_shoulder": "首・肩",
+      "decollete": "デコルテ",
+      "back": "背中",
+      "body": "からだ全体"
+    },
+    "foot_note": "どのコースも、施術の前後に足のマッサージが少し付きます。"
+  },
+  "open_questions": [
+    "BODYいいとこどりコースの『背中』に首・肩が含まれるか（いまは含まないと仮定）"
+  ],
+  "coverage": {
+    "note": "各メニューがカバーする部位。body は『からだ全体（顔以外）』",
+    "menus": {
+      "head-spa": [
+        "head",
+        "neck_shoulder"
+      ],
+      "stem-facial": [
+        "face",
+        "head",
+        "neck_shoulder",
+        "decollete"
+      ],
+      "stem-facial-back": [
+        "face",
+        "head",
+        "neck_shoulder",
+        "decollete",
+        "back"
+      ],
+      "body-best": [
+        "head",
+        "decollete",
+        "back",
+        "body"
+      ],
+      "body-weekday": [
+        "head",
+        "neck_shoulder",
+        "decollete",
+        "back",
+        "body"
+      ],
+      "body-happy": [
+        "head",
+        "neck_shoulder",
+        "decollete",
+        "back",
+        "body"
+      ],
+      "senju": [
+        "head",
+        "neck_shoulder",
+        "decollete",
+        "back",
+        "body"
+      ],
+      "joka": [
+        "face",
+        "head",
+        "neck_shoulder",
+        "decollete",
+        "back",
+        "body"
+      ]
+    },
+    "back_option": {
+      "note": "背中ほぐし（15分）を足すと背中もカバーできるメニュー",
+      "menus": [
+        "head-spa",
+        "stem-facial"
+      ],
+      "part": "back"
+    },
+    "extra_part_penalty": 3,
+    "fallback": {
+      "note": "1つでカバーできるメニューがないときに使う（浄華コースが顔とからだ全体の両方をカバーするので、いまは使われない）",
+      "candidates": [
+        "stem-facial-back",
+        "body-happy"
+      ],
+      "notice": "お顔とからだ全体を1回でケアするコースはありません。組み合わせは公式LINEでご相談ください。"
+    }
+  }
+}

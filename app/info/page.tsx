@@ -1,7 +1,11 @@
 import { PageHeader } from "@/components/page-header"
+import { DiagnosisCta } from "@/components/diagnosis-cta"
+import { SALON } from "@/lib/salon"
+import { MapPinIcon, TrainIcon, ClockIcon, ChatCircleDotsIcon, CreditCardIcon } from "@phosphor-icons/react/dist/ssr"
+import { LineButton, SubBookingLinks } from "@/components/booking-buttons"
 
 export const metadata = {
-  title: '店舗情報 | Salon de Reiko',
+  title: '店舗情報 | Salon du Reiko',
   description: '住所・営業時間・定休日・予約方法のご案内。',
 }
 
@@ -14,41 +18,57 @@ export default function InfoPage() {
         <div className="flex flex-col md:flex-row gap-12 md:gap-24">
           
           {/* Text Info */}
-          <div className="w-full md:w-1/2 space-y-12">
-            <div>
-              <h3 className="text-lg font-serif text-gray-800 mb-4 border-b border-[var(--salon-gold)] pb-2 inline-block">Address</h3>
+          <div className="w-full md:w-1/2 divide-y divide-[var(--salon-border)]">
+            <div className="pb-10">
+              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-gray-800">
+                <MapPinIcon className="h-5 w-5 text-[var(--salon-gold)]" weight="light" />
+                Address
+              </h3>
               <p className="text-gray-600 leading-loose">
-                〒528-0024<br />
-                滋賀県甲賀市水口町中邸2-10<br />
-                岩谷医院敷地内ログハウス
+                {SALON.zip}<br />
+                {SALON.address}<br />
+                {SALON.building}
               </p>
             </div>
 
-            <div>
-              <h3 className="text-lg font-serif text-gray-800 mb-4 border-b border-[var(--salon-gold)] pb-2 inline-block">Access</h3>
+            <div className="py-10">
+              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-gray-800">
+                <TrainIcon className="h-5 w-5 text-[var(--salon-gold)]" weight="light" />
+                Access
+              </h3>
               <p className="text-gray-600 leading-loose">
-                近江鉄道「水口石橋駅」より徒歩10分<br />
+                {SALON.station}<br />
                 <span className="text-sm text-gray-400">※敷地内に無料駐車場がございます</span>
               </p>
             </div>
 
-            <div>
-              <h3 className="text-lg font-serif text-gray-800 mb-4 border-b border-[var(--salon-gold)] pb-2 inline-block">Open</h3>
+            <div className="py-10">
+              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-gray-800">
+                <ClockIcon className="h-5 w-5 text-[var(--salon-gold)]" weight="light" />
+                Open
+              </h3>
               <p className="text-gray-600 leading-loose">
-                10:00 ～ 18:00<br />
-                <span className="text-sm text-gray-400">定休日：月曜日・土曜日</span>
+                {SALON.hours}<br />
+                <span className="text-sm text-gray-400">定休日：{SALON.closed}</span>
               </p>
             </div>
 
-            <div>
-              <h3 className="text-lg font-serif text-gray-800 mb-4 border-b border-[var(--salon-gold)] pb-2 inline-block">Contact</h3>
-              <p className="text-3xl font-serif text-[var(--salon-text)] mb-2">
-                090-9041-7442
-              </p>
-              <p className="text-sm text-gray-400 mb-4">完全予約制</p>
-              <p className="text-sm text-gray-500">
-                LINE・Instagram・Hot Pepper Beautyからも<br/>ご予約可能です。
-              </p>
+            <div className="py-10">
+              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-gray-800">
+                <CreditCardIcon className="h-5 w-5 text-[var(--salon-gold)]" weight="light" />
+                Payment
+              </h3>
+              <p className="text-gray-600 leading-loose">{SALON.payment}</p>
+            </div>
+
+            <div className="pt-10">
+              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-gray-800">
+                <ChatCircleDotsIcon className="h-5 w-5 text-[var(--salon-gold)]" weight="light" />
+                Reservation
+              </h3>
+              <p className="mb-4 text-sm text-gray-500">完全予約制です。ご予約・ご相談は公式LINEからどうぞ。</p>
+              <LineButton className="sm:inline-flex" />
+              <SubBookingLinks className="mt-4" />
             </div>
           </div>
 
@@ -56,22 +76,21 @@ export default function InfoPage() {
           <div className="w-full md:w-1/2">
             <div className="aspect-square w-full bg-gray-100 relative overflow-hidden border border-[var(--salon-border)]">
                <iframe 
-                  src="https://www.google.com/maps?q=滋賀県甲賀市水口町中邸2-10&output=embed" 
+                  src={`https://www.google.com/maps?q=${encodeURIComponent(SALON.address)}&output=embed`} 
                   width="100%" 
                   height="100%" 
                   style={{border:0}} 
                   allowFullScreen 
                   loading="lazy" 
-                  title="Salon de Reiko地図"
-                  className="grayscale hover:grayscale-0 transition-all duration-1000"
+                  title="Salon du Reiko地図"
+                 
                 ></iframe>
             </div>
           </div>
 
         </div>
       </div>
+      <DiagnosisCta />
     </main>
   )
 }
-
-

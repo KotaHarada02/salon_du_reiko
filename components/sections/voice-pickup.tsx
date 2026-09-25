@@ -1,41 +1,37 @@
-import React from "react"
+import Link from "next/link"
+import { Reveal, RevealGroup, RevealItem } from "@/components/motion-reveal"
+import { PICKUP_VOICES } from "@/lib/content"
+
+const OFFSETS = ["md:mt-0", "md:mt-14", "md:mt-28"]
 
 export function VoicePickup() {
-  const voices = [
-    {
-      age: "40代女性",
-      title: "翌日の化粧ノリが全然違いました",
-      text: "今まで色々なエステに行きましたが、ここまで変化を感じたのは初めてです。施術直後もですが、翌朝の肌の柔らかさに驚きました。ファンデーションが薄くても自信が持てるようになりました。"
-    },
-    {
-      age: "50代女性",
-      title: "痛みもなく、リラックスして受けられます",
-      text: "「針を使わない」と聞いて安心はしていましたが、本当に痛みがなくて驚きました。温かい手でのマッサージも気持ちよくて、つい眠ってしまうほど。毎月の自分へのご褒美です。"
-    },
-    {
-      age: "60代女性",
-      title: "肌に自信が持てるように",
-      text: "年齢のせいと諦めていましたが、こちらに通い始めてから「肌が明るくなったね」と娘に褒められました。無理な勧誘もなく、私のペースで通えるのも嬉しいポイントです。"
-    }
-  ]
-
   return (
-    <section className="py-24 bg-[var(--salon-bg)]">
-      <div className="container mx-auto px-6 max-w-5xl">
-        <div className="text-center mb-16">
-          <span className="text-[var(--salon-gold)] font-serif tracking-widest text-sm block mb-4">VOICE</span>
-          <h2 className="text-3xl font-serif text-gray-800">お客様の喜びの声</h2>
-        </div>
+    <section className="bg-white py-20 md:py-28">
+      <div className="container">
+        <Reveal>
+          <div className="mb-14 md:mb-20">
+            <span className="block font-sans text-xs tracking-[0.25em] text-[var(--salon-gold)]">VOICE</span>
+            <h2 className="mt-3 text-2xl text-[var(--salon-text)] md:text-3xl">通っている方の声</h2>
+          </div>
+        </Reveal>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {voices.map((voice, i) => (
-            <div key={i} className="bg-white p-8 border border-gray-100 shadow-sm relative">
-              <span className="absolute -top-4 left-6 text-6xl text-[var(--salon-gold)] opacity-20 font-serif">“</span>
-              <p className="text-[var(--salon-gold)] text-xs tracking-widest mb-2">{voice.age}</p>
-              <h3 className="font-bold text-gray-800 mb-4 text-sm">{voice.title}</h3>
-              <p className="text-sm text-gray-600 leading-loose text-justify">{voice.text}</p>
-            </div>
+        <RevealGroup className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
+          {PICKUP_VOICES.map((v, i) => (
+            <RevealItem key={v.text} className={OFFSETS[i]}>
+              <figure className="border-t border-[var(--salon-gold)] pt-6">
+                <blockquote className="line-clamp-6 text-sm leading-loose text-gray-600">{v.text}</blockquote>
+                <figcaption className="mt-4 text-xs tracking-wider text-[var(--salon-gold)]">
+                  {[v.location, v.name].filter(Boolean).join(" ")}・{v.menu}
+                </figcaption>
+              </figure>
+            </RevealItem>
           ))}
+        </RevealGroup>
+
+        <div className="mt-14 md:mt-10">
+          <Link href="/reviews" className="border-b border-[var(--salon-gold)] pb-1 text-sm text-[var(--salon-text)] transition-colors hover:text-[var(--salon-gold)]">
+            お客様の声をすべて読む
+          </Link>
         </div>
       </div>
     </section>
