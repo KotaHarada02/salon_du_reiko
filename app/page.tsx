@@ -3,6 +3,7 @@ import { FirstVisit } from "@/components/sections/first-visit"
 import { MenuOverview } from "@/components/sections/menu-overview"
 import { Owner } from "@/components/sections/owner"
 import { Why } from "@/components/sections/why"
+import { Grotty } from "@/components/sections/grotty"
 import { Flow } from "@/components/sections/flow"
 import { VoicePickup } from "@/components/sections/voice-pickup"
 import { FaqSection } from "@/components/sections/faq-section"
@@ -23,6 +24,7 @@ export default function Home() {
       <Flow />
       {/* 5. 看板成分の説明は、興味を持った人向けに後半へ */}
       <Why />
+      <Grotty />
       <FaqSection />
       <Closing />
     </main>
