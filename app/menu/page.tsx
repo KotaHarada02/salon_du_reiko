@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { PageHeader } from "@/components/page-header"
-import { CATEGORIES, FIRST_NOTE, FOOT_NOTE, OPTIONS, firstText, menusIn, priceText, squareUrl, yen, duration } from "@/lib/salon"
+import { CATEGORIES, FIRST_NOTE, FOOT_NOTE, GROTTY_NOTE, OPTIONS, firstText, menusIn, priceText, squareUrl, yen, duration } from "@/lib/salon"
 
 export const metadata = {
   title: "メニュー | Salon du Reiko",
@@ -20,7 +20,11 @@ export default function MenuPage() {
           <span className="text-sm text-[var(--salon-text)]">どれを選べばいいか迷ったら</span>
           <span className="text-sm text-[var(--salon-gold)]">30秒メニュー診断へ →</span>
         </Link>
-        <p className="mb-8 border-l-2 border-[var(--salon-gold)] pl-3 text-xs text-gray-500">{FOOT_NOTE}</p>
+        <p className="mb-8 border-l-2 border-[var(--salon-gold)] pl-3 text-xs leading-relaxed text-gray-500">
+          {GROTTY_NOTE}
+          <br />
+          {FOOT_NOTE}
+        </p>
 
         {CATEGORIES.map((cat) => (
           <section key={cat.id} id={cat.id} className="scroll-mt-28 border-t border-[var(--salon-border)] py-14 md:py-20">
@@ -48,7 +52,7 @@ export default function MenuPage() {
                         <span className="font-serif text-lg text-[var(--salon-gold)]">{priceText(m)}</span>
                       </div>
                     </div>
-                    {m.parts && <p className="mt-3 text-xs tracking-wider text-gray-500">施術範囲：{m.parts}</p>}
+                    {m.parts && <p className="mt-3 text-xs tracking-wider text-gray-500">内容：{m.parts}</p>}
                     {m.note && <p className="mt-1 text-xs text-[var(--salon-gold)]">※{m.note}</p>}
                     <p className="mt-3 text-sm">{m.lead}</p>
                     <ul className="mt-3 flex flex-wrap gap-2">

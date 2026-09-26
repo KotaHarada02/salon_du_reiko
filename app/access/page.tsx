@@ -1,4 +1,5 @@
 import { PageHeader } from "@/components/page-header"
+import { SALON } from "@/lib/salon"
 import { TrainIcon, CarIcon, MapPinLineIcon } from "@phosphor-icons/react/dist/ssr"
 
 export const metadata = {
@@ -15,7 +16,7 @@ const directions = [
   {
     Icon: TrainIcon,
     label: "電車でお越しの方",
-    detail: "近江鉄道「水口石橋駅」より徒歩10分",
+    detail: `${SALON.station}。${SALON.pickup}`,
   },
   {
     Icon: CarIcon,

@@ -8,7 +8,8 @@ export const SALON = {
   zip: "〒528-0024",
   address: "滋賀県甲賀市水口町中邸2-10",
   building: "岩谷医院敷地内ログハウス",
-  station: "近江鉄道「水口石橋駅」より徒歩10分",
+  station: "近江鉄道「水口城南駅」より徒歩13分",
+  pickup: "JR貴生川駅までの送迎が可能です",
   // 電話番号はサイトに載せない方針（予約・問い合わせは LINE ほか）
   hours: "10:00 - 18:00",
   closed: "月曜・木曜午後・土曜",
@@ -67,8 +68,8 @@ export type CategoryId = "facial" | "body" | "head" | "premium" | "special"
 export const CATEGORIES: { id: CategoryId; en: string; ja: string; badge?: string }[] = [
   { id: "facial", en: "Facial", ja: "フェイシャル", badge: "人気No.1" },
   { id: "body", en: "Body", ja: "ボディ", badge: "人気No.1" },
-  { id: "head", en: "Head Spa", ja: "ヘッドスパ", badge: "新メニュー" },
-  { id: "premium", en: "Premium", ja: "最高峰トータルケア", badge: "新メニュー" },
+  { id: "head", en: "Head Spa", ja: "ヘッドスパ" },
+  { id: "premium", en: "Premium", ja: "最高峰トータルケア" },
   { id: "special", en: "Special", ja: "お日にち限定", badge: "日にち限定" },
 ]
 
@@ -113,7 +114,7 @@ export const MENUS: Record<MenuId, Menu> = {
     minutes: 90,
     price: 16500,
     firstPrice: 9900,
-    parts: "お顔・首肩・デコルテ・ヘッド",
+    parts: "GROTTY PRO 全身照射 ＋ お顔・首肩・デコルテ・ヘッド",
     lead: "いちばん人気のメニュー。GROTTY PRO とヒト幹細胞培養上清液で、お顔から首肩・デコルテ・ヘッドまでケアします。",
     forWhom: ["ハリ不足やくすみが気になる", "化粧ノリを変えたい", "はじめてのヒト幹細胞"],
     square: { serviceId: "JXD6HBHS7C3UZ2FFDPYGHE4E", firstServiceId: "64Z4L4JC36FVPKF2IQW522DA" },
@@ -124,7 +125,7 @@ export const MENUS: Record<MenuId, Menu> = {
     name: "贅沢ヒト幹細胞フェイシャル＋背中",
     minutes: 110,
     price: 25000,
-    parts: "背中・お顔・首肩・デコルテ・ヘッド",
+    parts: "GROTTY PRO 全身照射 ＋ 背中・お顔・首肩・デコルテ・ヘッド",
     note: "冷凍ヒト幹細胞培養上清液使用",
     lead: "冷凍ヒト幹細胞培養上清液を使う特別コース。お顔に加えて背中までゆっくりケアします。",
     forWhom: ["特別な日の前に", "背中のこりも気になる", "自分へのご褒美に"],
@@ -136,7 +137,7 @@ export const MENUS: Record<MenuId, Menu> = {
     name: "MENS ヒト幹細胞フェイシャル",
     minutes: 60,
     price: 13500,
-    parts: "お顔中心",
+    parts: "GROTTY PRO 全身照射 ＋ お顔中心",
     referralOnly: true,
     lead: "男性のためのヒト幹細胞フェイシャル。お知り合い・ご紹介の方のみ承っています。",
     forWhom: ["男性の方", "肌の乾燥やくすみが気になる"],
@@ -148,7 +149,7 @@ export const MENUS: Record<MenuId, Menu> = {
     name: "BODYいいとこどりコース",
     minutes: 80,
     price: 11000,
-    parts: "背中・フット（両面）・デコルテ・ヘッド",
+    parts: "GROTTY PRO 全身照射 ＋ 背中・フット（両面）・デコルテ・ヘッド",
     lead: "背中から脚、デコルテ、ヘッドまで、疲れがたまりやすいところをまとめてほぐします。",
     forWhom: ["全身がなんとなく重い", "脚のむくみが気になる"],
     square: { serviceId: "F5HDO3NVABVCGC4E4ORVX7NB" },
@@ -159,7 +160,7 @@ export const MENUS: Record<MenuId, Menu> = {
     name: "BODY幸せ全身コース",
     minutes: 100,
     price: 15800,
-    parts: "GROTTY PRO全身照射 ＋ 全身オイルトリートメント ＋ ヘッド",
+    parts: "GROTTY PRO 全身照射 ＋ 全身オイルトリートメント ＋ ヘッド",
     lead: "近赤外線と音響振動の機器 GROTTY PRO で全身を温めてから、オイルトリートメントで仕上げます。",
     forWhom: ["冷えやこりがつらい", "しっかり時間をかけて癒されたい"],
     square: { serviceId: "C2RHQCMVOUVZW5SP5FFU2XDN" },
@@ -170,7 +171,7 @@ export const MENUS: Record<MenuId, Menu> = {
     name: "BODY平日限定コース",
     minutes: 90,
     price: 12800,
-    parts: "GROTTY PRO全身照射 ＋ 全身オイルトリートメント ＋ ヘッド",
+    parts: "GROTTY PRO 全身照射 ＋ 全身オイルトリートメント ＋ ヘッド",
     lead: "GROTTY PRO を全身に照射し、全身をオイルトリートメントでほぐして、最後にヘッドで仕上げる平日だけのお得なコースです。",
     forWhom: ["平日にお休みがある"],
     square: { serviceId: "EC6Q4FJRWALHGGP7Z66NDWVW" },
@@ -183,7 +184,7 @@ export const MENUS: Record<MenuId, Menu> = {
     price: 6600,
     firstPrice: 5500,
     parts: "頭・首・肩・肩甲骨まで",
-    lead: "ヒト幹細胞を使った新メニュー。頭から首・肩・肩甲骨までを30分でほぐします。",
+    lead: "ヒト幹細胞を使ったヘッドスパ。頭から首・肩・肩甲骨までを30分でほぐします。",
     forWhom: ["頭や首肩がこっている", "短い時間で受けたい", "まずは気軽に試したい"],
     square: { serviceId: "SRRNH3UWDRXJHZLYM6EMDUVV" },
   },
@@ -195,7 +196,7 @@ export const MENUS: Record<MenuId, Menu> = {
     price: 16500,
     priceFrom: true,
     firstLabel: "初回20%OFF",
-    parts: "2人のセラピストが同時に施術",
+    parts: "GROTTY PRO 全身照射 ＋ 2人のセラピストが同時に施術",
     lead: "2人のセラピストが同時に施術する、お日にち限定の特別なトリートメントです。",
     forWhom: ["特別な癒しを体験したい", "記念日やご褒美に"],
     square: { serviceId: "QFDQLNSMTKXGDUP2XUV3GJ6Z" },
@@ -207,7 +208,7 @@ export const MENUS: Record<MenuId, Menu> = {
     // Square に登録されている所要時間（3時間30分）
     minutes: 210,
     price: 33000,
-    parts: "ヒト幹細胞フェイシャル ＋ 全身オイルトリートメント",
+    parts: "GROTTY PRO 全身照射 ＋ ヒト幹細胞フェイシャル ＋ 全身オイルトリートメント",
     lead: "ヒト幹細胞美容と深い癒しを合わせた、Salon du Reiko 最高峰のトータルケアです。お顔だけでなく、全身オイルトリートメントまで丁寧にケアします。",
     forWhom: ["最近疲れて見られる", "なんとなく元気が出ない", "特別なご褒美時間が欲しい"],
     square: { serviceId: "QHOOMEB25BW34TBXU5LXCYM5" },
@@ -237,6 +238,9 @@ export const priceText = (m: Menu) => `${yen(m.price)}${m.priceFrom ? "〜" : ""
 
 /** 初回特典の表示。なければ undefined */
 export const firstText = (m: Menu) => (m.firstPrice ? `初回 ${yen(m.firstPrice)}` : m.firstLabel)
+
+/** ヘッドスパとオプション以外のコースに付く */
+export const GROTTY_NOTE = "ヘッドスパ以外のコースには、導入機器 GROTTY PRO の全身照射が付きます。"
 
 /** どのコースにも付く足のマッサージ */
 export const FOOT_NOTE = "どのコースも、施術の前後に足のマッサージが少し付きます。"

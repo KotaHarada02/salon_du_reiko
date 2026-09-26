@@ -6,7 +6,7 @@ const POINTS = [
   {
     Icon: HouseIcon,
     title: "ログハウスを貸切",
-    text: "ほかのお客様と顔を合わせません。敷地内に無料駐車場があります。",
+    text: "ほかのお客様と顔を合わせません。敷地内に無料駐車場があり、JR貴生川駅までの送迎もできます。",
   },
   {
     Icon: UserIcon,
@@ -16,7 +16,7 @@ const POINTS = [
   {
     Icon: HandHeartIcon,
     title: "針を使わない、痛くない",
-    text: "導入機器は近赤外線と音響振動を使います。眠ってしまう方も多く、ダウンタイムもありません。",
+    text: "導入機器 GROTTY PRO は、近赤外線と音響振動を使います。眠ってしまう方も多く、ダウンタイムもありません。",
   },
   {
     Icon: ProhibitIcon,
@@ -27,7 +27,7 @@ const POINTS = [
 
 const PHOTOS = [
   // 外観写真は下部に文字が入っているので上寄せで切り抜く
-  { src: "/img/outside.jpg", alt: "岩谷医院敷地内にあるログハウスの外観", caption: `外観。${SALON.station}`, position: "object-top" },
+  { src: "/img/outside.jpg", alt: "岩谷医院敷地内にあるログハウスの外観", caption: `外観。${SALON.station}（JR貴生川駅まで送迎あり）`, position: "object-top" },
   { src: "/img/room.jpg", alt: "ベッドとソファのある施術室", caption: "施術室。ランプの灯りで、ゆっくり過ごせます", position: "object-center" },
 ]
 

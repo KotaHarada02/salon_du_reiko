@@ -64,7 +64,7 @@ export function Closing() {
               <dd>
                 {SALON.address} {SALON.building}
                 <br />
-                <span className="text-xs text-gray-400">{SALON.station}・無料駐車場あり</span>
+                <span className="text-xs text-gray-400">{SALON.station}・無料駐車場あり・{SALON.pickup}</span>
               </dd>
             </div>
             <div className="flex gap-3">

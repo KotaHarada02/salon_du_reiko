@@ -38,6 +38,7 @@ export default function InfoPage() {
               </h3>
               <p className="text-gray-600 leading-loose">
                 {SALON.station}<br />
+                {SALON.pickup}<br />
                 <span className="text-sm text-gray-400">※敷地内に無料駐車場がございます</span>
               </p>
             </div>
