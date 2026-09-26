@@ -161,7 +161,7 @@ export const MENUS: Record<MenuId, Menu> = {
     minutes: 100,
     price: 15800,
     parts: "GROTTY PRO 全身照射 ＋ 全身オイルトリートメント ＋ ヘッド",
-    lead: "近赤外線と音響振動の機器 GROTTY PRO で全身を温めてから、オイルトリートメントで仕上げます。",
+    lead: "近赤外線と音響振動の機器 GROTTY PRO の全身照射のあと、全身オイルトリートメントとヘッドで仕上げます。",
     forWhom: ["冷えやこりがつらい", "しっかり時間をかけて癒されたい"],
     square: { serviceId: "C2RHQCMVOUVZW5SP5FFU2XDN" },
   },

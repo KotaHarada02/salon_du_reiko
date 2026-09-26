@@ -19,6 +19,7 @@ export function ExplainSection({
   label,
   title,
   intro,
+  catchphrase,
   image,
   points,
   note,
@@ -29,6 +30,8 @@ export function ExplainSection({
   /** 見出し。配列の区切りでスマホのときだけ改行する */
   title: string[]
   intro: string
+  /** 見出しの下に置くキャッチコピー */
+  catchphrase?: string
   image: { src: string; alt: string; className?: string }
   points: ExplainPoint[]
   note?: string
@@ -50,7 +53,10 @@ export function ExplainSection({
                 </span>
               ))}
             </h2>
-            <p className="mt-4 text-sm">{intro}</p>
+            {catchphrase && (
+              <p className="mt-5 font-serif text-xl leading-relaxed text-[var(--salon-gold)] md:text-2xl">{catchphrase}</p>
+            )}
+            <p className="mt-4 text-sm leading-relaxed">{intro}</p>
             <div className="relative mt-8 hidden aspect-[4/3] overflow-hidden border border-[var(--salon-border)] md:block">
               <Image src={image.src} alt={image.alt} fill className={cn("object-cover", image.className)} />
             </div>
