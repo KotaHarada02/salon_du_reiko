@@ -48,8 +48,8 @@ export default function AccessPage() {
           {directions.map((item) => (
             <div key={item.label}>
               <item.Icon className="mb-4 h-6 w-6 text-[var(--salon-gold)]" weight="light" />
-              <h3 className="mb-2 font-serif text-lg text-gray-800">{item.label}</h3>
-              <p className="text-sm leading-loose text-gray-500">{item.detail}</p>
+              <h3 className="mb-2 font-serif text-lg text-stone-800">{item.label}</h3>
+              <p className="text-sm leading-loose text-stone-500">{item.detail}</p>
             </div>
           ))}
         </div>

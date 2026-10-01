@@ -23,7 +23,7 @@ export function Owner() {
           <h2 className="mt-3 text-2xl text-[var(--salon-text)] md:text-3xl">
             オーナー <span className="ml-1">{OWNER.name}</span>
           </h2>
-          <p className="mt-2 text-xs tracking-wider text-gray-500">{OWNER.career}</p>
+          <p className="mt-2 text-xs tracking-wider text-stone-500">{OWNER.career}</p>
 
           <div className="mt-6 space-y-4 text-sm leading-loose">
             <p>
@@ -38,7 +38,7 @@ export function Owner() {
             {QUOTES.map((q) => (
               <li key={q.text}>
                 <p className="font-serif text-[15px] leading-relaxed text-[var(--salon-text)]">「{q.text}」</p>
-                <p className="mt-1 text-xs text-gray-400">{q.by}</p>
+                <p className="mt-1 text-xs text-stone-400">{q.by}</p>
               </li>
             ))}
           </ul>

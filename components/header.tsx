@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Fragment, useEffect, useState } from "react"
-import { ListIcon, SparkleIcon } from "@phosphor-icons/react"
+import { ListIcon } from "@phosphor-icons/react"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -14,12 +14,12 @@ import {
 import { cn } from "@/lib/utils"
 
 const navItems = [
-  { href: "/", label: "トップ", en: "TOP" },
-  { href: "/about", label: "サロンについて", en: "ABOUT" },
-  { href: "/menu", label: "メニュー", en: "MENU" },
-  { href: "/gallery", label: "ギャラリー", en: "GALLERY" },
-  { href: "/reviews", label: "お客様の声", en: "VOICE" },
-  { href: "/info", label: "店舗情報", en: "INFORMATION" },
+  { href: "/", label: "トップ" },
+  { href: "/about", label: "サロンについて" },
+  { href: "/menu", label: "メニュー" },
+  { href: "/gallery", label: "ギャラリー" },
+  { href: "/reviews", label: "お客様の声" },
+  { href: "/info", label: "店舗情報" },
 ]
 
 export function Header() {
@@ -97,11 +97,8 @@ export function Header() {
                     className="group flex flex-col border-b border-[var(--salon-border)] px-10 py-4 transition-colors hover:bg-white/50"
                     onClick={() => setIsOpen(false)}
                   >
-                    <span className="text-lg tracking-widest text-[var(--salon-text)] transition-colors group-hover:text-[var(--salon-gold)]">
+                    <span className="text-lg text-[var(--salon-text)] transition-colors group-hover:text-[var(--salon-gold)]">
                       {item.label}
-                    </span>
-                    <span className="mt-1 font-sans text-[10px] uppercase tracking-[0.2em] text-gray-400 transition-colors group-hover:text-[var(--salon-gold)]">
-                      {item.en}
                     </span>
                   </Link>
                   {/* 診断は「トップ」のすぐ下に目立たせて置く */}
@@ -112,13 +109,7 @@ export function Header() {
                       onClick={() => setIsOpen(false)}
                     >
                       <span className="flex flex-col">
-                        <span className="flex items-center gap-2 text-lg tracking-widest text-[var(--salon-text)] group-hover:text-[var(--salon-gold)]">
-                          <SparkleIcon className="h-4 w-4 text-[var(--salon-gold)]" weight="fill" />
-                          30秒メニュー診断
-                        </span>
-                        <span className="mt-1 font-sans text-[10px] uppercase tracking-[0.2em] text-[var(--salon-gold)]">
-                          DIAGNOSIS
-                        </span>
+                        <span className="text-lg text-[var(--salon-text)] group-hover:text-[var(--salon-gold)]">30秒メニュー診断</span>
                       </span>
                       <span className="shrink-0 bg-[var(--salon-gold)] px-2 py-0.5 text-[10px] tracking-wider text-white">おすすめ</span>
                     </Link>

@@ -15,13 +15,13 @@ export function Footer() {
                 Salon du Reiko
               </h2>
             </Link>
-            <address className="not-italic text-sm leading-loose text-gray-400 font-sans tracking-wider">
+            <address className="not-italic text-sm leading-loose text-stone-400 font-sans tracking-wider">
               {SALON.zip}<br />
               {SALON.address}<br />
               {SALON.building}
             </address>
             <div className="pt-2">
-              <p className="text-xs text-gray-500 tracking-widest">{SALON.hours}（完全予約制）/ 定休日 {SALON.closed}</p>
+              <p className="text-xs text-stone-500 tracking-widest">{SALON.hours}（完全予約制）/ 定休日 {SALON.closed}</p>
             </div>
             <div className="flex flex-wrap gap-3">
               <LineButton className="px-5 py-3" />
@@ -34,28 +34,28 @@ export function Footer() {
           {/* 右側: ナビゲーション */}
           <div className="grid grid-cols-2 gap-8 md:gap-16 md:w-1/2 lg:w-1/3 ml-auto">
             <div className="flex flex-col gap-5">
-              <Link href="/" className="text-xs tracking-[0.2em] text-gray-300 hover:text-[var(--salon-gold)] transition-colors">TOP</Link>
-              <Link href="/about" className="text-xs tracking-[0.2em] text-gray-300 hover:text-[var(--salon-gold)] transition-colors">ABOUT</Link>
-              <Link href="/menu" className="text-xs tracking-[0.2em] text-gray-300 hover:text-[var(--salon-gold)] transition-colors">MENU</Link>
-              <Link href="/gallery" className="text-xs tracking-[0.2em] text-gray-300 hover:text-[var(--salon-gold)] transition-colors">GALLERY</Link>
-              <Link href="/faq" className="text-xs tracking-[0.2em] text-gray-300 hover:text-[var(--salon-gold)] transition-colors">FAQ</Link>
+              <Link href="/" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">トップ</Link>
+              <Link href="/about" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">サロンについて</Link>
+              <Link href="/menu" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">メニュー</Link>
+              <Link href="/gallery" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">ギャラリー</Link>
+              <Link href="/faq" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">よくあるご質問</Link>
             </div>
             <div className="flex flex-col gap-5">
-              <Link href="/recommend" className="text-xs tracking-[0.2em] text-gray-300 hover:text-[var(--salon-gold)] transition-colors">DIAGNOSIS</Link>
-              <Link href="/reviews" className="text-xs tracking-[0.2em] text-gray-300 hover:text-[var(--salon-gold)] transition-colors">VOICE</Link>
-              <Link href="/info" className="text-xs tracking-[0.2em] text-gray-300 hover:text-[var(--salon-gold)] transition-colors">INFORMATION</Link>
-              <Link href="/contact" className="text-xs tracking-[0.2em] text-gray-300 hover:text-[var(--salon-gold)] transition-colors">CONTACT</Link>
+              <Link href="/recommend" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">30秒メニュー診断</Link>
+              <Link href="/reviews" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">お客様の声</Link>
+              <Link href="/info" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">店舗情報</Link>
+              <Link href="/contact" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">ご予約・お問い合わせ</Link>
             </div>
           </div>
         </div>
 
         {/* 下部: Copyright */}
         <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-[10px] text-gray-500 tracking-widest uppercase">
+          <p className="text-[10px] text-stone-500 tracking-widest uppercase">
             © Salon du Reiko. All Rights Reserved.
           </p>
           <div className="flex gap-8">
-             <Link href="/privacy" className="text-[10px] text-gray-500 hover:text-white transition-colors tracking-widest uppercase">Privacy Policy</Link>
+             <Link href="/privacy" className="text-[10px] text-stone-500 hover:text-white transition-colors tracking-widest uppercase">Privacy Policy</Link>
              {/* 必要であればここにSNSリンクなどを追加 */}
           </div>
         </div>

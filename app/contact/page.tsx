@@ -27,12 +27,12 @@ export default async function ContactPage({
             <p className="text-xs tracking-wider text-[var(--salon-gold)]">診断結果のメニュー</p>
             <p className="mt-1 text-lg text-[var(--salon-text)]">
               {chosen.name}
-              <span className="ml-3 font-serif text-base text-gray-500">
+              <span className="ml-3 font-serif text-base text-stone-500">
                 {duration(chosen.minutes)} {priceText(chosen)}
                 {firstText(chosen) && `（${firstText(chosen)}）`}
               </span>
             </p>
-            <p className="mt-1 text-xs text-gray-500">下のLINEボタンを押すと、このメニュー名がコピーされます。LINEのトークに貼り付けて送ってください。</p>
+            <p className="mt-1 text-xs text-stone-500">下のLINEボタンを押すと、このメニュー名がコピーされます。LINEのトークに貼り付けて送ってください。</p>
           </div>
         )}
 
@@ -59,7 +59,7 @@ export default async function ContactPage({
               className="md:min-w-[260px]"
               copyText={chosen ? `【30秒診断の結果】\n${chosen.name}（${duration(chosen.minutes)}）\n\nご希望の日時：` : undefined}
             />
-            {!BOOKING.main.url && <p className="mt-2 text-center text-[11px] text-gray-400">LINEのURLは準備中です</p>}
+            {!BOOKING.main.url && <p className="mt-2 text-center text-[11px] text-stone-400">LINEのURLは準備中です</p>}
           </div>
         </section>
 
@@ -72,7 +72,7 @@ export default async function ContactPage({
                 <>
                   <ChannelIcon channel={c} size={36} />
                   <span className="mt-4 block font-serif text-lg text-[var(--salon-text)]">{c.label}</span>
-                  <span className="mt-1 block text-xs text-gray-400">{c.url ? c.action : "準備中"}</span>
+                  <span className="mt-1 block text-xs text-stone-400">{c.url ? c.action : "準備中"}</span>
                 </>
               )
               return c.url ? (
@@ -92,7 +92,7 @@ export default async function ContactPage({
               )
             })}
           </div>
-          <p className="mt-6 text-xs text-gray-400">
+          <p className="mt-6 text-xs text-stone-400">
             完全予約制 / 営業時間 {SALON.hours} / 定休日 {SALON.closed}
             <br />
             お支払い：{SALON.payment}
@@ -108,7 +108,7 @@ export default async function ContactPage({
           <SparkleIcon className="h-6 w-6 shrink-0 text-[var(--salon-gold)]" weight="light" />
           <span>
             <span className="block font-serif text-lg">メニューが決まっていない方へ</span>
-            <span className="block text-xs text-gray-400">30秒診断で、合うメニューを先に確認できます</span>
+            <span className="block text-xs text-stone-400">30秒診断で、合うメニューを先に確認できます</span>
           </span>
         </Link>
       </div>

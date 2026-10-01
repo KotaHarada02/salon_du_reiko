@@ -10,8 +10,7 @@ export function VoicePickup() {
       <div className="container">
         <Reveal>
           <div className="mb-14 md:mb-20">
-            <span className="block font-sans text-xs tracking-[0.25em] text-[var(--salon-gold)]">VOICE</span>
-            <h2 className="mt-3 text-2xl text-[var(--salon-text)] md:text-3xl">通っている方の声</h2>
+            <h2 className="text-2xl text-[var(--salon-text)] md:text-3xl">通っている方の声</h2>
           </div>
         </Reveal>
 
@@ -19,7 +18,7 @@ export function VoicePickup() {
           {PICKUP_VOICES.map((v, i) => (
             <RevealItem key={v.text} className={OFFSETS[i]}>
               <figure className="border-t border-[var(--salon-gold)] pt-6">
-                <blockquote className="line-clamp-6 text-sm leading-loose text-gray-600">{v.text}</blockquote>
+                <blockquote className="line-clamp-4 text-sm leading-loose text-stone-600">{v.text}</blockquote>
                 <figcaption className="mt-4 text-xs tracking-wider text-[var(--salon-gold)]">
                   {[v.location, v.name].filter(Boolean).join(" ")}・{v.menu}
                 </figcaption>

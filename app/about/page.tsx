@@ -38,7 +38,7 @@ export default function AboutPage() {
           </div>
 
           <div className="flex flex-col justify-center md:order-1">
-            <h2 className="text-2xl leading-relaxed text-gray-800 md:text-3xl">
+            <h2 className="text-2xl leading-relaxed text-stone-800 md:text-3xl">
               心も体も、
               <br />
               ほどける場所に。
@@ -62,7 +62,7 @@ export default function AboutPage() {
           </div>
           <div>
             <span className="block font-sans text-xs tracking-[0.25em] text-[var(--salon-gold)]">ROOM</span>
-            <h2 className="mt-3 text-2xl text-gray-800">施術室</h2>
+            <h2 className="mt-3 text-2xl text-stone-800">施術室</h2>
             <p className="mt-5 text-sm leading-loose">
               木のぬくもりとランプの灯りに包まれた一室です。施術の前後には、ソファでお茶を飲みながらゆっくりお過ごしいただけます。
             </p>
@@ -79,12 +79,12 @@ export default function AboutPage() {
 
             <div>
               <span className="block font-sans text-xs tracking-[0.25em] text-[var(--salon-gold)]">OWNER</span>
-              <h2 className="mt-3 text-2xl leading-relaxed text-gray-800 md:text-3xl">
+              <h2 className="mt-3 text-2xl leading-relaxed text-stone-800 md:text-3xl">
                 「{OWNER.quote}」を、
                 <br />
                 あなたにも。
               </h2>
-              <p className="mt-3 text-sm text-gray-500">
+              <p className="mt-3 text-sm text-stone-500">
                 オーナー {OWNER.name}（{OWNER.career}）
               </p>
 
@@ -122,14 +122,14 @@ export default function AboutPage() {
 
         <section className="border-t border-[var(--salon-border)] py-20 md:py-28">
           <div className="mb-14 flex items-baseline justify-between">
-            <h2 className="text-2xl text-gray-800 md:text-3xl">3つのこだわり</h2>
+            <h2 className="text-2xl text-stone-800 md:text-3xl">3つのこだわり</h2>
             <span className="hidden font-sans text-xs tracking-[0.25em] text-[var(--salon-gold)] md:block">FEATURES</span>
           </div>
 
           <div className="divide-y divide-[var(--salon-border)] border-t border-[var(--salon-border)]">
             {FEATURES.map((f, i) => (
               <div key={f.title} className="grid grid-cols-1 gap-4 py-10 md:grid-cols-[auto_1fr_2fr] md:items-center md:gap-12">
-                <span className="font-serif text-sm text-gray-300">{String(i + 1).padStart(2, "0")}</span>
+                <span className="font-serif text-sm text-stone-300">{String(i + 1).padStart(2, "0")}</span>
                 <div className="flex items-center gap-4">
                   <f.Icon className="h-6 w-6 shrink-0 text-[var(--salon-gold)]" weight="light" />
                   <h3 className="text-xl">{f.title}</h3>

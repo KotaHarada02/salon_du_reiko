@@ -20,12 +20,12 @@ export default function ReviewsPage() {
               className={`border border-[var(--salon-border)] bg-white p-8 md:p-10 ${i % 2 === 1 ? "md:translate-y-10" : ""}`}
             >
               <p className="text-xs tracking-wider text-[var(--salon-gold)]">{v.menu}</p>
-              <blockquote className="mt-4 text-sm leading-loose text-gray-600">{v.text}</blockquote>
-              <p className="mt-6 text-right text-xs text-gray-400">{[v.location, v.name].filter(Boolean).join(" ")}</p>
+              <blockquote className="mt-4 text-sm leading-loose text-stone-600">{v.text}</blockquote>
+              <p className="mt-6 text-right text-xs text-stone-400">{[v.location, v.name].filter(Boolean).join(" ")}</p>
             </article>
           ))}
         </div>
-        <p className="mt-16 text-xs text-gray-400">※個人の感想です。効果の感じ方には個人差があります。</p>
+        <p className="mt-16 text-xs text-stone-400">※個人の感想です。効果の感じ方には個人差があります。</p>
       </div>
 
       <DiagnosisCta lead="同じような悩みがあるなら" />

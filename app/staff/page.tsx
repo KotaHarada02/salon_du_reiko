@@ -15,8 +15,8 @@ export default function StaffPage() {
         <div className="flex flex-col items-start gap-6 border border-dashed border-[var(--salon-border)] px-8 py-16 md:px-12">
           <UsersThreeIcon className="h-8 w-8 text-[var(--salon-gold)]" weight="light" />
           <div>
-            <p className="mb-2 font-serif text-xl text-gray-800">Coming Soon</p>
-            <p className="leading-loose text-gray-500">
+            <p className="mb-2 font-serif text-xl text-stone-800">Coming Soon</p>
+            <p className="leading-loose text-stone-500">
               スタッフのプロフィールは、ただいま準備中です。<br />
               公開までしばらくお待ちください。
             </p>

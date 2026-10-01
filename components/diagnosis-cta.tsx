@@ -12,7 +12,7 @@ export function DiagnosisCta({ lead = "どのメニューにするか迷った�
         <div>
           <p className="text-xs tracking-[0.2em] text-[var(--salon-gold)]">{lead}</p>
           <p className="mt-3 font-serif text-2xl leading-relaxed text-white md:text-3xl">4つの質問で、あなたに合うメニューを。</p>
-          <p className="mt-2 text-sm text-gray-400">30秒で、おすすめのメニューと料金がわかります。</p>
+          <p className="mt-2 text-sm text-stone-400">30秒で、おすすめのメニューと料金がわかります。</p>
         </div>
         <span className="inline-flex items-center gap-2 self-start bg-[var(--salon-gold)] px-6 py-4 text-sm tracking-wider text-white md:self-auto">
           診断をはじめる

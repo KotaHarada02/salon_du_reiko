@@ -18,10 +18,10 @@ export default function FAQPage() {
         <Accordion type="single" collapsible className="border-t border-[var(--salon-border)]">
           {FAQS.map((item, i) => (
             <AccordionItem key={item.q} value={`item-${i}`} className="border-[var(--salon-border)]">
-              <AccordionTrigger className="py-6 text-left font-serif text-lg text-gray-800 hover:text-[var(--salon-gold)] hover:no-underline [&>svg]:text-[var(--salon-gold)]">
+              <AccordionTrigger className="py-6 text-left font-serif text-lg text-stone-800 hover:text-[var(--salon-gold)] hover:no-underline [&>svg]:text-[var(--salon-gold)]">
                 {item.q}
               </AccordionTrigger>
-              <AccordionContent className="bg-white px-5 py-4 text-sm leading-loose text-gray-600">{item.a}</AccordionContent>
+              <AccordionContent className="bg-white px-5 py-4 text-sm leading-loose text-stone-600">{item.a}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

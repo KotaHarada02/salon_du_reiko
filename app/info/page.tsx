@@ -20,11 +20,11 @@ export default function InfoPage() {
           {/* Text Info */}
           <div className="w-full md:w-1/2 divide-y divide-[var(--salon-border)]">
             <div className="pb-10">
-              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-gray-800">
+              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-stone-800">
                 <MapPinIcon className="h-5 w-5 text-[var(--salon-gold)]" weight="light" />
                 Address
               </h3>
-              <p className="text-gray-600 leading-loose">
+              <p className="text-stone-600 leading-loose">
                 {SALON.zip}<br />
                 {SALON.address}<br />
                 {SALON.building}
@@ -32,42 +32,42 @@ export default function InfoPage() {
             </div>
 
             <div className="py-10">
-              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-gray-800">
+              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-stone-800">
                 <TrainIcon className="h-5 w-5 text-[var(--salon-gold)]" weight="light" />
                 Access
               </h3>
-              <p className="text-gray-600 leading-loose">
+              <p className="text-stone-600 leading-loose">
                 {SALON.station}<br />
                 {SALON.pickup}<br />
-                <span className="text-sm text-gray-400">※敷地内に無料駐車場がございます</span>
+                <span className="text-sm text-stone-400">※敷地内に無料駐車場がございます</span>
               </p>
             </div>
 
             <div className="py-10">
-              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-gray-800">
+              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-stone-800">
                 <ClockIcon className="h-5 w-5 text-[var(--salon-gold)]" weight="light" />
                 Open
               </h3>
-              <p className="text-gray-600 leading-loose">
+              <p className="text-stone-600 leading-loose">
                 {SALON.hours}<br />
-                <span className="text-sm text-gray-400">定休日：{SALON.closed}</span>
+                <span className="text-sm text-stone-400">定休日：{SALON.closed}</span>
               </p>
             </div>
 
             <div className="py-10">
-              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-gray-800">
+              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-stone-800">
                 <CreditCardIcon className="h-5 w-5 text-[var(--salon-gold)]" weight="light" />
                 Payment
               </h3>
-              <p className="text-gray-600 leading-loose">{SALON.payment}</p>
+              <p className="text-stone-600 leading-loose">{SALON.payment}</p>
             </div>
 
             <div className="pt-10">
-              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-gray-800">
+              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-stone-800">
                 <ChatCircleDotsIcon className="h-5 w-5 text-[var(--salon-gold)]" weight="light" />
                 Reservation
               </h3>
-              <p className="mb-4 text-sm text-gray-500">完全予約制です。ご予約・ご相談は公式LINEからどうぞ。</p>
+              <p className="mb-4 text-sm text-stone-500">完全予約制です。ご予約・ご相談は公式LINEからどうぞ。</p>
               <LineButton className="sm:inline-flex" />
               <SubBookingLinks className="mt-4" />
             </div>
@@ -75,7 +75,7 @@ export default function InfoPage() {
 
           {/* Map */}
           <div className="w-full md:w-1/2">
-            <div className="aspect-square w-full bg-gray-100 relative overflow-hidden border border-[var(--salon-border)]">
+            <div className="aspect-square w-full bg-stone-100 relative overflow-hidden border border-[var(--salon-border)]">
                <iframe 
                   src={`https://www.google.com/maps?q=${encodeURIComponent(SALON.address)}&output=embed`} 
                   width="100%" 

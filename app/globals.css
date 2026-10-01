@@ -14,15 +14,10 @@
 
   /* メニューのカテゴリ色。フェイシャルとボディを見分けられるよう、メニュー表と同じ系統にする */
   --cat-facial: #B07A73; /* ローズ */
-  --cat-facial-tint: #F8EFEC;
   --cat-body: #858A57; /* オリーブ */
-  --cat-body-tint: #F2F2E8;
   --cat-head: #5B8584; /* ティール */
-  --cat-head-tint: #EDF3F2;
   --cat-premium: #A88A55; /* ゴールド */
-  --cat-premium-tint: #F7F1E6;
   --cat-limited: #94667F; /* プラム */
-  --cat-limited-tint: #F5EEF2;
 
   --background: oklch(0.99 0.002 85); /* #FDFCF8 近似 */
   --foreground: oklch(0.25 0 0); /* #3A3A3A 近似 */
@@ -150,16 +145,21 @@
   /* 見出しの高級感設定 */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-noto-serif), serif;
-    letter-spacing: 0.15em; /* 見出しは優雅に広く */
+    letter-spacing: 0.06em; /* 広げすぎると間延びするので控えめに */
     line-height: 1.6;
     font-weight: 500;
+    /* 「ケア／を、」のように文節の途中で折り返さない */
+    word-break: auto-phrase;
+    text-wrap: balance;
   }
 
   /* 本文の可読性設定 */
   p {
     line-height: 2.0; /* 行間をたっぷりとる */
-    letter-spacing: 0.08em;
-    color: #5A5A5A; /* 真っ黒を避ける */
+    letter-spacing: 0.05em;
+    color: #5C5752; /* 真っ黒を避ける。クリームの背景に合わせて少し暖かいグレー */
+    word-break: auto-phrase;
+    text-wrap: pretty;
   }
 }
 

@@ -12,7 +12,7 @@ export default function PrivacyPage() {
 
       <div className="container mx-auto max-w-2xl px-6">
         <div className="border-t border-[var(--salon-border)] pt-16">
-          <p className="leading-loose text-gray-500">
+          <p className="leading-loose text-stone-500">
             プライバシーポリシーの本文は、ただいま準備中です。<br />
             公開までしばらくお待ちください。
           </p>

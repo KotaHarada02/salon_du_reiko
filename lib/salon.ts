@@ -74,9 +74,8 @@ export type Category = {
   short: string
   /** 見出しの下に置く一言 */
   lead: string
-  /** カテゴリの色。フェイシャルとボディをひと目で見分けられるよう、メニュー表と同じ系統の色を付ける */
+  /** カテゴリの色。フェイシャルとボディをひと目で見分けられるよう、メニュー表と同じ系統の色を見出しの線と文字にだけ使う */
   color: string
-  tint: string
 }
 
 export const CATEGORIES: Category[] = [
@@ -87,7 +86,6 @@ export const CATEGORIES: Category[] = [
     short: "フェイシャル",
     lead: "お肌のハリ・ツヤ、疲れて見える印象が気になる方に。",
     color: "var(--cat-facial)",
-    tint: "var(--cat-facial-tint)",
   },
   {
     id: "body",
@@ -96,7 +94,6 @@ export const CATEGORIES: Category[] = [
     short: "ボディ",
     lead: "肩こりや脚の疲れ、全身のだるさが気になる方に。",
     color: "var(--cat-body)",
-    tint: "var(--cat-body-tint)",
   },
   {
     id: "head",
@@ -105,7 +102,6 @@ export const CATEGORIES: Category[] = [
     short: "ヘッドスパ",
     lead: "頭の重さや目の疲れを、短い時間ですっきりさせたい方に。",
     color: "var(--cat-head)",
-    tint: "var(--cat-head-tint)",
   },
   {
     id: "premium",
@@ -114,7 +110,6 @@ export const CATEGORIES: Category[] = [
     short: "最高峰トータルケア",
     lead: "お肌も身体も心も、まとめて整えたい方に。",
     color: "var(--cat-premium)",
-    tint: "var(--cat-premium-tint)",
   },
   {
     id: "special",
@@ -123,7 +118,6 @@ export const CATEGORIES: Category[] = [
     short: "お日にち限定",
     lead: "2人のセラピストによる、特別な日だけのメニューです。",
     color: "var(--cat-limited)",
-    tint: "var(--cat-limited-tint)",
   },
 ]
 

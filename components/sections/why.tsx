@@ -33,7 +33,6 @@ export function Why() {
   return (
     <ExplainSection
       className="bg-white"
-      label="WHY STEM CELL"
       title={["ヒト幹細胞", "培養上清液のこと"]}
       intro="当サロンの看板メニューで使う美容成分です。はじめて聞く方のために、3つにまとめました。"
       image={{ src: "/img/dentatsu.png", alt: "成分が肌に届くイメージ図" }}

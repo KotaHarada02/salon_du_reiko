@@ -24,7 +24,7 @@ export function PageHeader({ title, subtitle, className }: PageHeaderProps) {
           </h1>
         </div>
         <p
-          className="animate-fade-in-up text-left text-sm tracking-[0.25em] text-gray-500 md:text-right md:text-base"
+          className="animate-fade-in-up text-left text-sm tracking-[0.25em] text-stone-500 md:text-right md:text-base"
           style={{ animationDelay: "0.05s", animationFillMode: "backwards" }}
         >
           {subtitle}

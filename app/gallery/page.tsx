@@ -34,7 +34,7 @@ export default function GalleryPage() {
                 />
               </div>
               <div>
-                <p className="font-serif text-lg text-gray-800 mb-1">{img.alt}</p>
+                <p className="font-serif text-lg text-stone-800 mb-1">{img.alt}</p>
                 <p className="text-xs tracking-widest text-[var(--salon-gold)] uppercase">{img.title}</p>
               </div>
             </div>

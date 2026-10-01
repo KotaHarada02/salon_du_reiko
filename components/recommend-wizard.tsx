@@ -63,7 +63,7 @@ export function RecommendWizard({ tone = "light" }: { tone?: "light" | "card" })
         {step > 0 && !done && (
           <button
             onClick={() => setStep((s) => s - 1)}
-            className="flex shrink-0 items-center gap-1 text-xs text-gray-400 transition-colors hover:text-[var(--salon-text)]"
+            className="flex shrink-0 items-center gap-1 text-xs text-stone-400 transition-colors hover:text-[var(--salon-text)]"
           >
             <ArrowLeftIcon className="h-3 w-3" />
             戻る
@@ -124,7 +124,7 @@ function QuestionView({
   return (
     <fieldset>
       <legend className="font-serif text-lg text-[var(--salon-text)] md:text-xl">{question.title}</legend>
-      {question.sub && <p className="mt-1 text-xs text-gray-400">{question.sub}</p>}
+      {question.sub && <p className="mt-1 text-xs text-stone-400">{question.sub}</p>}
 
       <div className={cn("mt-5 grid gap-3", grid)}>
         {question.options.map((opt) => {
@@ -145,14 +145,14 @@ function QuestionView({
                 <span
                   className={cn(
                     "absolute right-3 top-3 flex h-4 w-4 items-center justify-center border",
-                    active ? "border-[var(--salon-gold)] bg-[var(--salon-gold)] text-white" : "border-gray-300",
+                    active ? "border-[var(--salon-gold)] bg-[var(--salon-gold)] text-white" : "border-stone-300",
                   )}
                 >
                   {active && <CheckIcon className="h-3 w-3" weight="bold" />}
                 </span>
               )}
               <span className="block pr-5 text-[15px] font-medium leading-snug text-[var(--salon-text)]">{opt.label}</span>
-              {opt.sub && <span className="mt-1 block text-xs leading-snug text-gray-400">{opt.sub}</span>}
+              {opt.sub && <span className="mt-1 block text-xs leading-snug text-stone-400">{opt.sub}</span>}
             </button>
           )
         })}
@@ -188,7 +188,7 @@ function Result({ answers, onReset }: { answers: Answers; onReset: () => void })
 
   return (
     <div ref={topRef} className="scroll-mt-28">
-      <p className="text-xs leading-relaxed text-gray-500">{r.intro}</p>
+      <p className="text-xs leading-relaxed text-stone-500">{r.intro}</p>
 
       <MainCard choice={chosen} isBest={picked === 0} highlightFirst={r.highlightFirst} />
 
@@ -203,27 +203,27 @@ function Result({ answers, onReset }: { answers: Answers; onReset: () => void })
       </div>
 
       {[...chosen.notices, ...r.notices].map((n) => (
-        <p key={n} className="mt-3 border-l-2 border-[var(--salon-gold)] pl-3 text-xs leading-relaxed text-gray-500">
+        <p key={n} className="mt-3 border-l-2 border-[var(--salon-gold)] pl-3 text-xs leading-relaxed text-stone-500">
           {n}
         </p>
       ))}
 
       <div className="mt-6 border-t border-[var(--salon-border)] pt-5">
-        <p className="mb-3 text-xs text-gray-500">
+        <p className="mb-3 text-xs text-stone-500">
           予約するメニュー：<span className="text-[var(--salon-text)]">{chosen.menu.name}{chosen.withBack && "＋背中ほぐし"}</span>
         </p>
         <SquareBookButtons menu={chosen.menu} withBack={chosen.withBack} />
 
-        <p className="mt-6 text-xs text-gray-500">相談してから決めたい方は、LINEでもご予約いただけます。</p>
+        <p className="mt-6 text-xs text-stone-500">相談してから決めたい方は、LINEでもご予約いただけます。</p>
         <LineButton className="mt-2 w-full" label="LINEで相談して予約" copyText={lineMessage(answers, chosen)} />
       </div>
       <SubBookingLinks className="mt-3" />
 
       <div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-[var(--salon-border)] pt-4">
-        <Link href="/menu" className="text-xs text-gray-500 underline-offset-4 hover:text-[var(--salon-gold)] hover:underline">
+        <Link href="/menu" className="text-xs text-stone-500 underline-offset-4 hover:text-[var(--salon-gold)] hover:underline">
           すべてのメニューを見る
         </Link>
-        <button onClick={onReset} className="flex items-center gap-1 text-xs text-gray-400 transition-colors hover:text-[var(--salon-text)]">
+        <button onClick={onReset} className="flex items-center gap-1 text-xs text-stone-400 transition-colors hover:text-[var(--salon-text)]">
           <ArrowCounterClockwiseIcon className="h-3 w-3" />
           もう一度
         </button>
@@ -240,7 +240,7 @@ function PriceLine({ choice, large }: { choice: Choice; large?: boolean }) {
     <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
       {menu.firstPrice ? (
         <>
-          <span className="text-xs text-gray-400 line-through">{yen(menu.price)}</span>
+          <span className="text-xs text-stone-400 line-through">{yen(menu.price)}</span>
           <span className={cn("font-serif text-[var(--salon-text)]", large ? "text-3xl" : "text-lg")}>初回 {yen(menu.firstPrice)}</span>
         </>
       ) : (
@@ -250,7 +250,7 @@ function PriceLine({ choice, large }: { choice: Choice; large?: boolean }) {
           {weekday && <span className="bg-[var(--salon-gold)] px-1.5 py-0.5 text-[11px] text-white">{weekday}</span>}
         </>
       )}
-      {choice.withBack && <span className="text-[11px] text-gray-400">＋背中ほぐし {yen(OPTIONS[0].price)}</span>}
+      {choice.withBack && <span className="text-[11px] text-stone-400">＋背中ほぐし {yen(OPTIONS[0].price)}</span>}
     </div>
   )
 }
@@ -289,13 +289,13 @@ function MainCard({ choice, isBest, highlightFirst }: { choice: Choice; isBest: 
           <p key={line}>{line}</p>
         ))}
       </div>
-      <p className="mt-3 text-xs text-gray-400">
+      <p className="mt-3 text-xs text-stone-400">
         {duration(choice.minutes)}{menu.parts && ` ／ ${menu.parts}`}
       </p>
 
       <div className="mt-4">
         <PriceLine choice={choice} large={highlightFirst || !menu.firstPrice} />
-        <p className="mt-1 text-[11px] text-gray-400">税込{(menu.firstPrice || menu.firstLabel) && `。${FIRST_NOTE}`}</p>
+        <p className="mt-1 text-[11px] text-stone-400">税込{(menu.firstPrice || menu.firstLabel) && `。${FIRST_NOTE}`}</p>
       </div>
     </motion.div>
   )
@@ -314,9 +314,9 @@ function AltCard({ choice, isBest, cheaper, onChoose }: { choice: Choice; isBest
       </div>
       <p className="mt-2 text-[15px] leading-snug text-[var(--salon-text)]">
         {menu.name}
-        {choice.withBack && <span className="text-xs text-gray-500">＋背中ほぐし</span>}
+        {choice.withBack && <span className="text-xs text-stone-500">＋背中ほぐし</span>}
       </p>
-      <p className="mt-1 text-xs text-gray-400">
+      <p className="mt-1 text-xs text-stone-400">
         {duration(choice.minutes)}{menu.parts && ` ／ ${menu.parts}`}
       </p>
       <div className="mt-2">

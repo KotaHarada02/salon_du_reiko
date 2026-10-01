@@ -43,7 +43,8 @@ export function Grotty() {
   return (
     <ExplainSection
       className="bg-[var(--salon-bg)]"
-      label="ABOUT GROTTY PRO"
+      reverse
+      numbered={false}
       title={["GROTTY PRO のこと"]}
       catchphrase="美しさは、肌の土台づくりから。"
       intro={`${NAME}は、近赤外線と音響振動を組み合わせた美容機器です。肌・頭皮・首肩まで心地よくケアしながら、ヒト幹細胞培養上清液（整肌成分）を組み合わせた、年齢に応じたエイジングケアを行います。`}

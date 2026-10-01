@@ -51,7 +51,7 @@ export function LineButton({ className, label, copyText }: { className?: string;
         {label ?? line.action}
       </a>
       {copyText && (
-        <p className="mt-2 text-[11px] leading-relaxed text-gray-500" aria-live="polite">
+        <p className="mt-2 text-[11px] leading-relaxed text-stone-500" aria-live="polite">
           {copied
             ? "診断結果をコピーしました。LINEのトーク画面に貼り付けて、ご希望の日時を添えて送ってください。"
             : "ボタンを押すと、診断結果がコピーされます。LINEのトーク画面に貼り付けて送ってください。"}
@@ -64,7 +64,7 @@ export function LineButton({ className, label, copyText }: { className?: string;
 /** サブの予約窓口（Instagram・ホットペッパー・Square）を小さく並べる */
 export function SubBookingLinks({ tone = "light", className }: { tone?: "light" | "dark"; className?: string }) {
   return (
-    <div className={cn("flex flex-wrap items-center gap-x-5 gap-y-2 text-xs", tone === "dark" ? "text-gray-400" : "text-gray-500", className)}>
+    <div className={cn("flex flex-wrap items-center gap-x-5 gap-y-2 text-xs", tone === "dark" ? "text-stone-400" : "text-stone-500", className)}>
       <span>ほかの予約方法</span>
       {BOOKING.subs.map((c) => (
         <a
@@ -114,7 +114,7 @@ export function SquareBookButtons({ menu, withBack, className }: { menu: Menu; w
           このメニューをWebで予約
         </a>
       )}
-      <p className="mt-2 text-[11px] leading-relaxed text-gray-500">
+      <p className="mt-2 text-[11px] leading-relaxed text-stone-500">
         Square の予約ページが、このメニューを選んだ状態で開きます。「追加」を押して日時を選んでください。
         {withBack && `背中ほぐしを付ける場合は、「${OPTIONS[0].squareName}」（${yen(OPTIONS[0].price)}）も追加してください。`}
       </p>
