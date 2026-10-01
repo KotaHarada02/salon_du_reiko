@@ -1,7 +1,7 @@
 "use client"
 
 import { motion, type Variants } from "framer-motion"
-import type { ReactNode } from "react"
+import type { CSSProperties, ReactNode } from "react"
 
 const revealVariants: Variants = {
   hidden: { opacity: 0, y: 12 },
@@ -44,9 +44,10 @@ export function Reveal({
 }
 
 /** 子要素を順番にスタガー表示させるコンテナ。子は <RevealItem> を使う */
-export function RevealGroup({ children, className }: { children: ReactNode; className?: string }) {
+export function RevealGroup({ children, className, style }: { children: ReactNode; className?: string; style?: CSSProperties }) {
   return (
     <motion.div
+      style={style}
       variants={groupVariants}
       initial="hidden"
       whileInView="show"

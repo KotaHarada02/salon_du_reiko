@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion"
 import { ArrowCounterClockwiseIcon, ArrowLeftIcon, ArrowRightIcon, CheckIcon } from "@phosphor-icons/react"
 import { LineButton, SquareBookButtons, SubBookingLinks } from "@/components/booking-buttons"
 import { QUESTIONS, diagnose, lineMessage, type Answers, type Choice, type Question } from "@/lib/diagnosis"
-import { CATEGORIES, FIRST_NOTE, OPTIONS, firstText, priceText, yen, duration } from "@/lib/salon"
+import { FIRST_NOTE, categoryOf, OPTIONS, firstText, priceText, weekdayText, yen, duration } from "@/lib/salon"
 import { cn } from "@/lib/utils"
 
 type Draft = Partial<Answers>
@@ -235,6 +235,7 @@ function Result({ answers, onReset }: { answers: Answers; onReset: () => void })
 function PriceLine({ choice, large }: { choice: Choice; large?: boolean }) {
   const { menu } = choice
   const first = firstText(menu)
+  const weekday = weekdayText(menu)
   return (
     <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
       {menu.firstPrice ? (
@@ -246,6 +247,7 @@ function PriceLine({ choice, large }: { choice: Choice; large?: boolean }) {
         <>
           <span className={cn("font-serif text-[var(--salon-text)]", large ? "text-2xl" : "text-lg")}>{priceText(menu)}</span>
           {first && <span className="bg-[var(--salon-gold)] px-1.5 py-0.5 text-[11px] text-white">{first}</span>}
+          {weekday && <span className="bg-[var(--salon-gold)] px-1.5 py-0.5 text-[11px] text-white">{weekday}</span>}
         </>
       )}
       {choice.withBack && <span className="text-[11px] text-gray-400">＋背中ほぐし {yen(OPTIONS[0].price)}</span>}
@@ -255,19 +257,24 @@ function PriceLine({ choice, large }: { choice: Choice; large?: boolean }) {
 
 function MainCard({ choice, isBest, highlightFirst }: { choice: Choice; isBest: boolean; highlightFirst: boolean }) {
   const { menu } = choice
-  const category = CATEGORIES.find((c) => c.id === menu.category)!
+  const category = categoryOf(menu)
   return (
     <motion.div
       key={menu.id}
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="mt-4 border border-[var(--salon-gold)] bg-[var(--salon-bg)] p-5 md:p-6"
+      style={{ borderTopColor: category.color }}
+      className="mt-4 border border-t-4 border-[var(--salon-gold)] bg-[var(--salon-bg)] p-5 md:p-6"
     >
       <div className="flex flex-wrap items-center gap-2 font-sans text-[11px] tracking-[0.2em] text-[var(--salon-gold)]">
-        <span>{isBest ? "YOUR BEST MENU" : "SELECTED"} · {category.en}</span>
-        {category.badge && (
-          <span className="whitespace-nowrap bg-[var(--salon-gold)] px-1.5 py-0.5 tracking-normal text-white">{category.badge}</span>
+        <span>
+          {isBest ? "YOUR BEST MENU" : "SELECTED"} · <span style={{ color: category.color }}>{category.en}</span>
+        </span>
+        {menu.popular && (
+          <span style={{ background: category.color }} className="whitespace-nowrap px-1.5 py-0.5 tracking-normal text-white">
+            {menu.popular}
+          </span>
         )}
       </div>
       <h3 className="mt-2 text-xl leading-snug text-[var(--salon-text)] md:text-2xl">{menu.name}</h3>
