@@ -1,5 +1,38 @@
 import Link from "next/link"
-import { ArrowRightIcon } from "@phosphor-icons/react/ssr"
+import { ArrowRightIcon, SparkleIcon } from "@phosphor-icons/react/ssr"
+import { cn } from "@/lib/utils"
+
+/**
+ * 30秒診断へのボタン。文字リンクだと押せると気づかれにくいので、塗りのボタンにする。
+ * 白い文字が読める濃さ（コントラスト4.5以上）まで金色を沈めている
+ */
+export function DiagnosisButton({
+  href = "/recommend",
+  label = "30秒でメニュー診断",
+  tone = "light",
+  className,
+}: {
+  href?: string
+  label?: string
+  /** dark は濃い背景の上に置くとき */
+  tone?: "light" | "dark"
+  className?: string
+}) {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "group inline-flex items-center justify-center gap-2.5 px-6 py-4 text-sm tracking-wider transition-[background-color,transform] duration-200 active:scale-[0.98]",
+        tone === "light" ? "bg-[#86704C] text-white hover:bg-[#6F5C3D]" : "bg-[var(--salon-gold)] text-[var(--salon-text)] hover:bg-[#C9B38C]",
+        className,
+      )}
+    >
+      <SparkleIcon className="h-4 w-4" weight="fill" />
+      {label}
+      <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+    </Link>
+  )
+}
 
 /** 各ページ末尾に置く診断への導線 */
 export function DiagnosisCta({ lead = "どのメニューにするか迷ったら" }: { lead?: string }) {

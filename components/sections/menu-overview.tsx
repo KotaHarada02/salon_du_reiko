@@ -1,6 +1,7 @@
 import Link from "next/link"
 import type { CSSProperties } from "react"
-import { ArrowRightIcon } from "@phosphor-icons/react/ssr"
+import { ArrowRightIcon, CaretRightIcon } from "@phosphor-icons/react/ssr"
+import { DiagnosisButton } from "@/components/diagnosis-cta"
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion-reveal"
 import { CATEGORIES, firstText, menusIn, priceText, weekdayText, duration } from "@/lib/salon"
 
@@ -10,13 +11,7 @@ export function MenuOverview() {
       <div className="container">
         <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <h2 className="text-2xl text-[var(--salon-text)] md:text-3xl">整えたいところから選ぶ</h2>
-          <Link
-            href="#diagnosis"
-            className="inline-flex items-center gap-2 self-start border-b border-[var(--salon-gold)] pb-1 text-sm text-[var(--salon-text)] transition-colors hover:text-[var(--salon-gold)] md:self-auto"
-          >
-            迷ったら30秒診断で選ぶ
-            <ArrowRightIcon className="h-4 w-4" />
-          </Link>
+          <DiagnosisButton href="#diagnosis" label="迷ったら30秒診断" className="self-start md:self-auto" />
         </Reveal>
 
         {/* 箱で囲まず、カテゴリの色は見出しの線と英字だけに使う。フェイシャルとボディを色で見分けられるようにする */}
@@ -38,7 +33,7 @@ export function MenuOverview() {
                     <RevealItem key={m.id}>
                       <Link
                         href={`/menu#${m.id}`}
-                        className="group flex items-baseline justify-between gap-4 border-b border-[var(--salon-border)] py-4"
+                        className="group flex items-center justify-between gap-4 border-b border-[var(--salon-border)] py-4 transition-colors hover:bg-white md:-mx-3 md:px-3"
                       >
                         <span>
                           <span className="block text-[15px] text-[var(--salon-text)] transition-colors group-hover:text-[var(--c)]">
@@ -55,6 +50,7 @@ export function MenuOverview() {
                           {first && <span className="block text-[11px] text-[var(--c)]">{first}</span>}
                           {weekday && <span className="block text-[11px] text-[var(--c)]">{weekday}</span>}
                         </span>
+                        <CaretRightIcon className="h-4 w-4 shrink-0 text-stone-400 transition-transform group-hover:translate-x-0.5 group-hover:text-[var(--c)]" />
                       </Link>
                     </RevealItem>
                   )
@@ -70,9 +66,9 @@ export function MenuOverview() {
           </p>
           <Link
             href="/menu"
-            className="inline-flex shrink-0 items-center gap-2 self-start border-b border-[var(--salon-gold)] pb-1 text-sm text-[var(--salon-text)] transition-colors hover:text-[var(--salon-gold)]"
+            className="inline-flex shrink-0 items-center justify-center gap-2 self-start border border-[var(--salon-text)] px-6 py-4 text-sm text-[var(--salon-text)] transition-[background-color,transform] duration-200 hover:bg-white active:scale-[0.98]"
           >
-            メニューの詳しい内容
+            メニューの詳しい内容を見る
             <ArrowRightIcon className="h-4 w-4" />
           </Link>
         </Reveal>

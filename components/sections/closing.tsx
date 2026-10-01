@@ -1,6 +1,6 @@
-import Link from "next/link"
-import { ArrowUpIcon, MapPinIcon, ClockIcon } from "@phosphor-icons/react/ssr"
+import { MapPinIcon, ClockIcon } from "@phosphor-icons/react/ssr"
 import { LineButton, SubBookingLinks } from "@/components/booking-buttons"
+import { DiagnosisButton } from "@/components/diagnosis-cta"
 import { Reveal } from "@/components/motion-reveal"
 import { MENUS, SALON, yen } from "@/lib/salon"
 
@@ -39,13 +39,7 @@ export function Closing() {
 
           <LineButton className="mt-8 w-full sm:w-auto sm:min-w-[320px] sm:inline-flex" label="公式LINEで予約・相談" />
           <SubBookingLinks tone="dark" className="mt-4" />
-          <Link
-            href="#diagnosis"
-            className="mt-6 inline-flex items-center gap-2 text-sm text-stone-300 transition-colors hover:text-[var(--salon-gold)]"
-          >
-            <ArrowUpIcon className="h-4 w-4" />
-            メニューに迷ったら、30秒診断へ戻る
-          </Link>
+          <DiagnosisButton href="#diagnosis" tone="dark" label="メニューに迷ったら30秒診断" className="mt-6 w-full sm:w-auto sm:min-w-[320px]" />
         </Reveal>
 
         <Reveal delay={0.1}>
