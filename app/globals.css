@@ -4,6 +4,10 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  --font-pinyon-script: "Pinyon Script";
+  --font-noto-jp: "Noto Sans JP";
+  --font-noto-serif: "Noto Serif JP";
+
   /* Salon color scheme - single accent, warm neutral base */
   --salon-bg: #FDFCF8; /* わずかに黄みを含んだ温かいオフホワイト */
   --salon-text: #3A3A3A; /* 真っ黒ではない上品なチャコールグレー */

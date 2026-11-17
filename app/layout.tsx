@@ -6,7 +6,7 @@ import "./globals.css"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { MobileCta } from "@/components/mobile-cta"
-import { pinyon_script, notojp, notoSerifJp, geistSans, geistMono } from "@/app/font"
+import { geistSans, geistMono } from "@/app/font"
 
 export const metadata: Metadata = {
   title: "Salon du Reiko | 甲賀市のヒト幹細胞エステサロン",
@@ -22,8 +22,16 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${notojp.variable} ${pinyon_script.variable} ${notoSerifJp.variable} ${geistSans.variable} ${geistMono.variable}`}
+      className={`${geistSans.variable} ${geistMono.variable}`}
     >
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;500;600&family=Pinyon+Script&display=swap"
+        />
+      </head>
       <body className="antialiased">
         <Header />
         <Suspense fallback={null}>{children}</Suspense>
