@@ -129,16 +129,16 @@ function QuestionView({
   const multi = question.type === "multi"
   const value = answers[question.id]
   const selected = (Array.isArray(value) ? value : [value]).filter(Boolean) as string[]
-  const grid = question.options.length >= 5 ? "grid-cols-2 sm:grid-cols-3" : "grid-cols-1 sm:grid-cols-2"
+  const grid = question.options.length >= 5 ? "grid-cols-2 sm:grid-cols-3" : "grid-cols-2"
 
   return (
     <fieldset>
-      <legend className="font-serif text-xl font-medium text-[var(--color-ink)] md:text-2xl">
+      <legend className="font-serif text-lg font-medium text-[var(--color-ink)] md:text-2xl">
         {question.title}
       </legend>
-      {question.sub && <p className="mt-1.5 text-xs text-[var(--color-ink-muted)]">{question.sub}</p>}
+      {question.sub && <p className="mt-1 text-xs text-[var(--color-ink-muted)]">{question.sub}</p>}
 
-      <div className={cn("mt-5 grid gap-3", grid)}>
+      <div className={cn("mt-4 grid gap-2.5 sm:gap-3", grid)}>
         {question.options.map((opt) => {
           const active = selected.includes(opt.id)
           return (
@@ -148,7 +148,7 @@ function QuestionView({
               aria-pressed={multi ? active : undefined}
               onClick={() => (multi ? onToggle(opt.id) : onChoose(opt.id))}
               className={cn(
-                "relative flex min-h-[68px] touch-manipulation flex-col items-start justify-center rounded-2xl border px-4 py-3.5 text-left transition-[background-color,border-color,transform] duration-150",
+                "relative flex min-h-[64px] touch-manipulation flex-col items-start justify-center rounded-2xl border px-3.5 py-3 text-left transition-[background-color,border-color,transform] duration-150 sm:min-h-[68px] sm:px-4 sm:py-3.5",
                 "hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-soft)]/50 active:scale-[0.99]",
                 active
                   ? "border-[var(--color-accent)] bg-[var(--color-accent-soft)]"
@@ -158,20 +158,20 @@ function QuestionView({
               {multi && (
                 <span
                   className={cn(
-                    "absolute right-3.5 top-3.5 flex h-5 w-5 items-center justify-center rounded-full border transition-colors",
+                    "absolute right-2.5 top-2.5 flex h-4 w-4 items-center justify-center rounded-full border transition-colors sm:right-3.5 sm:top-3.5 sm:h-5 sm:w-5",
                     active
                       ? "border-[var(--color-accent)] bg-[var(--color-accent)] text-white"
                       : "border-[var(--color-border)] bg-white",
                   )}
                 >
-                  {active && <CheckIcon className="h-3 w-3" weight="bold" />}
+                  {active && <CheckIcon className="h-2.5 w-2.5 sm:h-3 sm:w-3" weight="bold" />}
                 </span>
               )}
-              <span className="block pr-6 text-[15px] font-medium leading-snug text-[var(--color-ink)]">
+              <span className={cn("block text-sm font-medium leading-snug text-[var(--color-ink)] sm:text-[15px]", multi && "pr-5")}>
                 {opt.label}
               </span>
               {opt.sub && (
-                <span className="mt-1 block text-xs leading-snug text-[var(--color-ink-muted)]">
+                <span className="mt-0.5 block text-[11px] leading-snug text-[var(--color-ink-muted)] sm:mt-1 sm:text-xs">
                   {opt.sub}
                 </span>
               )}

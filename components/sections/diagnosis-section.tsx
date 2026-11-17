@@ -2,19 +2,19 @@ import { RecommendWizard } from "@/components/recommend-wizard"
 
 export function DiagnosisSection() {
   return (
-    <section id="diagnosis" className="scroll-mt-24 bg-[var(--color-surface-muted)]/60 py-16 md:py-24">
-      <div className="container grid items-start gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+    <section id="diagnosis" className="scroll-mt-20 bg-[var(--color-surface-muted)]/60 py-14 md:py-24">
+      <div className="container grid items-start gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <div className="lg:sticky lg:top-28">
-          <h2 className="font-serif text-2xl font-medium text-[var(--color-ink)] md:text-3xl">
+          <span className="inline-block rounded-full bg-[var(--color-accent-soft)] px-3 py-1 text-xs font-medium text-[var(--color-accent)]">
+            30秒メニュー診断
+          </span>
+          <h2 className="mt-3 font-serif text-2xl font-medium text-[var(--color-ink)] md:text-3xl">
             今のわたしに合うケアを、
             <br />
             4つの質問で。
           </h2>
-          <p className="mt-4 max-w-[30em] text-sm leading-relaxed text-[var(--color-ink-muted)]">
-            「どのコースを選べばいいかわからない」という方のために、お悩みとケアしたい部位から最適なメニューをご案内します。
-          </p>
-          <p className="mt-3 text-xs text-[var(--color-ink-muted)]">
-            所要時間：約30秒 ／ 予約するかどうかは結果を見てから決められます。
+          <p className="mt-3 max-w-[30em] text-sm leading-relaxed text-[var(--color-ink-muted)]">
+            お悩みとケアしたい部位を選ぶだけで、おすすめのコースと料金がその場でわかります。予約するかどうかは結果を見てから決められます。
           </p>
         </div>
 

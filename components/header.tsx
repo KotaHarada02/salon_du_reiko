@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { Fragment, useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
-import { ListIcon } from "@phosphor-icons/react"
+import { ListIcon, SparkleIcon } from "@phosphor-icons/react"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -28,7 +28,7 @@ export function Header() {
   const pathname = usePathname()
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 16)
+    const handleScroll = () => setScrolled(window.scrollY > 12)
     handleScroll()
     window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
@@ -39,14 +39,14 @@ export function Header() {
       className={cn(
         "fixed top-0 left-0 z-50 w-full transition-[background-color,padding,box-shadow,border-color] duration-300",
         scrolled
-          ? "border-b border-[var(--color-border)] bg-[var(--color-bg)]/95 py-3 shadow-[0_4px_24px_-12px_rgba(29,36,32,0.08)] backdrop-blur-md"
-          : "border-b border-transparent bg-transparent py-5",
+          ? "border-b border-[var(--color-border)] bg-[var(--color-bg)]/95 py-2.5 shadow-[0_4px_24px_-12px_rgba(29,36,32,0.08)] backdrop-blur-md"
+          : "border-b border-transparent bg-[var(--color-bg)]/85 py-3 backdrop-blur-sm md:bg-transparent md:py-5",
       )}
     >
-      <div className="container flex items-center justify-between gap-4">
+      <div className="container flex items-center justify-between gap-3">
         <Link
           href="/"
-          className="flex items-baseline gap-2.5 text-[var(--color-ink)] transition-opacity hover:opacity-80"
+          className="flex items-baseline gap-2 text-[var(--color-ink)] transition-opacity hover:opacity-80"
         >
           <span className="font-serif text-xl font-medium tracking-wide md:text-2xl">
             Salon du Reiko
@@ -93,13 +93,20 @@ export function Header() {
         </nav>
 
         {/* Mobile Navigation */}
-        <div className="md:hidden">
+        <div className="flex items-center gap-1.5 md:hidden">
+          <Link
+            href={pathname === "/" ? "#diagnosis" : "/recommend"}
+            className="inline-flex h-9 items-center gap-1 rounded-full bg-[var(--color-accent-soft)] px-3.5 text-xs font-medium text-[var(--color-accent)]"
+          >
+            <SparkleIcon className="h-3.5 w-3.5" weight="fill" />
+            <span>30秒診断</span>
+          </Link>
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-11 w-11 rounded-full text-[var(--color-ink)] hover:bg-[var(--color-surface-muted)]"
+                className="h-10 w-10 rounded-full text-[var(--color-ink)] hover:bg-[var(--color-surface-muted)]"
               >
                 <ListIcon className="h-6 w-6" weight="regular" />
                 <span className="sr-only">メニューを開く</span>

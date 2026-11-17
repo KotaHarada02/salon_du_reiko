@@ -7,21 +7,21 @@ import { CATEGORIES, firstText, menusIn, priceText, weekdayText, duration } from
 
 export function MenuOverview() {
   return (
-    <section className="bg-[var(--color-surface-muted)]/45 py-20 md:py-28">
+    <section className="bg-[var(--color-surface-muted)]/45 py-14 md:py-24">
       <div className="container">
-        <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <Reveal className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div>
             <h2 className="font-serif text-2xl font-medium text-[var(--color-ink)] md:text-3xl">
               整えたいところから選ぶ
             </h2>
-            <p className="mt-2 text-sm text-[var(--color-ink-muted)]">
+            <p className="mt-1.5 text-sm text-[var(--color-ink-muted)]">
               料金はすべて税込です。初回限定価格もご用意しています。
             </p>
           </div>
-          <DiagnosisButton href="#diagnosis" label="迷ったら30秒診断" className="self-start md:self-auto" />
+          <DiagnosisButton href="#diagnosis" label="迷ったら30秒診断" className="w-full sm:w-auto md:self-auto" />
         </Reveal>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:gap-8">
+        <div className="mt-8 grid gap-5 md:mt-12 md:grid-cols-2 lg:gap-8">
           {CATEGORIES.map((cat) => (
             <RevealGroup
               key={cat.id}
@@ -100,7 +100,7 @@ export function MenuOverview() {
           </p>
           <Link
             href="/menu"
-            className="inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 self-start rounded-full border border-[var(--color-ink)] bg-[var(--color-surface)] px-6 py-3 text-sm font-medium text-[var(--color-ink)] transition-colors hover:bg-[var(--color-ink)] hover:text-white md:self-auto"
+            className="inline-flex min-h-[48px] w-full shrink-0 items-center justify-center gap-2 rounded-full border border-[var(--color-ink)] bg-[var(--color-surface)] px-6 py-3 text-sm font-medium text-[var(--color-ink)] transition-colors hover:bg-[var(--color-ink)] hover:text-white sm:w-auto md:self-auto"
           >
             <span>メニューの詳しい内容を見る</span>
             <ArrowRightIcon className="h-4 w-4" />

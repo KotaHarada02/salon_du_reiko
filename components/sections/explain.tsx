@@ -34,10 +34,10 @@ export function ExplainSection({
   className?: string
 }) {
   return (
-    <section className={cn("py-20 md:py-28", className)}>
+    <section className={cn("py-14 md:py-24", className)}>
       <div
         className={cn(
-          "container grid gap-10 md:gap-16",
+          "container grid gap-8 md:gap-16",
           reverse ? "md:grid-cols-[1.15fr_0.85fr]" : "md:grid-cols-[0.85fr_1.15fr]",
         )}
       >
@@ -52,12 +52,12 @@ export function ExplainSection({
               ))}
             </h2>
             {catchphrase && (
-              <p className="mt-4 font-serif text-lg font-medium text-[var(--color-accent)] md:text-xl">
+              <p className="mt-3 font-serif text-lg font-medium text-[var(--color-accent)] md:mt-4 md:text-xl">
                 {catchphrase}
               </p>
             )}
-            <p className="mt-3 text-sm leading-relaxed text-[var(--color-ink-muted)]">{intro}</p>
-            <div className="relative mt-7 hidden aspect-[4/3] overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] md:block">
+            <p className="mt-2.5 text-sm leading-relaxed text-[var(--color-ink-muted)] md:mt-3">{intro}</p>
+            <div className="relative mt-5 aspect-[16/10] overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] md:mt-7 md:aspect-[4/3] md:rounded-3xl">
               <Image src={image.src} alt={image.alt} fill className={cn("object-cover", image.className)} />
             </div>
           </div>

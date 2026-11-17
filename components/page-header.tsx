@@ -12,7 +12,7 @@ export function PageHeader({ subtitle, description, className }: PageHeaderProps
   return (
     <header
       className={cn(
-        "border-b border-[var(--color-border)] bg-[var(--color-surface-muted)]/55 pb-12 pt-28 md:pb-16 md:pt-36",
+        "border-b border-[var(--color-border)] bg-[var(--color-surface-muted)]/55 pb-10 pt-22 md:pb-16 md:pt-36",
         className,
       )}
     >
