@@ -90,6 +90,7 @@ export function RecommendWizard({ tone = "light" }: { tone?: "light" | "card" })
             <QuestionView
               question={QUESTIONS[step]}
               answers={answers}
+              isLast={step === total - 1}
               onChoose={(id) => chooseSingle(QUESTIONS[step], id)}
               onToggle={(id) => toggleMulti(QUESTIONS[step], id)}
               onNext={next}
@@ -113,12 +114,14 @@ export function RecommendWizard({ tone = "light" }: { tone?: "light" | "card" })
 function QuestionView({
   question,
   answers,
+  isLast,
   onChoose,
   onToggle,
   onNext,
 }: {
   question: Question
   answers: Draft
+  isLast: boolean
   onChoose: (id: string) => void
   onToggle: (id: string) => void
   onNext: () => void
@@ -184,7 +187,7 @@ function QuestionView({
           disabled={selected.length === 0}
           className="mt-6 flex min-h-[48px] w-full touch-manipulation items-center justify-center gap-2 rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[var(--color-accent-hover)] disabled:cursor-not-allowed disabled:opacity-40"
         >
-          <span>診断結果を見る</span>
+          <span>{isLast ? "診断結果を見る" : "次へ"}</span>
           <ArrowRightIcon className="h-4 w-4" />
         </button>
       )}
