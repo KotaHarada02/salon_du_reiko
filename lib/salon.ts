@@ -19,7 +19,7 @@ export const SALON = {
 // オーナーのプロフィール（docs/OwnerInerview.md より。本人が明言した内容だけを使う）
 export const OWNER = {
   name: "麗子",
-  career: "看護師・エステ歴5年",
+  career: "看護師歴25年・エステ歴5年",
   opened: "2023年8月",
   motto: "優しく・柔らかく・丁寧に",
   quote: "お肌も心も元気",
