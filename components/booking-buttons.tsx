@@ -22,7 +22,6 @@ export function ChannelIcon({ channel, size = 20, className }: { channel: Bookin
 /**
  * メインの予約ボタン（公式LINE）。
  * copyText を渡すと、押したときに文面をクリップボードへコピーしてから LINE を開く。
- * メッセージ入りURL（oaMessage）は PC や端末によって別画面に飛ぶため使わない
  */
 export function LineButton({ className, label, copyText }: { className?: string; label?: string; copyText?: string }) {
   const line = BOOKING.main
@@ -43,15 +42,15 @@ export function LineButton({ className, label, copyText }: { className?: string;
         {...external(line)}
         onClick={onClick}
         className={cn(
-          "flex items-center justify-center gap-3 bg-[#06C755] px-6 py-4 text-sm tracking-wider text-white transition-opacity hover:opacity-90",
+          "inline-flex min-h-[48px] touch-manipulation items-center justify-center gap-2.5 rounded-full bg-[var(--color-line-brand)] px-6 py-3 text-sm font-medium text-white transition-opacity hover:opacity-90 active:scale-[0.98]",
           className,
         )}
       >
-        <ChannelIcon channel={line} size={22} className="ring-1 ring-white/60" />
-        {label ?? line.action}
+        <ChannelIcon channel={line} size={22} className="ring-1 ring-white/50" />
+        <span>{label ?? line.action}</span>
       </a>
       {copyText && (
-        <p className="mt-2 text-[11px] leading-relaxed text-stone-500" aria-live="polite">
+        <p className="mt-2.5 text-xs leading-relaxed text-[var(--color-ink-muted)]" aria-live="polite">
           {copied
             ? "診断結果をコピーしました。LINEのトーク画面に貼り付けて、ご希望の日時を添えて送ってください。"
             : "ボタンを押すと、診断結果がコピーされます。LINEのトーク画面に貼り付けて送ってください。"}
@@ -61,17 +60,26 @@ export function LineButton({ className, label, copyText }: { className?: string;
   )
 }
 
-/** サブの予約窓口（Instagram・ホットペッパー・Square）を小さく並べる */
+/** サブの予約窓口（Instagram・ホットペッパー・Square） */
 export function SubBookingLinks({ tone = "light", className }: { tone?: "light" | "dark"; className?: string }) {
   return (
-    <div className={cn("flex flex-wrap items-center gap-x-5 gap-y-2 text-xs", tone === "dark" ? "text-stone-400" : "text-stone-500", className)}>
-      <span>ほかの予約方法</span>
+    <div
+      className={cn(
+        "flex flex-wrap items-center gap-x-5 gap-y-2.5 text-xs",
+        tone === "dark" ? "text-white/80" : "text-[var(--color-ink-muted)]",
+        className,
+      )}
+    >
+      <span>ほかの予約方法：</span>
       {BOOKING.subs.map((c) => (
         <a
           key={c.id}
           href={bookingHref(c)}
           {...external(c)}
-          className={cn("inline-flex items-center gap-1.5 transition-colors", tone === "dark" ? "hover:text-white" : "hover:text-[var(--salon-gold)]")}
+          className={cn(
+            "inline-flex min-h-[36px] items-center gap-1.5 transition-colors",
+            tone === "dark" ? "hover:text-white" : "hover:text-[var(--color-accent)]",
+          )}
         >
           <ChannelIcon channel={c} size={18} />
           <span className="underline underline-offset-4">{c.label}</span>
@@ -81,29 +89,26 @@ export function SubBookingLinks({ tone = "light", className }: { tone?: "light" 
   )
 }
 
-/**
- * Square の予約ページを、メニューを開いた状態で表示するボタン。
- * 初回用が別に登録されているメニューは「はじめての方」「2回目以降の方」に分ける
- */
+/** Square の予約ページを、メニューを開いた状態で表示するボタン */
 export function SquareBookButtons({ menu, withBack, className }: { menu: Menu; withBack?: boolean; className?: string }) {
   const square = BOOKING.subs.find((c) => c.id === "square")!
   const hasFirst = Boolean(menu.square?.firstServiceId && menu.firstPrice)
   const primary =
-    "flex items-center justify-center gap-3 bg-[var(--salon-text)] px-6 py-4 text-sm tracking-wider text-white transition-colors hover:bg-[var(--salon-gold)]"
+    "flex min-h-[48px] touch-manipulation items-center justify-center gap-2.5 rounded-full bg-[var(--color-accent)] px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-[var(--color-accent-hover)] active:scale-[0.98]"
 
   return (
     <div className={className}>
       {hasFirst ? (
-        <div className="grid gap-2 sm:grid-cols-2">
+        <div className="grid gap-2.5 sm:grid-cols-2">
           <a href={squareUrl(menu, { first: true })} target="_blank" rel="noopener noreferrer" className={primary}>
             <ChannelIcon channel={square} size={20} />
-            はじめての方（初回 {yen(menu.firstPrice!)}）
+            <span>はじめての方（初回 {yen(menu.firstPrice!)}）</span>
           </a>
           <a
             href={squareUrl(menu)}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center border border-[var(--salon-text)] px-6 py-4 text-sm tracking-wider text-[var(--salon-text)] transition-colors hover:border-[var(--salon-gold)] hover:text-[var(--salon-gold)]"
+            className="flex min-h-[48px] touch-manipulation items-center justify-center rounded-full border border-[var(--color-ink)] px-6 py-3 text-sm font-medium text-[var(--color-ink)] transition-colors hover:bg-[var(--color-surface-muted)]"
           >
             2回目以降の方
           </a>
@@ -111,14 +116,13 @@ export function SquareBookButtons({ menu, withBack, className }: { menu: Menu; w
       ) : (
         <a href={squareUrl(menu)} target="_blank" rel="noopener noreferrer" className={primary}>
           <ChannelIcon channel={square} size={20} />
-          このメニューをWebで予約
+          <span>このメニューをWebで予約</span>
         </a>
       )}
-      <p className="mt-2 text-[11px] leading-relaxed text-stone-500">
+      <p className="mt-2.5 text-xs leading-relaxed text-[var(--color-ink-muted)]">
         Square の予約ページが、このメニューを選んだ状態で開きます。「追加」を押して日時を選んでください。
         {withBack && `背中ほぐしを付ける場合は、「${OPTIONS[0].squareName}」（${yen(OPTIONS[0].price)}）も追加してください。`}
       </p>
     </div>
   )
 }
-

@@ -1,17 +1,18 @@
 import { PageHeader } from "@/components/page-header"
 import { SALON } from "@/lib/salon"
 import { TrainIcon, CarIcon, MapPinLineIcon } from "@phosphor-icons/react/dist/ssr"
+import { DiagnosisCta } from "@/components/diagnosis-cta"
 
 export const metadata = {
-  title: 'アクセス | Salon du Reiko',
-  description: 'サロンへのアクセス方法・地図をご案内します。',
+  title: "アクセス | Salon du Reiko",
+  description: "サロンへのアクセス方法・地図をご案内します。",
 }
 
 const directions = [
   {
     Icon: MapPinLineIcon,
     label: "住所",
-    detail: "〒528-0024 滋賀県甲賀市水口町中邸2-10 岩谷医院敷地内ログハウス",
+    detail: `${SALON.zip} ${SALON.address} ${SALON.building}`,
   },
   {
     Icon: TrainIcon,
@@ -28,32 +29,41 @@ const directions = [
 export default function AccessPage() {
   return (
     <main className="min-h-screen pb-32">
-      <PageHeader title="Access" subtitle="アクセス" />
+      <PageHeader
+        subtitle="アクセス"
+        description="近江鉄道「水口城南駅」より徒歩13分。敷地内に無料駐車場があり、JR貴生川駅までの送迎も可能です。"
+      />
 
-      <div className="container mx-auto max-w-5xl px-6">
-        <div className="aspect-[16/9] w-full overflow-hidden border border-[var(--salon-border)]">
+      <div className="container max-w-4xl pt-12 md:pt-16">
+        <div className="grid gap-4 md:grid-cols-3">
+          {directions.map((d) => (
+            <div
+              key={d.label}
+              className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6"
+            >
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
+                <d.Icon className="h-5 w-5" />
+              </div>
+              <h2 className="mt-4 font-serif text-base font-medium text-[var(--color-ink)]">{d.label}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--color-ink-muted)]">{d.detail}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 aspect-[16/10] w-full overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface-muted)]">
           <iframe
-            src="https://www.google.com/maps?q=滋賀県甲賀市水口町中邸2-10&output=embed"
+            src={`https://www.google.com/maps?q=${encodeURIComponent(SALON.address)}&output=embed`}
             width="100%"
             height="100%"
             style={{ border: 0 }}
             allowFullScreen
             loading="lazy"
             title="Salon du Reiko地図"
-           
           />
         </div>
-
-        <div className="mt-16 grid grid-cols-1 gap-10 border-t border-[var(--salon-border)] pt-16 md:grid-cols-3">
-          {directions.map((item) => (
-            <div key={item.label}>
-              <item.Icon className="mb-4 h-6 w-6 text-[var(--salon-gold)]" weight="light" />
-              <h3 className="mb-2 font-serif text-lg text-stone-800">{item.label}</h3>
-              <p className="text-sm leading-loose text-stone-500">{item.detail}</p>
-            </div>
-          ))}
-        </div>
       </div>
+
+      <DiagnosisCta />
     </main>
   )
 }

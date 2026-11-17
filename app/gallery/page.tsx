@@ -2,50 +2,48 @@ import { PageHeader } from "@/components/page-header"
 import { DiagnosisCta } from "@/components/diagnosis-cta"
 
 export const metadata = {
-  title: 'ギャラリー | Salon du Reiko',
-  description: '施術写真やサロンの雰囲気をご紹介。',
+  title: "ギャラリー | Salon du Reiko",
+  description: "施術写真やサロンの雰囲気をご紹介します。",
 }
 
 export default function GalleryPage() {
   const images = [
-    { src: "/img/outside.jpg", alt: "ログハウスの外観", title: "Exterior", span: "md:row-span-2" },
-    { src: "/img/room.jpg", alt: "施術室", title: "Room", span: "" },
-    { src: "/img/treatment.jpg", alt: "フェイシャルの施術風景", title: "Treatment", span: "" },
+    { src: "/img/outside.jpg", alt: "岩谷医院敷地内のログハウス外観", caption: "静かな敷地内に建つ貸切ログハウス", span: "md:row-span-2" },
+    { src: "/img/room.jpg", alt: "木の温もりとランプの灯りの施術室", caption: "ゆったりとお過ごしいただける施術室", span: "" },
+    { src: "/img/treatment.jpg", alt: "GROTTY PROを使ったフェイシャル施術", caption: "丁寧なカウンセリングと心地よい施術", span: "" },
   ]
 
   return (
     <main className="min-h-screen pb-32">
-      <PageHeader title="Gallery" subtitle="ギャラリー" />
+      <PageHeader
+        subtitle="ギャラリー"
+        description="ログハウスの外観から施術室、ケアの風景までご紹介します。"
+      />
 
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 gap-8 md:auto-rows-[minmax(0,260px)] md:grid-cols-3 md:gap-12">
-          {images.map((img, index) => (
-            <div
-              key={index}
-              className={`group cursor-pointer animate-fade-in-up flex flex-col ${img.span}`}
-              style={{ animationDelay: `${index * 0.05}s`, animationFillMode: 'backwards' }}
+      <div className="container pt-12 md:pt-16">
+        <div className="grid grid-cols-1 gap-6 md:auto-rows-[minmax(0,280px)] md:grid-cols-2 md:gap-8">
+          {images.map((img) => (
+            <figure
+              key={img.src}
+              className={`flex flex-col overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] ${img.span}`}
             >
-              <div className="relative mb-6 flex-1 overflow-hidden">
-                <div className="absolute inset-0 z-10 bg-black/0 transition-colors duration-700 group-hover:bg-black/5" />
+              <div className="relative flex-1 overflow-hidden bg-[var(--color-surface-muted)]">
                 <img
                   src={img.src}
                   alt={img.alt}
-                  className="h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+                  className="h-full w-full object-cover"
                 />
               </div>
-              <div>
-                <p className="font-serif text-lg text-stone-800 mb-1">{img.alt}</p>
-                <p className="text-xs tracking-widest text-[var(--salon-gold)] uppercase">{img.title}</p>
-              </div>
-            </div>
+              <figcaption className="px-6 py-4">
+                <p className="font-serif text-base font-medium text-[var(--color-ink)]">{img.alt}</p>
+                <p className="mt-0.5 text-xs text-[var(--color-ink-muted)]">{img.caption}</p>
+              </figcaption>
+            </figure>
           ))}
         </div>
-
       </div>
 
       <DiagnosisCta />
     </main>
   )
 }
-
-

@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { Fragment, useEffect, useState } from "react"
+import { usePathname } from "next/navigation"
 import { ListIcon } from "@phosphor-icons/react"
 import { Button } from "@/components/ui/button"
 import {
@@ -14,7 +15,6 @@ import {
 import { cn } from "@/lib/utils"
 
 const navItems = [
-  { href: "/", label: "トップ" },
   { href: "/about", label: "サロンについて" },
   { href: "/menu", label: "メニュー" },
   { href: "/gallery", label: "ギャラリー" },
@@ -25,101 +25,138 @@ const navItems = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
+    const handleScroll = () => setScrolled(window.scrollY > 16)
     handleScroll()
-    window.addEventListener("scroll", handleScroll)
+    window.addEventListener("scroll", handleScroll, { passive: true })
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 z-50 w-full transition-[background-color,padding,box-shadow,border-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+        "fixed top-0 left-0 z-50 w-full transition-[background-color,padding,box-shadow,border-color] duration-300",
         scrolled
-          ? "border-b border-[var(--salon-border)] bg-[var(--salon-bg)]/95 py-2.5 shadow-[0_4px_30px_rgba(0,0,0,0.03)] backdrop-blur-md"
+          ? "border-b border-[var(--color-border)] bg-[var(--color-bg)]/95 py-3 shadow-[0_4px_24px_-12px_rgba(29,36,32,0.08)] backdrop-blur-md"
           : "border-b border-transparent bg-transparent py-5",
       )}
     >
-      <div className="container flex items-center justify-between">
-        <Link href="/" className="font-brand text-2xl text-[var(--salon-text)] md:text-3xl">
-          Salon du Reiko
+      <div className="container flex items-center justify-between gap-4">
+        <Link
+          href="/"
+          className="flex items-baseline gap-2.5 text-[var(--color-ink)] transition-opacity hover:opacity-80"
+        >
+          <span className="font-serif text-xl font-medium tracking-wide md:text-2xl">
+            Salon du Reiko
+          </span>
         </Link>
 
         {/* PC Navigation */}
-        <nav className="hidden items-center gap-7 md:flex">
-          {navItems.map((item) => (
+        <nav aria-label="メインナビゲーション" className="hidden items-center gap-6 lg:gap-8 md:flex">
+          {navItems.map((item) => {
+            const active = pathname === item.href
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                className={cn(
+                  "relative py-1.5 text-sm transition-colors",
+                  active
+                    ? "font-medium text-[var(--color-accent)]"
+                    : "text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]",
+                )}
+              >
+                {item.label}
+                {active && (
+                  <span className="absolute inset-x-0 -bottom-0.5 h-0.5 rounded-full bg-[var(--color-accent)]" />
+                )}
+              </Link>
+            )
+          })}
+          <div className="flex items-center gap-2.5 pl-2">
             <Link
-              key={item.href}
-              href={item.href}
-              className="group relative py-1 text-sm tracking-widest text-[var(--salon-text)] transition-colors hover:text-[var(--salon-gold)]"
+              href="/recommend"
+              className="inline-flex min-h-[44px] items-center rounded-full border border-[var(--color-accent)] px-5 py-2 text-sm font-medium text-[var(--color-accent)] transition-colors hover:bg-[var(--color-accent-soft)]"
             >
-              {item.label}
-              <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-[var(--salon-gold)] transition-all duration-300 group-hover:w-full" />
+              30秒診断
             </Link>
-          ))}
-          <Link
-            href="/recommend"
-            className="border border-[var(--salon-gold)] px-5 py-2.5 text-sm tracking-widest text-[var(--salon-text)] transition-colors hover:bg-[var(--salon-gold)] hover:text-white"
-          >
-            30秒診断
-          </Link>
-          <Link
-            href="/contact"
-            className="-ml-4 bg-[var(--salon-text)] px-5 py-2.5 text-sm tracking-widest text-white transition-colors hover:bg-[var(--salon-gold)]"
-          >
-            ご予約
-          </Link>
+            <Link
+              href="/contact"
+              className="inline-flex min-h-[44px] items-center rounded-full bg-[var(--color-accent)] px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-[var(--color-accent-hover)]"
+            >
+              ご予約
+            </Link>
+          </div>
         </nav>
 
         {/* Mobile Navigation */}
         <div className="md:hidden">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="hover:bg-transparent">
-                <ListIcon className="h-6 w-6 text-[var(--salon-text)]" weight="light" />
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-11 w-11 rounded-full text-[var(--color-ink)] hover:bg-[var(--color-surface-muted)]"
+              >
+                <ListIcon className="h-6 w-6" weight="regular" />
                 <span className="sr-only">メニューを開く</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-full overflow-y-auto border-l border-[var(--salon-border)] bg-[var(--salon-bg)] p-0 sm:w-[400px]">
-              <div className="p-10 pb-4">
-                <SheetTitle className="font-brand text-left text-4xl text-[var(--salon-gold)]">
+            <SheetContent
+              side="right"
+              className="w-full overflow-y-auto border-l border-[var(--color-border)] bg-[var(--color-bg)] p-0 sm:w-[380px]"
+            >
+              <div className="border-b border-[var(--color-border)] px-6 py-6">
+                <SheetTitle className="font-serif text-left text-2xl font-medium text-[var(--color-ink)]">
                   Salon du Reiko
                 </SheetTitle>
+                <SheetDescription className="mt-1 text-left text-xs text-[var(--color-ink-muted)]">
+                  甲賀市水口町・ログハウスの完全予約制サロン
+                </SheetDescription>
               </div>
-              <SheetDescription className="sr-only">ナビゲーションメニュー</SheetDescription>
-              <nav className="flex flex-col">
+              <nav aria-label="モバイルナビゲーション" className="flex flex-col p-6">
+                <Link
+                  href="/"
+                  className="flex min-h-[48px] items-center border-b border-[var(--color-border)] py-3 text-base text-[var(--color-ink)] transition-colors hover:text-[var(--color-accent)]"
+                  onClick={() => setIsOpen(false)}
+                >
+                  トップページ
+                </Link>
+                <Link
+                  href="/recommend"
+                  className="my-3 flex min-h-[52px] items-center justify-between rounded-2xl bg-[var(--color-accent-soft)] px-4 py-3 text-base font-medium text-[var(--color-accent)] transition-colors hover:bg-[var(--color-accent)] hover:text-white"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <span>30秒メニュー診断</span>
+                  <span className="rounded-full bg-[var(--color-accent)] px-2.5 py-0.5 text-xs text-white">
+                    おすすめ
+                  </span>
+                </Link>
                 {navItems.map((item) => (
                   <Fragment key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="group flex flex-col border-b border-[var(--salon-border)] px-10 py-4 transition-colors hover:bg-white/50"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <span className="text-lg text-[var(--salon-text)] transition-colors group-hover:text-[var(--salon-gold)]">
-                      {item.label}
-                    </span>
-                  </Link>
-                  {/* 診断は「トップ」のすぐ下に目立たせて置く */}
-                  {item.href === "/" && (
                     <Link
-                      href="/recommend"
-                      className="group flex items-center justify-between gap-4 border-b border-[var(--salon-border)] bg-white px-10 py-4 transition-colors hover:bg-[var(--salon-bg)]"
+                      href={item.href}
+                      className="flex min-h-[48px] items-center border-b border-[var(--color-border)] py-3 text-base text-[var(--color-ink)] transition-colors hover:text-[var(--color-accent)]"
                       onClick={() => setIsOpen(false)}
                     >
-                      <span className="flex flex-col">
-                        <span className="text-lg text-[var(--salon-text)] group-hover:text-[var(--salon-gold)]">30秒メニュー診断</span>
-                      </span>
-                      <span className="shrink-0 bg-[var(--salon-gold)] px-2 py-0.5 text-[10px] tracking-wider text-white">おすすめ</span>
+                      {item.label}
                     </Link>
-                  )}
                   </Fragment>
                 ))}
-                <div className="mt-4 p-10">
+                <Link
+                  href="/faq"
+                  className="flex min-h-[48px] items-center border-b border-[var(--color-border)] py-3 text-base text-[var(--color-ink)] transition-colors hover:text-[var(--color-accent)]"
+                  onClick={() => setIsOpen(false)}
+                >
+                  よくあるご質問
+                </Link>
+                <div className="mt-8">
                   <Link
                     href="/contact"
-                    className="block bg-[var(--salon-text)] py-4 text-center text-sm tracking-widest text-white shadow-sm transition-colors hover:bg-[var(--salon-gold)]"
+                    className="flex min-h-[48px] w-full items-center justify-center rounded-full bg-[var(--color-accent)] px-6 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[var(--color-accent-hover)]"
                     onClick={() => setIsOpen(false)}
                   >
                     ご予約・お問い合わせ

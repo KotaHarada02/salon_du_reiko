@@ -1,9 +1,7 @@
 import { ExplainSection, type ExplainPoint } from "@/components/sections/explain"
 
-// 薬機法に配慮した表現にしている。GROTTY PRO は医療機器ではないため、
-// 血流・血管・一酸化窒素・温める・めぐりなど「体の働きに作用する」と受け取れる表現は使わない。
-// 書くのは、機器の事実（メーカー公式）・当サロンでの施術の流れ・化粧品の範囲のお手入れだけ
-const NAME = "GROTTY PRO"
+// 薬機法に配慮した表現にしている
+const NAME = "GROTTY\u00A0PRO"
 
 const POINTS: ExplainPoint[] = [
   {
@@ -42,9 +40,8 @@ const POINTS: ExplainPoint[] = [
 export function Grotty() {
   return (
     <ExplainSection
-      className="bg-[var(--salon-bg)]"
+      className="bg-[var(--color-bg)]"
       reverse
-      numbered={false}
       title={["GROTTY PRO のこと"]}
       catchphrase="美しさは、肌の土台づくりから。"
       intro={`${NAME}は、近赤外線と音響振動を組み合わせた美容機器です。肌・頭皮・首肩まで心地よくケアしながら、ヒト幹細胞培養上清液（整肌成分）を組み合わせた、年齢に応じたエイジングケアを行います。`}

@@ -7,25 +7,42 @@ import { CATEGORIES, firstText, menusIn, priceText, weekdayText, duration } from
 
 export function MenuOverview() {
   return (
-    <section className="bg-[var(--salon-bg)] py-20 md:py-28">
+    <section className="bg-[var(--color-surface-muted)]/45 py-20 md:py-28">
       <div className="container">
         <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <h2 className="text-2xl text-[var(--salon-text)] md:text-3xl">整えたいところから選ぶ</h2>
+          <div>
+            <h2 className="font-serif text-2xl font-medium text-[var(--color-ink)] md:text-3xl">
+              整えたいところから選ぶ
+            </h2>
+            <p className="mt-2 text-sm text-[var(--color-ink-muted)]">
+              料金はすべて税込です。初回限定価格もご用意しています。
+            </p>
+          </div>
           <DiagnosisButton href="#diagnosis" label="迷ったら30秒診断" className="self-start md:self-auto" />
         </Reveal>
 
-        {/* 箱で囲まず、カテゴリの色は見出しの線と英字だけに使う。フェイシャルとボディを色で見分けられるようにする */}
-        <div className="mt-12 grid gap-x-14 gap-y-14 md:grid-cols-2">
+        <div className="mt-12 grid gap-6 md:grid-cols-2 lg:gap-8">
           {CATEGORIES.map((cat) => (
-            <RevealGroup key={cat.id} style={{ "--c": cat.color } as CSSProperties}>
-              <RevealItem className="border-t-2 border-[var(--c)] pt-4">
-                <div className="flex items-baseline justify-between gap-3">
-                  <h3 className="text-lg text-[var(--salon-text)] md:text-xl">{cat.ja}</h3>
-                  <span className="font-script text-2xl leading-[1.1] text-[var(--c)]">{cat.en}</span>
+            <RevealGroup
+              key={cat.id}
+              style={{ "--c": cat.color } as CSSProperties}
+              className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 md:p-8"
+            >
+              <RevealItem className="border-b border-[var(--color-border)] pb-4">
+                <div className="flex items-center gap-2.5">
+                  <span
+                    className="h-2.5 w-2.5 shrink-0 rounded-full"
+                    style={{ backgroundColor: "var(--c)" }}
+                    aria-hidden="true"
+                  />
+                  <h3 className="font-serif text-lg font-medium text-[var(--color-ink)] md:text-xl">
+                    {cat.ja}
+                  </h3>
                 </div>
-                <p className="mt-1 text-xs text-stone-500">{cat.lead}</p>
+                <p className="mt-1.5 text-xs text-[var(--color-ink-muted)]">{cat.lead}</p>
               </RevealItem>
-              <div className="mt-2">
+
+              <div className="divide-y divide-[var(--color-border)]">
                 {menusIn(cat.id).map((m) => {
                   const first = firstText(m)
                   const weekday = weekdayText(m)
@@ -33,24 +50,41 @@ export function MenuOverview() {
                     <RevealItem key={m.id}>
                       <Link
                         href={`/menu#${m.id}`}
-                        className="group flex items-center justify-between gap-4 border-b border-[var(--salon-border)] py-4 transition-colors hover:bg-white md:-mx-3 md:px-3"
+                        className="group -mx-2 flex items-center justify-between gap-3 rounded-xl px-2 py-4 transition-colors hover:bg-[var(--color-bg)]"
                       >
-                        <span>
-                          <span className="block text-[15px] text-[var(--salon-text)] transition-colors group-hover:text-[var(--c)]">
+                        <div className="min-w-0">
+                          <span className="block text-[15px] font-medium text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-accent)]">
                             {m.name}
-                            {m.popular && <span className="ml-2 text-[11px] text-[var(--c)]">{m.popular}</span>}
+                            {m.popular && (
+                              <span className="ml-2 inline-block rounded-full bg-[var(--color-warm-soft)] px-2 py-0.5 text-[11px] font-medium text-[var(--color-warm)]">
+                                {m.popular}
+                              </span>
+                            )}
                           </span>
-                          <span className="mt-0.5 block text-xs text-stone-400">
+                          <span className="mt-0.5 block text-xs text-[var(--color-ink-muted)]">
                             {duration(m.minutes)}
-                            {m.subtitle && `　${m.subtitle}`}
+                            {m.subtitle && ` ／ ${m.subtitle}`}
                           </span>
-                        </span>
-                        <span className="shrink-0 text-right">
-                          <span className="block font-serif tabular-nums text-[var(--salon-text)]">{priceText(m)}</span>
-                          {first && <span className="block text-[11px] text-[var(--c)]">{first}</span>}
-                          {weekday && <span className="block text-[11px] text-[var(--c)]">{weekday}</span>}
-                        </span>
-                        <CaretRightIcon className="h-4 w-4 shrink-0 text-stone-400 transition-transform group-hover:translate-x-0.5 group-hover:text-[var(--c)]" />
+                        </div>
+
+                        <div className="flex shrink-0 items-center gap-2">
+                          <div className="text-right tabular-nums">
+                            <span className="block font-serif text-base font-medium text-[var(--color-ink)]">
+                              {priceText(m)}
+                            </span>
+                            {first && (
+                              <span className="block text-[11px] font-medium text-[var(--color-warm)]">
+                                {first}
+                              </span>
+                            )}
+                            {weekday && (
+                              <span className="block text-[11px] font-medium text-[var(--color-accent)]">
+                                {weekday}
+                              </span>
+                            )}
+                          </div>
+                          <CaretRightIcon className="h-4 w-4 shrink-0 text-[var(--color-ink-muted)] transition-transform group-hover:translate-x-0.5 group-hover:text-[var(--color-accent)]" />
+                        </div>
                       </Link>
                     </RevealItem>
                   )
@@ -60,15 +94,15 @@ export function MenuOverview() {
           ))}
         </div>
 
-        <Reveal className="mt-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <p className="max-w-2xl text-xs text-stone-400">
-            表示価格は税込です。初回価格は、はじめてご来店の方が対象です。ヘッドスパ以外のコースには、導入機器 GROTTY PRO の全身照射が付きます。どのコースも、施術の前後に足のマッサージが少し付きます。オプション「背中ほぐし」（15分 ¥3,000）も追加できます。
+        <Reveal className="mt-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <p className="max-w-2xl text-xs leading-relaxed text-[var(--color-ink-muted)]">
+            初回価格は、はじめてご来店の方が対象です。ヘッドスパ以外のコースには、導入機器 GROTTY PRO の全身照射が付きます。どのコースも、施術の前後に足のマッサージが少し付きます。オプション「背中ほぐし」（15分 ¥3,000）も追加できます。
           </p>
           <Link
             href="/menu"
-            className="inline-flex shrink-0 items-center justify-center gap-2 self-start border border-[var(--salon-text)] px-6 py-4 text-sm text-[var(--salon-text)] transition-[background-color,transform] duration-200 hover:bg-white active:scale-[0.98]"
+            className="inline-flex min-h-[48px] shrink-0 items-center justify-center gap-2 self-start rounded-full border border-[var(--color-ink)] bg-[var(--color-surface)] px-6 py-3 text-sm font-medium text-[var(--color-ink)] transition-colors hover:bg-[var(--color-ink)] hover:text-white md:self-auto"
           >
-            メニューの詳しい内容を見る
+            <span>メニューの詳しい内容を見る</span>
             <ArrowRightIcon className="h-4 w-4" />
           </Link>
         </Reveal>

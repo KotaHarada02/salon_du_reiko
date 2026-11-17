@@ -4,59 +4,65 @@ import { LineButton } from "@/components/booking-buttons"
 
 export function Footer() {
   return (
-    <footer className="bg-[var(--salon-text)] text-white py-16 md:py-24">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between gap-12 md:gap-24">
-          
+    <footer className="bg-[var(--color-footer-bg)] py-16 text-white md:py-24">
+      <div className="container">
+        <div className="grid gap-12 md:grid-cols-[1.2fr_1fr] md:gap-20">
           {/* 左側: ブランド情報 */}
-          <div className="space-y-8 md:w-1/3">
-            <Link href="/" className="block">
-              <h2 className="font-brand text-4xl md:text-5xl text-[var(--salon-gold)]">
+          <div className="space-y-6">
+            <div>
+              <Link href="/" className="inline-block font-serif text-3xl font-medium tracking-wide text-white md:text-4xl">
                 Salon du Reiko
-              </h2>
-            </Link>
-            <address className="not-italic text-sm leading-loose text-stone-400 font-sans tracking-wider">
-              {SALON.zip}<br />
-              {SALON.address}<br />
+              </Link>
+              <p className="mt-2 text-sm text-white/75">
+                {SALON.area}・{SALON.building}の完全予約制エステサロン
+              </p>
+            </div>
+            <address className="not-italic text-sm leading-relaxed text-white/80">
+              {SALON.zip} {SALON.address}
+              <br />
               {SALON.building}
             </address>
-            <div className="pt-2">
-              <p className="text-xs text-stone-500 tracking-widest">{SALON.hours}（完全予約制）/ 定休日 {SALON.closed}</p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <LineButton className="px-5 py-3" />
-              <Link href="/recommend" className="inline-flex items-center border border-[var(--salon-gold)] px-6 py-3 text-sm tracking-wider text-white transition-colors hover:bg-[var(--salon-gold)]">
-                30秒でメニュー診断
+            <p className="text-xs text-white/70">
+              営業時間 {SALON.hours}（完全予約制）／ 定休日 {SALON.closed}
+            </p>
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <LineButton className="px-6 py-3" />
+              <Link
+                href="/recommend"
+                className="inline-flex min-h-[44px] items-center rounded-full border border-white/30 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-white/10"
+              >
+                30秒メニュー診断
               </Link>
             </div>
           </div>
 
           {/* 右側: ナビゲーション */}
-          <div className="grid grid-cols-2 gap-8 md:gap-16 md:w-1/2 lg:w-1/3 ml-auto">
-            <div className="flex flex-col gap-5">
-              <Link href="/" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">トップ</Link>
-              <Link href="/about" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">サロンについて</Link>
-              <Link href="/menu" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">メニュー</Link>
-              <Link href="/gallery" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">ギャラリー</Link>
-              <Link href="/faq" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">よくあるご質問</Link>
+          <div className="grid grid-cols-2 gap-8 md:justify-self-end md:gap-16">
+            <div className="flex flex-col gap-3.5">
+              <Link href="/" className="text-sm text-white/80 transition-colors hover:text-white">トップ</Link>
+              <Link href="/about" className="text-sm text-white/80 transition-colors hover:text-white">サロンについて</Link>
+              <Link href="/menu" className="text-sm text-white/80 transition-colors hover:text-white">メニュー・料金</Link>
+              <Link href="/gallery" className="text-sm text-white/80 transition-colors hover:text-white">ギャラリー</Link>
+              <Link href="/faq" className="text-sm text-white/80 transition-colors hover:text-white">よくあるご質問</Link>
             </div>
-            <div className="flex flex-col gap-5">
-              <Link href="/recommend" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">30秒メニュー診断</Link>
-              <Link href="/reviews" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">お客様の声</Link>
-              <Link href="/info" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">店舗情報</Link>
-              <Link href="/contact" className="text-[13px] text-stone-300 hover:text-[var(--salon-gold)] transition-colors">ご予約・お問い合わせ</Link>
+            <div className="flex flex-col gap-3.5">
+              <Link href="/recommend" className="text-sm text-white/80 transition-colors hover:text-white">30秒メニュー診断</Link>
+              <Link href="/reviews" className="text-sm text-white/80 transition-colors hover:text-white">お客様の声</Link>
+              <Link href="/info" className="text-sm text-white/80 transition-colors hover:text-white">店舗情報・アクセス</Link>
+              <Link href="/contact" className="text-sm text-white/80 transition-colors hover:text-white">ご予約・お問い合わせ</Link>
             </div>
           </div>
         </div>
 
-        {/* 下部: Copyright */}
-        <div className="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-[10px] text-stone-500 tracking-widest uppercase">
+        {/* 下部 */}
+        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/15 pt-8 sm:flex-row">
+          <p className="text-xs text-white/65">
             © Salon du Reiko. All Rights Reserved.
           </p>
-          <div className="flex gap-8">
-             <Link href="/privacy" className="text-[10px] text-stone-500 hover:text-white transition-colors tracking-widest uppercase">Privacy Policy</Link>
-             {/* 必要であればここにSNSリンクなどを追加 */}
+          <div className="flex gap-6">
+            <Link href="/privacy" className="text-xs text-white/65 transition-colors hover:text-white">
+              プライバシーポリシー
+            </Link>
           </div>
         </div>
       </div>

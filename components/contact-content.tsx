@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import Link from "next/link"
 import { SparkleIcon } from "@phosphor-icons/react/dist/ssr"
@@ -14,60 +14,60 @@ export function ContactContent() {
 
   return (
     <main className="min-h-screen pb-32">
-      <PageHeader title="Contact" subtitle="ご予約・お問い合わせ" />
+      <PageHeader
+        subtitle="ご予約・お問い合わせ"
+        description="ご予約もメニューのご相談も、公式LINEまたは各種予約窓口から承っています。"
+      />
 
-      <div className="container max-w-4xl">
+      <div className="container max-w-4xl pt-12 md:pt-16">
         {chosen && (
-          <div className="mb-10 border border-[var(--salon-gold)] bg-white p-5">
-            <p className="text-xs tracking-wider text-[var(--salon-gold)]">診断結果のメニュー</p>
-            <p className="mt-1 text-lg text-[var(--salon-text)]">
+          <div className="mb-8 rounded-2xl border border-[var(--color-accent)] bg-[var(--color-accent-soft)]/50 p-6">
+            <p className="text-xs font-medium text-[var(--color-accent)]">診断結果のメニュー</p>
+            <p className="mt-1.5 font-serif text-lg font-medium text-[var(--color-ink)]">
               {chosen.name}
-              <span className="ml-3 font-serif text-base text-stone-500">
+              <span className="ml-3 font-sans text-sm font-normal text-[var(--color-ink-muted)]">
                 {duration(chosen.minutes)} {priceText(chosen)}
                 {firstText(chosen) && `（${firstText(chosen)}）`}
               </span>
             </p>
-            <p className="mt-1 text-xs text-stone-500">下のLINEボタンを押すと、このメニュー名がコピーされます。LINEのトークに貼り付けて送ってください。</p>
+            <p className="mt-2 text-xs text-[var(--color-ink-muted)]">
+              下のLINEボタンを押すと、このメニュー名がコピーされます。LINEのトークに貼り付けて送ってください。
+            </p>
           </div>
         )}
 
         {/* メイン：公式LINE */}
-        <section className="grid gap-8 bg-white p-8 shadow-[0_20px_60px_-30px_rgba(58,58,58,0.3)] md:grid-cols-[1fr_auto] md:items-center md:p-12">
+        <section className="grid gap-8 rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-7 md:grid-cols-[1fr_auto] md:items-center md:p-10">
           <div>
-            <p className="flex items-center gap-2 text-xs tracking-[0.2em] text-[#06C755]">
-              <ChannelIcon channel={BOOKING.main} size={20} />
-              おすすめ
+            <p className="inline-flex items-center gap-2 rounded-full bg-[#06C755]/10 px-3 py-1 text-xs font-medium text-[#059640]">
+              <ChannelIcon channel={BOOKING.main} size={18} />
+              おすすめの窓口
             </p>
-            <h2 className="mt-3 text-2xl text-[var(--salon-text)]">
-              公式LINEで
-              <br className="sm:hidden" />
-              予約・相談
+            <h2 className="mt-3 font-serif text-2xl font-medium text-[var(--color-ink)]">
+              公式LINEで予約・相談
             </h2>
-            <p className="mt-3 text-sm">
-              ご予約も、メニューのご相談も、LINEのトークで受け付けています。
-              <br className="hidden md:block" />
-              「どのメニューがいいか迷っている」というご相談もどうぞ。
+            <p className="mt-2.5 text-sm leading-relaxed text-[var(--color-ink-muted)]">
+              ご予約も、メニューのご相談も、LINEのトークで受け付けています。「どのメニューがいいか迷っている」というご相談もどうぞ。
             </p>
           </div>
           <div>
             <LineButton
-              className="md:min-w-[260px]"
+              className="w-full md:min-w-[260px]"
               copyText={chosen ? `【30秒診断の結果】\n${chosen.name}（${duration(chosen.minutes)}）\n\nご希望の日時：` : undefined}
             />
-            {!BOOKING.main.url && <p className="mt-2 text-center text-[11px] text-stone-400">LINEのURLは準備中です</p>}
           </div>
         </section>
 
         {/* サブ窓口 */}
-        <section className="mt-14">
-          <h2 className="text-lg text-[var(--salon-text)]">ほかの予約方法</h2>
-          <div className="mt-6 grid gap-px bg-[var(--salon-border)] sm:grid-cols-3">
+        <section className="mt-12">
+          <h2 className="font-serif text-lg font-medium text-[var(--color-ink)]">ほかの予約方法</h2>
+          <div className="mt-5 grid gap-4 sm:grid-cols-3">
             {BOOKING.subs.map((c) => {
               const body = (
                 <>
                   <ChannelIcon channel={c} size={36} />
-                  <span className="mt-4 block font-serif text-lg text-[var(--salon-text)]">{c.label}</span>
-                  <span className="mt-1 block text-xs text-stone-400">{c.url ? c.action : "準備中"}</span>
+                  <span className="mt-4 block font-serif text-lg font-medium text-[var(--color-ink)]">{c.label}</span>
+                  <span className="mt-1 block text-xs text-[var(--color-ink-muted)]">{c.url ? c.action : "準備中"}</span>
                 </>
               )
               return c.url ? (
@@ -76,19 +76,19 @@ export function ContactContent() {
                   href={c.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-white p-6 transition-colors hover:bg-[var(--salon-bg)]"
+                  className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:border-[var(--color-accent)] hover:bg-[var(--color-bg)]"
                 >
                   {body}
                 </a>
               ) : (
-                <div key={c.id} className="bg-white p-6 opacity-50">
+                <div key={c.id} className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 opacity-50">
                   {body}
                 </div>
               )
             })}
           </div>
-          <p className="mt-6 text-xs text-stone-400">
-            完全予約制 / 営業時間 {SALON.hours} / 定休日 {SALON.closed}
+          <p className="mt-6 text-xs leading-relaxed text-[var(--color-ink-muted)]">
+            完全予約制 ／ 営業時間 {SALON.hours} ／ 定休日 {SALON.closed}
             <br />
             お支払い：{SALON.payment}
             <br />
@@ -98,12 +98,18 @@ export function ContactContent() {
 
         <Link
           href="/recommend"
-          className="mt-14 flex items-center gap-4 border-t border-[var(--salon-border)] pt-8 transition-colors hover:text-[var(--salon-gold)]"
+          className="mt-12 flex items-center gap-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 transition-colors hover:border-[var(--color-accent)]"
         >
-          <SparkleIcon className="h-6 w-6 shrink-0 text-[var(--salon-gold)]" weight="light" />
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
+            <SparkleIcon className="h-5 w-5" weight="fill" />
+          </span>
           <span>
-            <span className="block font-serif text-lg">メニューが決まっていない方へ</span>
-            <span className="block text-xs text-stone-400">30秒診断で、合うメニューを先に確認できます</span>
+            <span className="block font-serif text-lg font-medium text-[var(--color-ink)]">
+              メニューが決まっていない方へ
+            </span>
+            <span className="block text-xs text-[var(--color-ink-muted)]">
+              30秒診断で、合うメニューを先に確認できます
+            </span>
           </span>
         </Link>
       </div>

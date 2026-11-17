@@ -9,14 +9,12 @@ export const metadata = {
 export default function RecommendPage() {
   return (
     <main className="min-h-screen pb-32">
-      <PageHeader title="Diagnosis" subtitle="30秒メニュー診断" />
+      <PageHeader
+        subtitle="30秒メニュー診断"
+        description="4つの質問に答えると、今のあなたに合うメニューと料金がわかります。予約するかどうかは、結果を見てから決めてください。"
+      />
 
-      <div className="container max-w-2xl">
-        <p className="mb-10 border-l border-[var(--salon-gold)] pl-5 text-sm">
-          4つの質問に答えると、今のあなたに合うメニューと料金がわかります。
-          <br />
-          予約するかどうかは、結果を見てから決めてください。
-        </p>
+      <div className="container max-w-2xl pt-10 md:pt-14">
         <RecommendWizard tone="card" />
       </div>
     </main>

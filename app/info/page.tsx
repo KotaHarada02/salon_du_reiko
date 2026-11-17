@@ -5,92 +5,98 @@ import { MapPinIcon, TrainIcon, ClockIcon, ChatCircleDotsIcon, CreditCardIcon } 
 import { LineButton, SubBookingLinks } from "@/components/booking-buttons"
 
 export const metadata = {
-  title: '店舗情報 | Salon du Reiko',
-  description: '住所・営業時間・定休日・予約方法のご案内。',
+  title: "店舗情報 | Salon du Reiko",
+  description: "住所・営業時間・定休日・予約方法のご案内。",
 }
 
 export default function InfoPage() {
   return (
     <main className="min-h-screen pb-32">
-      <PageHeader title="Information" subtitle="店舗情報" />
+      <PageHeader
+        subtitle="店舗情報・アクセス"
+        description="完全予約制のプライベートサロンです。無料駐車場およびJR貴生川駅までの送迎もございます。"
+      />
 
-      <div className="container mx-auto px-6 max-w-5xl">
-        <div className="flex flex-col md:flex-row gap-12 md:gap-24">
-          
-          {/* Text Info */}
-          <div className="w-full md:w-1/2 divide-y divide-[var(--salon-border)]">
-            <div className="pb-10">
-              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-stone-800">
-                <MapPinIcon className="h-5 w-5 text-[var(--salon-gold)]" weight="light" />
-                Address
-              </h3>
-              <p className="text-stone-600 leading-loose">
-                {SALON.zip}<br />
-                {SALON.address}<br />
+      <div className="container max-w-5xl pt-12 md:pt-16">
+        <div className="grid gap-10 md:grid-cols-2 md:gap-14">
+          <div className="space-y-4">
+            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+              <h2 className="flex items-center gap-2.5 font-serif text-lg font-medium text-[var(--color-ink)]">
+                <MapPinIcon className="h-5 w-5 text-[var(--color-accent)]" />
+                住所
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-[var(--color-ink-muted)]">
+                {SALON.zip}
+                <br />
+                {SALON.address}
+                <br />
                 {SALON.building}
               </p>
             </div>
 
-            <div className="py-10">
-              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-stone-800">
-                <TrainIcon className="h-5 w-5 text-[var(--salon-gold)]" weight="light" />
-                Access
-              </h3>
-              <p className="text-stone-600 leading-loose">
-                {SALON.station}<br />
-                {SALON.pickup}<br />
-                <span className="text-sm text-stone-400">※敷地内に無料駐車場がございます</span>
+            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+              <h2 className="flex items-center gap-2.5 font-serif text-lg font-medium text-[var(--color-ink)]">
+                <TrainIcon className="h-5 w-5 text-[var(--color-accent)]" />
+                アクセス
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-[var(--color-ink-muted)]">
+                {SALON.station}
+                <br />
+                {SALON.pickup}
+                <br />
+                <span className="mt-1 inline-block text-xs">※敷地内に無料駐車場がございます</span>
               </p>
             </div>
 
-            <div className="py-10">
-              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-stone-800">
-                <ClockIcon className="h-5 w-5 text-[var(--salon-gold)]" weight="light" />
-                Open
-              </h3>
-              <p className="text-stone-600 leading-loose">
-                {SALON.hours}<br />
-                <span className="text-sm text-stone-400">定休日：{SALON.closed}</span>
+            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+              <h2 className="flex items-center gap-2.5 font-serif text-lg font-medium text-[var(--color-ink)]">
+                <ClockIcon className="h-5 w-5 text-[var(--color-accent)]" />
+                営業時間・定休日
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-[var(--color-ink-muted)]">
+                {SALON.hours}（完全予約制）
+                <br />
+                定休日：{SALON.closed}
               </p>
             </div>
 
-            <div className="py-10">
-              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-stone-800">
-                <CreditCardIcon className="h-5 w-5 text-[var(--salon-gold)]" weight="light" />
-                Payment
-              </h3>
-              <p className="text-stone-600 leading-loose">{SALON.payment}</p>
+            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+              <h2 className="flex items-center gap-2.5 font-serif text-lg font-medium text-[var(--color-ink)]">
+                <CreditCardIcon className="h-5 w-5 text-[var(--color-accent)]" />
+                お支払い方法
+              </h2>
+              <p className="mt-3 text-sm text-[var(--color-ink-muted)]">{SALON.payment}</p>
             </div>
 
-            <div className="pt-10">
-              <h3 className="mb-4 flex items-center gap-2 font-serif text-lg text-stone-800">
-                <ChatCircleDotsIcon className="h-5 w-5 text-[var(--salon-gold)]" weight="light" />
-                Reservation
-              </h3>
-              <p className="mb-4 text-sm text-stone-500">完全予約制です。ご予約・ご相談は公式LINEからどうぞ。</p>
-              <LineButton className="sm:inline-flex" />
+            <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+              <h2 className="flex items-center gap-2.5 font-serif text-lg font-medium text-[var(--color-ink)]">
+                <ChatCircleDotsIcon className="h-5 w-5 text-[var(--color-accent)]" />
+                ご予約方法
+              </h2>
+              <p className="mt-2 mb-4 text-sm text-[var(--color-ink-muted)]">
+                ご予約・ご相談は公式LINEから承っています。
+              </p>
+              <LineButton />
               <SubBookingLinks className="mt-4" />
             </div>
           </div>
 
-          {/* Map */}
-          <div className="w-full md:w-1/2">
-            <div className="aspect-square w-full bg-stone-100 relative overflow-hidden border border-[var(--salon-border)]">
-               <iframe 
-                  src={`https://www.google.com/maps?q=${encodeURIComponent(SALON.address)}&output=embed`} 
-                  width="100%" 
-                  height="100%" 
-                  style={{border:0}} 
-                  allowFullScreen 
-                  loading="lazy" 
-                  title="Salon du Reiko地図"
-                 
-                ></iframe>
+          <div className="md:sticky md:top-28 md:self-start">
+            <div className="aspect-square w-full overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface-muted)]">
+              <iframe
+                src={`https://www.google.com/maps?q=${encodeURIComponent(SALON.address)}&output=embed`}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                title="Salon du Reiko地図"
+              />
             </div>
           </div>
-
         </div>
       </div>
+
       <DiagnosisCta />
     </main>
   )

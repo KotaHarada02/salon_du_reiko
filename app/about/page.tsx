@@ -29,22 +29,24 @@ const FEATURES = [
 export default function AboutPage() {
   return (
     <main className="min-h-screen pb-32">
-      <PageHeader title="About Salon" subtitle="サロンについて" />
+      <PageHeader
+        subtitle="サロンについて"
+        description="木立に囲まれたログハウスの貸切空間で、心と体の両方をほどくプライベートサロンです。"
+      />
 
-      <div className="container">
-        <section className="grid grid-cols-1 gap-12 pb-20 md:grid-cols-[1fr_1.1fr] md:gap-20 md:pb-28">
-          <div className="relative aspect-[4/3] w-full overflow-hidden md:order-2 md:aspect-[4/5]">
+      <div className="container pt-12 md:pt-16">
+        <section className="grid grid-cols-1 items-center gap-10 pb-16 md:grid-cols-[1fr_1.05fr] md:gap-16 md:pb-24">
+          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] md:order-2 md:aspect-[4/5]">
             <img src="/img/outside.jpg" alt="岩谷医院敷地内にあるログハウスの外観" className="h-full w-full object-cover object-top" />
           </div>
 
-          <div className="flex flex-col justify-center md:order-1">
-            <h2 className="text-2xl leading-relaxed text-stone-800 md:text-3xl">
+          <div className="md:order-1">
+            <h2 className="font-serif text-2xl font-medium leading-snug text-[var(--color-ink)] md:text-3xl">
               心も体も、
               <br />
               ほどける場所に。
             </h2>
-            <div className="my-8 h-px w-12 bg-[var(--salon-gold)]" />
-            <div className="space-y-6 text-sm md:text-base">
+            <div className="mt-6 space-y-4 text-sm leading-relaxed text-[var(--color-ink-muted)] md:text-base">
               <p>
                 {SALON.name}は、{SALON.area}水口町の{SALON.building}にある、完全予約制のサロンです。
               </p>
@@ -56,40 +58,37 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="grid items-center gap-10 border-t border-[var(--salon-border)] py-20 md:grid-cols-[1.1fr_0.9fr] md:gap-20 md:py-28">
-          <div className="aspect-[4/3] overflow-hidden">
+        <section className="grid items-center gap-10 border-t border-[var(--color-border)] py-16 md:grid-cols-[1.05fr_0.95fr] md:gap-16 md:py-24">
+          <div className="aspect-[4/3] overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface-muted)]">
             <img src="/img/room.jpg" alt="ベッドとソファのある施術室" className="h-full w-full object-cover" loading="lazy" />
           </div>
           <div>
-            <span className="block font-sans text-xs tracking-[0.25em] text-[var(--salon-gold)]">ROOM</span>
-            <h2 className="mt-3 text-2xl text-stone-800">施術室</h2>
-            <p className="mt-5 text-sm leading-loose">
+            <h2 className="font-serif text-2xl font-medium text-[var(--color-ink)] md:text-3xl">施術室</h2>
+            <p className="mt-4 text-sm leading-relaxed text-[var(--color-ink-muted)] md:text-base">
               木のぬくもりとランプの灯りに包まれた一室です。施術の前後には、ソファでお茶を飲みながらゆっくりお過ごしいただけます。
             </p>
           </div>
         </section>
 
-        <section id="owner" className="scroll-mt-24 border-t border-[var(--salon-border)] py-20 md:py-28">
-          <div className="grid gap-10 md:grid-cols-[0.8fr_1.2fr] md:gap-20">
+        <section id="owner" className="scroll-mt-24 border-t border-[var(--color-border)] py-16 md:py-24">
+          <div className="grid gap-10 md:grid-cols-[0.8fr_1.2fr] md:gap-16">
             <div>
-              <div className="mx-auto aspect-[2/3] w-full max-w-[320px] overflow-hidden md:sticky md:top-28 md:max-w-none">
+              <div className="mx-auto aspect-[3/4] w-full max-w-[340px] overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] md:sticky md:top-28 md:max-w-none">
                 <img src="/img/owner1.jpg" alt={`オーナーの${OWNER.name}`} className="h-full w-full object-cover" loading="lazy" />
               </div>
             </div>
 
             <div>
-              <span className="block font-sans text-xs tracking-[0.25em] text-[var(--salon-gold)]">OWNER</span>
-              <h2 className="mt-3 text-2xl leading-relaxed text-stone-800 md:text-3xl">
+              <span className="inline-block rounded-full bg-[var(--color-accent-soft)] px-3.5 py-1 text-xs font-medium text-[var(--color-accent)]">
+                オーナー {OWNER.name}（{OWNER.career}）
+              </span>
+              <h2 className="mt-4 font-serif text-2xl font-medium leading-snug text-[var(--color-ink)] md:text-3xl">
                 「{OWNER.quote}」を、
                 <br />
                 あなたにも。
               </h2>
-              <p className="mt-3 text-sm text-stone-500">
-                オーナー {OWNER.name}（{OWNER.career}）
-              </p>
 
-              {/* 本人のインタビュー（docs/OwnerInerview.md）をもとにした文章。公開前に本人確認が必要 */}
-              <div className="mt-8 space-y-5 text-sm leading-loose md:text-[15px]">
+              <div className="mt-6 space-y-4 text-sm leading-relaxed text-[var(--color-ink-muted)] md:text-[15px]">
                 <p>はじめまして。オーナーの{OWNER.name}です。現在、看護師として働いています。</p>
                 <p>
                   48歳のとき、脳梗塞になりました。退院してからは筋力が落ち、不安や体調の変化で、一気に老け込んでしまいました。母に「老けたね」と言われたことも、忘れられません。
@@ -99,42 +98,43 @@ export default function AboutPage() {
                 </p>
               </div>
 
-              <dl className="mt-10 grid gap-6 border-t border-[var(--salon-border)] pt-8 sm:grid-cols-2">
-                <div className="sm:col-span-2">
-                  <dt className="text-xs tracking-wider text-[var(--salon-gold)]">大切にしていること</dt>
-                  <dd className="mt-2 font-serif text-lg text-[var(--salon-text)]">{OWNER.motto}</dd>
-                  <dd className="mt-2 text-sm">
+              <dl className="mt-8 grid gap-4 sm:grid-cols-2">
+                <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5 sm:col-span-2">
+                  <dt className="text-xs font-medium text-[var(--color-accent)]">大切にしていること</dt>
+                  <dd className="mt-2 font-serif text-lg font-medium text-[var(--color-ink)]">{OWNER.motto}</dd>
+                  <dd className="mt-2 text-sm leading-relaxed text-[var(--color-ink-muted)]">
                     お顔だけでなく、首・肩・デコルテ・ヘッドまで、疲れがたまりやすいところをまとめてケアします。高級感がありながら、温かく親しみやすいサロンでありたいと思っています。
                   </dd>
                 </div>
-                <div>
-                  <dt className="text-xs tracking-wider text-[var(--salon-gold)]">こんな方に来てほしい</dt>
-                  <dd className="mt-2 text-sm">{OWNER.forWhom.join("・")}</dd>
+                <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+                  <dt className="text-xs font-medium text-[var(--color-accent)]">こんな方に来てほしい</dt>
+                  <dd className="mt-2 text-sm text-[var(--color-ink)]">{OWNER.forWhom.join("・")}</dd>
                 </div>
-                <div>
-                  <dt className="text-xs tracking-wider text-[var(--salon-gold)]">好きなもの</dt>
-                  <dd className="mt-2 text-sm">{OWNER.likes.join("・")}</dd>
+                <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+                  <dt className="text-xs font-medium text-[var(--color-accent)]">好きなもの</dt>
+                  <dd className="mt-2 text-sm text-[var(--color-ink)]">{OWNER.likes.join("・")}</dd>
                 </div>
               </dl>
             </div>
           </div>
         </section>
 
-        <section className="border-t border-[var(--salon-border)] py-20 md:py-28">
-          <div className="mb-14 flex items-baseline justify-between">
-            <h2 className="text-2xl text-stone-800 md:text-3xl">3つのこだわり</h2>
-            <span className="hidden font-sans text-xs tracking-[0.25em] text-[var(--salon-gold)] md:block">FEATURES</span>
-          </div>
+        <section className="border-t border-[var(--color-border)] py-16 md:py-24">
+          <h2 className="font-serif text-2xl font-medium text-[var(--color-ink)] md:text-3xl">
+            3つのこだわり
+          </h2>
 
-          <div className="divide-y divide-[var(--salon-border)] border-t border-[var(--salon-border)]">
-            {FEATURES.map((f, i) => (
-              <div key={f.title} className="grid grid-cols-1 gap-4 py-10 md:grid-cols-[auto_1fr_2fr] md:items-center md:gap-12">
-                <span className="font-serif text-sm text-stone-300">{String(i + 1).padStart(2, "0")}</span>
-                <div className="flex items-center gap-4">
-                  <f.Icon className="h-6 w-6 shrink-0 text-[var(--salon-gold)]" weight="light" />
-                  <h3 className="text-xl">{f.title}</h3>
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            {FEATURES.map((f) => (
+              <div
+                key={f.title}
+                className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 md:p-7"
+              >
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
+                  <f.Icon className="h-5 w-5" weight="regular" />
                 </div>
-                <p className="text-sm">{f.desc}</p>
+                <h3 className="mt-4 font-serif text-lg font-medium text-[var(--color-ink)]">{f.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[var(--color-ink-muted)]">{f.desc}</p>
               </div>
             ))}
           </div>

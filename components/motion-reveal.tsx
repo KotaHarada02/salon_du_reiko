@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, type Variants } from "framer-motion"
+import { motion, useReducedMotion, type Variants } from "framer-motion"
 import type { CSSProperties, ReactNode } from "react"
 
 const revealVariants: Variants = {
@@ -8,18 +8,17 @@ const revealVariants: Variants = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
   },
 }
 
 const groupVariants: Variants = {
   hidden: {},
   show: {
-    transition: { staggerChildren: 0.05 },
+    transition: { staggerChildren: 0.06 },
   },
 }
 
-/** スクロールで一度だけフェード＋スライドインする単一要素 */
 export function Reveal({
   children,
   className,
@@ -29,6 +28,10 @@ export function Reveal({
   className?: string
   delay?: number
 }) {
+  const reduced = useReducedMotion()
+  if (reduced) {
+    return <div className={className}>{children}</div>
+  }
   return (
     <motion.div
       variants={revealVariants}
@@ -43,8 +46,15 @@ export function Reveal({
   )
 }
 
-/** 子要素を順番にスタガー表示させるコンテナ。子は <RevealItem> を使う */
 export function RevealGroup({ children, className, style }: { children: ReactNode; className?: string; style?: CSSProperties }) {
+  const reduced = useReducedMotion()
+  if (reduced) {
+    return (
+      <div style={style} className={className}>
+        {children}
+      </div>
+    )
+  }
   return (
     <motion.div
       style={style}
@@ -60,6 +70,10 @@ export function RevealGroup({ children, className, style }: { children: ReactNod
 }
 
 export function RevealItem({ children, className }: { children: ReactNode; className?: string }) {
+  const reduced = useReducedMotion()
+  if (reduced) {
+    return <div className={className}>{children}</div>
+  }
   return (
     <motion.div variants={revealVariants} className={className}>
       {children}

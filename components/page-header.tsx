@@ -2,34 +2,30 @@ import React from "react"
 import { cn } from "@/lib/utils"
 
 interface PageHeaderProps {
-  title: string
+  title?: string
   subtitle: string
-  image?: string
+  description?: string
   className?: string
 }
 
-export function PageHeader({ title, subtitle, className }: PageHeaderProps) {
+export function PageHeader({ subtitle, description, className }: PageHeaderProps) {
   return (
-    <div
+    <header
       className={cn(
-        "relative grid w-full grid-cols-1 gap-6 overflow-hidden bg-[var(--salon-bg)] pb-16 pt-36 md:grid-cols-[2fr_1fr] md:pb-20 md:pt-44",
+        "border-b border-[var(--color-border)] bg-[var(--color-surface-muted)]/55 pb-12 pt-28 md:pb-16 md:pt-36",
         className,
       )}
     >
-      <div className="container col-span-full grid grid-cols-1 items-end gap-6 md:grid-cols-[2fr_1fr]">
-        <div className="animate-fade-in-up">
-          <span className="mb-4 block h-px w-16 bg-[var(--salon-gold)]" />
-          <h1 className="font-script text-5xl leading-none text-[var(--salon-gold)] md:text-7xl">
-            {title}
-          </h1>
-        </div>
-        <p
-          className="animate-fade-in-up text-left text-sm tracking-[0.25em] text-stone-500 md:text-right md:text-base"
-          style={{ animationDelay: "0.05s", animationFillMode: "backwards" }}
-        >
+      <div className="container">
+        <h1 className="font-serif text-3xl font-medium text-[var(--color-ink)] md:text-5xl">
           {subtitle}
-        </p>
+        </h1>
+        {description && (
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-[var(--color-ink-muted)] md:text-base">
+            {description}
+          </p>
+        )}
       </div>
-    </div>
+    </header>
   )
 }

@@ -12,23 +12,38 @@ export const metadata = {
 export default function FAQPage() {
   return (
     <main className="min-h-screen pb-32">
-      <PageHeader title="FAQ" subtitle="よくあるご質問" />
+      <PageHeader
+        subtitle="よくあるご質問"
+        description="施術の痛みや勧誘の有無、お支払い方法など、よくいただくご質問をまとめました。"
+      />
 
-      <div className="container max-w-2xl">
-        <Accordion type="single" collapsible className="border-t border-[var(--salon-border)]">
+      <div className="container max-w-3xl pt-12 md:pt-16">
+        <Accordion type="single" collapsible className="space-y-3">
           {FAQS.map((item, i) => (
-            <AccordionItem key={item.q} value={`item-${i}`} className="border-[var(--salon-border)]">
-              <AccordionTrigger className="py-6 text-left font-serif text-lg text-stone-800 hover:text-[var(--salon-gold)] hover:no-underline [&>svg]:text-[var(--salon-gold)]">
-                {item.q}
+            <AccordionItem
+              key={i}
+              value={`item-${i}`}
+              className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] px-6"
+            >
+              <AccordionTrigger className="py-5 text-left text-[15px] font-medium text-[var(--color-ink)] hover:text-[var(--color-accent)] hover:no-underline">
+                <span>Q. {item.q}</span>
               </AccordionTrigger>
-              <AccordionContent className="bg-white px-5 py-4 text-sm leading-loose text-stone-600">{item.a}</AccordionContent>
+              <AccordionContent className="pb-5 text-sm leading-relaxed text-[var(--color-ink-muted)]">
+                <span className="mr-2 font-medium text-[var(--color-accent)]">A.</span>
+                {item.a}
+              </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
 
-        <div className="mt-12 border border-[var(--salon-border)] bg-white p-6">
-          <p className="text-sm">ここにないご質問は、公式LINEからお気軽にどうぞ。</p>
-          <LineButton className="mt-4 sm:inline-flex" label="LINEで質問する" />
+        <div className="mt-12 rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-7 md:p-9">
+          <h2 className="font-serif text-lg font-medium text-[var(--color-ink)]">
+            そのほか、気になることがあれば
+          </h2>
+          <p className="mt-2 text-sm text-[var(--color-ink-muted)]">
+            お肌の状態やメニューについてなど、公式LINEからいつでもお気軽にご相談ください。
+          </p>
+          <LineButton className="mt-5" label="公式LINEで相談する" />
         </div>
       </div>
 

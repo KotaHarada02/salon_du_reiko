@@ -1,6 +1,15 @@
-import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
+import { Zen_Kaku_Gothic_New, Shippori_Mincho } from "next/font/google"
 
-// 英数字・UIラベル用のGeist
-export const geistSans = GeistSans
-export const geistMono = GeistMono
+export const zenKaku = Zen_Kaku_Gothic_New({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  display: "swap",
+  variable: "--font-zen-kaku",
+})
+
+export const shipporiMincho = Shippori_Mincho({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
+  variable: "--font-shippori-mincho",
+})

@@ -1,56 +1,89 @@
-"use client"
-
-import { motion } from "framer-motion"
-import { RecommendWizard } from "@/components/recommend-wizard"
-import { SALON } from "@/lib/salon"
+import Link from "next/link"
+import { ArrowRightIcon, SparkleIcon, CheckCircleIcon } from "@phosphor-icons/react/ssr"
+import { OWNER, SALON } from "@/lib/salon"
 
 export function Hero() {
   return (
-    <section className="relative w-full overflow-hidden bg-[var(--salon-bg)] pt-20 md:pt-0">
-      <div className="grid md:min-h-[100dvh] md:grid-cols-[1fr_0.9fr]">
-        {/* 写真（モバイルは上、PCは右） */}
-        <motion.div
-          initial={{ opacity: 0, scale: 1.04 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative h-[34vh] max-h-[320px] md:order-2 md:h-auto md:max-h-none"
-        >
-          <div
-            className="absolute inset-0 bg-cover bg-[center_40%]"
-            style={{ backgroundImage: "url('/img/treatment.jpg')" }}
-            role="img"
-            aria-label="ログハウスのサロンでフェイシャルを受けるお客様"
-          />
-          <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[var(--salon-bg)] to-transparent md:hidden" />
-          <div className="absolute inset-y-0 left-0 hidden w-24 bg-gradient-to-r from-[var(--salon-bg)] to-transparent md:block" />
-          <p className="absolute bottom-6 right-6 hidden bg-white/85 px-3 py-1.5 text-[11px] tracking-wider text-[var(--salon-text)] backdrop-blur md:block">
-            {SALON.area}・{SALON.building}
+    <section className="relative overflow-hidden bg-[var(--color-bg)] pb-16 pt-24 md:pb-24 md:pt-32">
+      <div className="container grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+        {/* 左：サロンの約束と主要導線 */}
+        <div>
+          <p className="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent-soft)] px-3.5 py-1.5 text-xs font-medium text-[var(--color-accent)]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" aria-hidden="true" />
+            {SALON.area}・{SALON.building}（完全予約制）
           </p>
-        </motion.div>
 
-        {/* コピー＋診断 */}
-        <div className="relative z-10 flex flex-col justify-center px-5 pb-16 md:order-1 md:px-12 md:pb-12 md:pt-28 lg:px-20">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <p className="mb-4 text-xs tracking-[0.25em] text-[var(--salon-gold)]">甲賀市の{SALON.tagline}・完全予約制</p>
-            <h1 className="text-[26px] leading-[1.55] !tracking-[0.08em] text-[var(--salon-text)] md:text-[34px] lg:text-[40px]">
-              今のわたしに合うケアを、
-              <br />
-              4つの質問で。
-            </h1>
-            <p className="mt-4 max-w-md text-sm leading-relaxed">
-              30秒で、あなたに合うメニューと料金がわかります。
-              <br className="hidden sm:block" />
-              予約するかどうかは、結果を見てから決めてください。
-            </p>
-          </motion.div>
+          <h1 className="mt-6 font-serif text-3xl font-medium leading-[1.45] text-[var(--color-ink)] sm:text-4xl lg:text-[44px]">
+            「お肌も心も元気」を、
+            <br />
+            ログハウスの貸切空間で。
+          </h1>
 
-          {/* 主要導線なのでアニメーションで隠さず即表示する */}
-          <div id="diagnosis" className="mt-8 max-w-xl scroll-mt-24">
-            <RecommendWizard tone="card" />
+          <p className="mt-5 max-w-[34em] text-sm leading-relaxed text-[var(--color-ink-muted)] md:text-base">
+            現役看護師のオーナーが、カウンセリングから施術後のティータイムまでひとりで担当するプライベートサロンです。4つの質問に答えるだけで、今のあなたに合うケアと料金がわかります。
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-3.5">
+            <a
+              href="#diagnosis"
+              className="group inline-flex min-h-[52px] touch-manipulation items-center justify-center gap-2.5 rounded-full bg-[var(--color-accent)] px-7 py-3.5 text-sm font-medium text-white transition-colors hover:bg-[var(--color-accent-hover)] active:scale-[0.98]"
+            >
+              <SparkleIcon className="h-4 w-4" weight="fill" />
+              <span>30秒でメニュー診断</span>
+              <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </a>
+            <Link
+              href="/menu"
+              className="inline-flex min-h-[52px] touch-manipulation items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-7 py-3.5 text-sm font-medium text-[var(--color-ink)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+            >
+              メニュー・料金を見る
+            </Link>
+          </div>
+
+          <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2.5 text-xs text-[var(--color-ink-muted)]">
+            <li className="flex items-center gap-1.5">
+              <CheckCircleIcon className="h-4 w-4 text-[var(--color-accent)]" weight="fill" />
+              <span>初回フェイシャル ¥9,900</span>
+            </li>
+            <li className="flex items-center gap-1.5">
+              <CheckCircleIcon className="h-4 w-4 text-[var(--color-accent)]" weight="fill" />
+              <span>無料駐車場・貴生川駅送迎</span>
+            </li>
+            <li className="flex items-center gap-1.5">
+              <CheckCircleIcon className="h-4 w-4 text-[var(--color-accent)]" weight="fill" />
+              <span>無理な勧誘なし</span>
+            </li>
+          </ul>
+        </div>
+
+        {/* 右：サロンの空気感が伝わる大きな角丸フレーム */}
+        <div className="relative">
+          <div className="aspect-[4/3] overflow-hidden rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface-muted)] lg:aspect-[5/6]">
+            <img
+              src="/img/treatment.jpg"
+              alt="ログハウスのサロンでフェイシャルケアを受けるお客様"
+              width={1000}
+              height={1200}
+              fetchPriority="high"
+              className="h-full w-full object-cover object-[center_40%]"
+            />
+          </div>
+
+          <div className="mt-4 flex items-center justify-between gap-4 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-3.5 shadow-[0_12px_32px_-16px_rgba(29,36,32,0.12)] sm:absolute sm:bottom-5 sm:left-5 sm:right-5 sm:mt-0">
+            <div>
+              <p className="text-xs font-medium text-[var(--color-ink)]">
+                オーナー {OWNER.name}（{OWNER.career}）
+              </p>
+              <p className="mt-0.5 text-xs text-[var(--color-ink-muted)]">
+                営業時間 {SALON.hours} ／ 定休 {SALON.closed}
+              </p>
+            </div>
+            <Link
+              href="/contact"
+              className="shrink-0 rounded-full bg-[var(--color-accent-soft)] px-4 py-2 text-xs font-medium text-[var(--color-accent)] transition-colors hover:bg-[var(--color-accent)] hover:text-white"
+            >
+              予約・相談
+            </Link>
           </div>
         </div>
       </div>
